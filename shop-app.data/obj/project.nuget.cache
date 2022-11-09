@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fcPA6jg1tXNzMvLe3JTensJikF12WYEVNFUnXkkttS6Rf5lI14zrKaMNWdyv6y7nfkBDedKgjwAk4DsDdP4dag==",
+  "success": true,
+  "projectFilePath": "/home/master/Documents/dotnet-learning/shop-app/shop-app.data/shop-app.data.csproj",
+  "expectedPackageFiles": [
+    "/home/master/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.9/microsoft.aspnetcore.app.ref.6.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}
