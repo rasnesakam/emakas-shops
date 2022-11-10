@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "MqX0eEoa5he5AJOdK98RXq2nJpV19Gw4wXx48+5uM48=",
+  "Source": "shop-app.api",
+  "BasePath": "_content/shop-app.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
