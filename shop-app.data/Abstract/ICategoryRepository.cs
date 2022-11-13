@@ -6,15 +6,9 @@ using shop_app.entity;
 
 namespace shop_app.data.Abstract
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository: IRepositoryBase<Category>
     {
-        Category GetById(Guid id);
-
-		List<Category> GetAll();
-
-		void Create(Category entity);
-
-		void Update(Category entity);
+        public List<Category> GetPopularCategories();
     }
 	
 }

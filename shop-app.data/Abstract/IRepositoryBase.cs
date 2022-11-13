@@ -14,5 +14,7 @@ namespace shop_app.data.Abstract
 		void Create(E entity);
 
 		void Update(E entity);
+
+        void Delete(E entity);
     }
 }

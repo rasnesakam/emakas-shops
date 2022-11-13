@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DjoL3Bhk1UDG3MfIttgBq3rdZFCNoklf+HMR/xD2OvVCC6uqhIXKwCYi0NOzygKoyETgbra7sLFmO+QFwJcXwQ==",
+  "dgSpecHash": "HB8MVJBH/BzutpK3MaFQj6AS3PJKnkIydIXa/Px6HxxAgMj8JtChtdh/lewRPVb4LFIXKAg33GJCdd5cE5joqw==",
   "success": true,
-  "projectFilePath": "/home/master/Documents/dotnet-learning/shop-app/shop-app.entity/shop-app.entity.csproj",
-  "expectedPackageFiles": [
-    "/home/master/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.9/microsoft.aspnetcore.app.ref.6.0.9.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\shop-app.entity.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
