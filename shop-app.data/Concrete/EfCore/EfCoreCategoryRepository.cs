@@ -1,4 +1,5 @@
-﻿using shop_app.data.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using shop_app.data.Abstract;
 using shop_app.entity;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,18 @@ using System.Threading.Tasks;
 
 namespace shop_app.data.Concrete.EfCore
 {
-    public class EfCoreCategoryRepository : EfCoreRepositoryBase<Category, ShopContext>, ICategoryRepository
+    public class EfCoreCategoryRepository : EfCoreRepositoryBase<Category>, ICategoryRepository
     {
+        public EfCoreCategoryRepository(ShopContext dbContext) : base(dbContext)
+        {
+        }
+
+        private ShopContext ShopContext => dbContext as ShopContext;
+
         public List<Category> GetPopularCategories()
         {
-            using(var context = new ShopContext())
-            {
-                return context.Categories.ToList();
-            }
+            return ShopContext.Set<Category>().ToList();
+            
         }
     }
 }

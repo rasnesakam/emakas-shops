@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace shop_app.data.Concrete.EfCore
 {
-    public class EfCoreProductRepository : EfCoreRepositoryBase<Product,ShopContext>, IProductRepository
+    public class EfCoreProductRepository : EfCoreRepositoryBase<Product>, IProductRepository
     {
     }
 }

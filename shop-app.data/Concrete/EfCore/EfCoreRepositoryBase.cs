@@ -8,53 +8,44 @@ using System.Threading.Tasks;
 
 namespace shop_app.data.Concrete.EfCore
 {
-    public class EfCoreRepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity>
+    public class EfCoreRepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class
-        where TContext : DbContext, new()
     {
 
+        protected readonly DbContext dbContext;
+
+        public EfCoreRepositoryBase(DbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         public void Create(TEntity entity)
         {
-            using(var context = new TContext())
-            {
-                context.Set<TEntity>().Add(entity);
-                context.SaveChanges();
-            }
+            dbContext.Set<TEntity>().Add(entity);
+            dbContext.SaveChanges();
+            
         }
 
         public void Delete(TEntity entity)
         {
-            using (var context = new TContext())
-            {
-                context.Set<TEntity>().Remove(entity);
-                context.SaveChanges();
-            }
+            dbContext.Set<TEntity>().Remove(entity);
+            dbContext.SaveChanges();
         }
 
         public List<TEntity> GetAll()
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().ToList();
-            }
+            return dbContext.Set<TEntity>().ToList();
         }
 
         public TEntity GetById(Guid id)
         {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().Find(id);
-            }
+            return dbContext.Set<TEntity>().Find(id);
         }
 
         public void Update(TEntity entity)
         {
-            using (var context = new TContext())
-            {
-                context.Entry(entity).State = EntityState.Modified;
-                context.SaveChanges();
-            }
+            dbContext.Entry(entity).State = EntityState.Modified;
+            dbContext.SaveChanges();
         }
     }
 }
