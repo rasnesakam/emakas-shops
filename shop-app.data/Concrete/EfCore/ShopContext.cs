@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using shop_app.data.Configurations;
 using shop_app.entity;
-
 namespace shop_app.data.Concrete.EfCore
 {
     public class ShopContext: DbContext
@@ -35,8 +35,10 @@ namespace shop_app.data.Concrete.EfCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProductCategory>()
-                .HasKey(pc => new { pc.CategoryId, pc.ProductId });
+
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
         }
     }
 }

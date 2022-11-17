@@ -1,0 +1,17 @@
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.csproj.AssemblyReference.cache
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.AssemblyInfoInputs.cache
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.AssemblyInfo.cs
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.business.deps.json
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.business.dll
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.business.pdb
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.data.dll
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.entity.dll
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.data.pdb
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\bin\Debug\net6.0\shop-app.entity.pdb
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.csproj.CopyComplete
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.dll
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\refint\shop-app.business.dll
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\shop-app.business.pdb
+C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.business\obj\Debug\net6.0\ref\shop-app.business.dll

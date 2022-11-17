@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore.Design": "6.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.0",
           "Swashbuckle.AspNetCore": "6.2.3",
+          "shop-app.business": "1.0.0",
           "shop-app.data": "1.0.0"
         },
         "runtime": {
@@ -238,6 +239,14 @@
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "shop-app.business/1.0.0": {
+        "dependencies": {
+          "shop-app.data": "1.0.0"
+        },
+        "runtime": {
+          "shop-app.business.dll": {}
+        }
+      },
       "shop-app.data/1.0.0": {
         "dependencies": {
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.0",
@@ -476,6 +485,11 @@
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "shop-app.business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "shop-app.data/1.0.0": {
       "type": "project",

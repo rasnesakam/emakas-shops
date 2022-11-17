@@ -17,6 +17,8 @@ namespace shop_app.entity
 
 		public decimal Price {get;set;}
 
+		public DateTime Created {get;set;}
+
 		public List<ProductCategory> ProductCategories {get;set;}
     }
 }

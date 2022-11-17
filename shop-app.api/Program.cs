@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using shop_app.api.Identity;
 using shop_app.data.Abstract;
 using shop_app.data.Concrete.EfCore;
+using shop_app.service.Abstract;
+using shop_app.service.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddDbContext<ApplicationContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
     );
@@ -53,9 +56,15 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-builder.Services.AddScoped<ICategoryRepository,EfCoreCategoryRepository>();
-builder.Services.AddScoped<IOrderRepository,EfCoreOrderRepository>();
-builder.Services.AddScoped<IProductRepository,EfCoreProductRepository>();
+//builder.Services.AddScoped<ICategoryRepository,EfCoreCategoryRepository>();
+//builder.Services.AddScoped<IOrderRepository,EfCoreOrderRepository>();
+//builder.Services.AddScoped<IProductRepository,EfCoreProductRepository>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IProductService,ProductManager>();
+builder.Services.AddScoped<IOrderService,OrderManager>();
+builder.Services.AddScoped<ICategoryService,CategoryManager>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -66,6 +75,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    SeedDatabase.Seed();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

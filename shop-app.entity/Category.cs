@@ -11,7 +11,7 @@ namespace shop_app.entity
 
 		public string Name {get;set;}
 
-
+        public string URL {get;set;}
 		public List<ProductCategory> ProductCategories { get; set; }
     }
 }

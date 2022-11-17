@@ -510,6 +510,19 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
+      "shop-app.business/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "shop-app.data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/shop-app.business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/shop-app.business.dll": {}
+        }
+      },
       "shop-app.data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -1176,6 +1189,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "shop-app.business/1.0.0": {
+      "type": "project",
+      "path": "../shop-app.business/shop-app.business.csproj",
+      "msbuildProject": "../shop-app.business/shop-app.business.csproj"
+    },
     "shop-app.data/1.0.0": {
       "type": "project",
       "path": "../shop-app.data/shop-app.data.csproj",
@@ -1193,6 +1211,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 6.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3",
+      "shop-app.business >= 1.0.0",
       "shop-app.data >= 1.0.0"
     ]
   },
@@ -1223,6 +1242,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj": {
+              "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj"
+            },
             "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj": {
               "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj"
             }

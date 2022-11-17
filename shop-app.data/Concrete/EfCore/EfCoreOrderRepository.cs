@@ -1,4 +1,5 @@
-﻿using shop_app.data.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using shop_app.data.Abstract;
 using shop_app.entity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,15 @@ using System.Threading.Tasks;
 
 namespace shop_app.data.Concrete.EfCore
 {
-    public class EfCoreOrderRepository: EfCoreRepositoryBase<Order,ShopContext>, IOrderRepository
+    public class EfCoreOrderRepository : EfCoreRepositoryBase<Order>, IOrderRepository
     {
+        public EfCoreOrderRepository(DbContext dbContext) : base(dbContext)
+        {
+        }
+
+        public List<Order> GetOrdersByUserId(Guid guid)
+        {
+            return dbContext.Set<Order>().Where(o => o.UserId == guid).ToList();
+        }
     }
 }
