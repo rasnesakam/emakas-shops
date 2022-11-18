@@ -15,6 +15,7 @@ namespace shop_app.data.Configurations
         public void Configure(EntityTypeBuilder<ProductCategory> builder)
         {
             builder.HasKey(pc => new { pc.CategoryId, pc.ProductId });
+            builder.HasData(SampleDatas.ProductCategories);
         }
     }
 }

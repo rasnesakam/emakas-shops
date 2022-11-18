@@ -35,9 +35,8 @@ namespace shop_app.data.Concrete.EfCore
         {
             base.OnModelCreating(modelBuilder);
 
-
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
-
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
         }
     }

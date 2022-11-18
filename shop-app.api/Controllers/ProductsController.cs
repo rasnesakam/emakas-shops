@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using shop_app.entity;
 using shop_app.service.Abstract;
 
 namespace shop_app.api.Controllers
@@ -14,11 +15,17 @@ namespace shop_app.api.Controllers
             _productService = productService;
         }
 
-        [HttpGet(Name = "GetAll")]
-        public string GetProducts()
+        [HttpGet("All")]
+        public IEnumerable<Product> GetProducts()
         {
-            return "SEA";
+            return _productService.GetEntities();
         }
 
+        [HttpGet("{category}")]
+        public IEnumerable<Product> GetProductsByCategory(string category)
+        {
+            Category searchCategory = new Category() { URL = category };
+            return _productService.GetAllByCategory(searchCategory);
+        }
     }
 }

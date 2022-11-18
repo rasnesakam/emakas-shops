@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using shop_app.data.Concrete.EfCore;
@@ -11,9 +12,10 @@ using shop_app.data.Concrete.EfCore;
 namespace shopapp.data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20221118055902_MigrationV14")]
+    partial class MigrationV14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,33 +47,33 @@ namespace shopapp.data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6e4b7b94-ecf9-4604-90b1-a2c0c955d534"),
+                            Id = new Guid("f869e2ab-6007-47cf-9e35-ba5d176dc5ef"),
                             Name = "Telefon",
                             URL = "telefon"
                         },
                         new
                         {
-                            Id = new Guid("7fb254bd-76a9-4ad0-9a55-410d82ae07d5"),
+                            Id = new Guid("21754c4b-1477-4ef2-9f43-715211c166c4"),
                             Name = "Bilgisayar",
                             URL = "bilgisayar"
                         },
                         new
                         {
-                            Id = new Guid("bb19189d-c3cd-4965-bc09-63d47cb8e4b2"),
+                            Id = new Guid("7f3366b7-951d-4119-8483-c2734d4ce6a7"),
                             Name = "TV",
-                            URL = "tv"
+                            URL = "telefon"
                         },
                         new
                         {
-                            Id = new Guid("e8e2f0b3-50cd-4ec5-823d-99ca5994a758"),
+                            Id = new Guid("ea6e9239-6052-4f0a-9776-bb0063bb71f4"),
                             Name = "Beyaz Eşya",
-                            URL = "beyaz-esya"
+                            URL = "telefon"
                         },
                         new
                         {
-                            Id = new Guid("1df1e587-49eb-4166-ab32-b7ab50ba0f0b"),
+                            Id = new Guid("6b47cf74-690b-4ceb-9cb2-652428a1f633"),
                             Name = "Hobi",
-                            URL = "hobi"
+                            URL = "telefon"
                         });
                 });
 
@@ -141,7 +143,7 @@ namespace shopapp.data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b7da2e64-35d2-4309-8cd8-08d48456e7f7"),
+                            Id = new Guid("130b6119-b19d-4912-a045-38c5978408d8"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Iphone 13, temiz kullanılmış yalnızca ciddi alıcılar",
                             ImageUrl = "iphone.png",
@@ -150,7 +152,7 @@ namespace shopapp.data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("66f6a0dc-df0b-4b74-bd83-387d6cef90df"),
+                            Id = new Guid("f3207307-5799-4597-91bc-10b0f4f788d4"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Ciddi alıcılar",
                             ImageUrl = "mbook.png",
@@ -159,7 +161,7 @@ namespace shopapp.data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("384587a1-d04b-4a93-a214-1f2100745bd1"),
+                            Id = new Guid("a87d42c9-1ac9-437f-9485-15ddd01f2ca5"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Duvara as, tablo diye izle",
                             ImageUrl = "lgtv.png",
@@ -168,7 +170,7 @@ namespace shopapp.data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2d662d20-c01d-4db1-8fa5-365a4d2ec06d"),
+                            Id = new Guid("fb5d95da-7045-4a6c-b3e4-da142ee676b5"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Güzel soğutur, benim cesedi 10 gün sakladı",
                             ImageUrl = "arcelik.png",
@@ -177,7 +179,7 @@ namespace shopapp.data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9cdcccd1-3566-4ff2-8b81-8dea75d05ac9"),
+                            Id = new Guid("a0f50f65-717f-4ebb-93ab-4c193ba87d65"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Hobi amaçlı matkap",
                             ImageUrl = "matkap.png",
@@ -206,33 +208,33 @@ namespace shopapp.data.Migrations
                     b.HasData(
                         new
                         {
-                            CategoryId = new Guid("6e4b7b94-ecf9-4604-90b1-a2c0c955d534"),
-                            ProductId = new Guid("b7da2e64-35d2-4309-8cd8-08d48456e7f7"),
-                            Id = new Guid("55c62d78-fba3-481d-a972-8a354c198488")
+                            CategoryId = new Guid("f869e2ab-6007-47cf-9e35-ba5d176dc5ef"),
+                            ProductId = new Guid("130b6119-b19d-4912-a045-38c5978408d8"),
+                            Id = new Guid("e0328ef8-ed9d-4e16-95ab-bd8543d27b5d")
                         },
                         new
                         {
-                            CategoryId = new Guid("7fb254bd-76a9-4ad0-9a55-410d82ae07d5"),
-                            ProductId = new Guid("66f6a0dc-df0b-4b74-bd83-387d6cef90df"),
-                            Id = new Guid("24c94c85-58f8-4796-96b0-b9d3b8e7343f")
+                            CategoryId = new Guid("21754c4b-1477-4ef2-9f43-715211c166c4"),
+                            ProductId = new Guid("f3207307-5799-4597-91bc-10b0f4f788d4"),
+                            Id = new Guid("ad83faaa-bf9c-49ed-a405-7986605abfb2")
                         },
                         new
                         {
-                            CategoryId = new Guid("bb19189d-c3cd-4965-bc09-63d47cb8e4b2"),
-                            ProductId = new Guid("384587a1-d04b-4a93-a214-1f2100745bd1"),
-                            Id = new Guid("aaec0757-97f5-4a69-a439-21fc4eaed81d")
+                            CategoryId = new Guid("7f3366b7-951d-4119-8483-c2734d4ce6a7"),
+                            ProductId = new Guid("a87d42c9-1ac9-437f-9485-15ddd01f2ca5"),
+                            Id = new Guid("3b4d9f6a-8aa8-4c93-a0a0-8148e366c31e")
                         },
                         new
                         {
-                            CategoryId = new Guid("e8e2f0b3-50cd-4ec5-823d-99ca5994a758"),
-                            ProductId = new Guid("2d662d20-c01d-4db1-8fa5-365a4d2ec06d"),
-                            Id = new Guid("b92769b2-ddfc-4052-8fa0-fa3320c6feeb")
+                            CategoryId = new Guid("ea6e9239-6052-4f0a-9776-bb0063bb71f4"),
+                            ProductId = new Guid("fb5d95da-7045-4a6c-b3e4-da142ee676b5"),
+                            Id = new Guid("8fecbb50-8ff7-42b4-a290-4126212efdaa")
                         },
                         new
                         {
-                            CategoryId = new Guid("1df1e587-49eb-4166-ab32-b7ab50ba0f0b"),
-                            ProductId = new Guid("9cdcccd1-3566-4ff2-8b81-8dea75d05ac9"),
-                            Id = new Guid("dd73968e-d5da-4433-87e4-af8c486672b6")
+                            CategoryId = new Guid("6b47cf74-690b-4ceb-9cb2-652428a1f633"),
+                            ProductId = new Guid("a0f50f65-717f-4ebb-93ab-4c193ba87d65"),
+                            Id = new Guid("a66d2a58-d500-4cde-a1b3-daa07387d71d")
                         });
                 });
 

@@ -13,5 +13,11 @@ namespace shop_app.entity
 
         public string URL {get;set;}
 		public List<ProductCategory> ProductCategories { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Category category &&
+                   Name == category.Name;
+        }
     }
 }

@@ -14,5 +14,11 @@ namespace shop_app.entity
         public Guid ProductId { get; set; }
 
         public Guid UserId { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public string Note { get; set; }
+
+        public string Status { get; set; }
     }
 }

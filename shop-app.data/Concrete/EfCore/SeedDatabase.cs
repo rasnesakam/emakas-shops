@@ -11,15 +11,7 @@ namespace shop_app.data.Concrete.EfCore
 
     public static class SeedDatabase
     {
-
-        private static Category[] Categories = {
-            new Category() {Name = "Telefon",URL = "telefon"},
-            new Category(){Name = "Bilgisayar", URL = "bilgisayar"}
-        };
-        private static Product[] Products= {
-            new Product() {Name = "Telefon", Price=100.00M},
-            new Product(){Name = "Bilgisayar", Price=100.00M}
-        };
+        
 
         public static void Seed()
         {
