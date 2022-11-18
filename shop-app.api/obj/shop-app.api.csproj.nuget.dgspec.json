@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.api\\shop-app.api.csproj": {}
+    "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.api\\shop-app.api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.api\\shop-app.api.csproj": {
+    "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.api\\shop-app.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.api\\shop-app.api.csproj",
+        "projectUniqueName": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.api\\shop-app.api.csproj",
         "projectName": "shop-app.api",
-        "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.api\\shop-app.api.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.api\\obj\\",
+        "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.api\\shop-app.api.csproj",
+        "packagesPath": "C:\\Users\\02486144\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\02486144\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj": {
-                "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj"
+              "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj": {
+                "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj"
               },
-              "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj": {
-                "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj"
+              "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj": {
+                "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj"
               }
             }
           }
@@ -89,17 +89,17 @@
         }
       }
     },
-    "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj": {
+    "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj",
+        "projectUniqueName": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj",
         "projectName": "shop-app.business",
-        "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\obj\\",
+        "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj",
+        "packagesPath": "C:\\Users\\02486144\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\02486144\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -113,8 +113,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj": {
-                "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj"
+              "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj": {
+                "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj"
               }
             }
           }
@@ -148,17 +148,17 @@
         }
       }
     },
-    "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj": {
+    "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj",
+        "projectUniqueName": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj",
         "projectName": "shop-app.data",
-        "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\obj\\",
+        "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj",
+        "packagesPath": "C:\\Users\\02486144\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\02486144\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -172,8 +172,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\shop-app.entity.csproj": {
-                "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\shop-app.entity.csproj"
+              "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.entity\\shop-app.entity.csproj": {
+                "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.entity\\shop-app.entity.csproj"
               }
             }
           }
@@ -219,17 +219,17 @@
         }
       }
     },
-    "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\shop-app.entity.csproj": {
+    "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.entity\\shop-app.entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\shop-app.entity.csproj",
+        "projectUniqueName": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.entity\\shop-app.entity.csproj",
         "projectName": "shop-app.entity",
-        "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\shop-app.entity.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.entity\\obj\\",
+        "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.entity\\shop-app.entity.csproj",
+        "packagesPath": "C:\\Users\\02486144\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.entity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\02486144\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

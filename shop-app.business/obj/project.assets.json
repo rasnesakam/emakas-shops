@@ -744,19 +744,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ASUS\\.nuget\\packages\\": {}
+    "C:\\Users\\02486144\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj",
+      "projectUniqueName": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj",
       "projectName": "shop-app.business",
-      "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\shop-app.business.csproj",
-      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.business\\obj\\",
+      "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\shop-app.business.csproj",
+      "packagesPath": "C:\\Users\\02486144\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.business\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\02486144\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -770,8 +770,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj": {
-              "projectPath": "C:\\Users\\ASUS\\Documents\\git-projects\\shop-app\\shop-app.data\\shop-app.data.csproj"
+            "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj": {
+              "projectPath": "C:\\Users\\02486144\\OneDrive - KocSistem\\Documents\\git-project\\shop-app\\shop-app.data\\shop-app.data.csproj"
             }
           }
         }

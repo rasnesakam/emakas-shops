@@ -10,3 +10,15 @@ C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.entity\obj\Debug\net6.0\s
 C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.entity\obj\Debug\net6.0\refint\shop-app.entity.dll
 C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.pdb
 C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.entity\obj\Debug\net6.0\ref\shop-app.entity.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\bin\Debug\net6.0\shop-app.entity.deps.json
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\bin\Debug\net6.0\shop-app.entity.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\bin\Debug\net6.0\shop-app.entity.pdb
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.csproj.AssemblyReference.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.AssemblyInfoInputs.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.AssemblyInfo.cs
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.csproj.CoreCompileInputs.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\refint\shop-app.entity.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\shop-app.entity.pdb
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.entity\obj\Debug\net6.0\ref\shop-app.entity.dll

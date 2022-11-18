@@ -15,3 +15,20 @@ C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.data\obj\Debug\net6.0\ref
 C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.pdb
 C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.genruntimeconfig.cache
 C:\Users\ASUS\Documents\git-projects\shop-app\shop-app.data\obj\Debug\net6.0\ref\shop-app.data.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\bin\Debug\net6.0\shop-app.data.deps.json
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\bin\Debug\net6.0\shop-app.data.runtimeconfig.json
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\bin\Debug\net6.0\shop-app.data.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\bin\Debug\net6.0\shop-app.data.pdb
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\bin\Debug\net6.0\shop-app.entity.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\bin\Debug\net6.0\shop-app.entity.pdb
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.csproj.AssemblyReference.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.AssemblyInfoInputs.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.AssemblyInfo.cs
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.csproj.CoreCompileInputs.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.csproj.CopyComplete
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\refint\shop-app.data.dll
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.pdb
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\shop-app.data.genruntimeconfig.cache
+C:\Users\02486144\OneDrive - KocSistem\Documents\git-project\shop-app\shop-app.data\obj\Debug\net6.0\ref\shop-app.data.dll

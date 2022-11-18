@@ -65,6 +65,8 @@ builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
+//TODOo: Fluent validation ekle
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
