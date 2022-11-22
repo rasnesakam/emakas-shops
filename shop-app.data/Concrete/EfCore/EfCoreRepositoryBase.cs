@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace shop_app.data.Concrete.EfCore
@@ -19,9 +20,9 @@ namespace shop_app.data.Concrete.EfCore
             this.dbContext = dbContext;
         }
 
-        public void Create(TEntity entity)
+        public async void Create(TEntity entity)
         {
-            dbContext.Set<TEntity>().Add(entity);
+            await dbContext.Set<TEntity>().AddAsync(entity);
             dbContext.SaveChanges();
             
         }
@@ -32,20 +33,24 @@ namespace shop_app.data.Concrete.EfCore
             dbContext.SaveChanges();
         }
 
-        public List<TEntity> GetAll()
+        public async Task<List<TEntity>> GetAll()
         {
-            return dbContext.Set<TEntity>().ToList();
+            return await dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public TEntity GetById(Guid id)
+        public async Task<TEntity> GetById(Guid id)
         {
-            return dbContext.Set<TEntity>().Find(id);
+            return await dbContext.Set<TEntity>().FindAsync(id);
         }
 
         public void Update(TEntity entity)
         {
-            dbContext.Entry(entity).State = EntityState.Modified;
-            dbContext.SaveChanges();
+            ThreadPool.QueueUserWorkItem(() =>
+            {
+                dbContext.Entry(entity).State = EntityState.Modified;
+
+                dbContext.SaveChanges();
+            });
         }
     }
 }

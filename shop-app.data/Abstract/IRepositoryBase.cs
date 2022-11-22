@@ -7,9 +7,9 @@ namespace shop_app.data.Abstract
 {
     public interface IRepositoryBase<E>
     {
-        E GetById(Guid id);
+        Task<E> GetById(Guid id);
 
-		List<E> GetAll();
+		Task<List<E>> GetAll();
 
 		void Create(E entity);
 
