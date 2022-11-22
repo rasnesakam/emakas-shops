@@ -9,6 +9,9 @@
 	<ItemGroup>
 		<ProjectReference Include="../shop-app.data/shop-app.data.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Exceptions\" />
+	</ItemGroup>
 
 
 </Project>

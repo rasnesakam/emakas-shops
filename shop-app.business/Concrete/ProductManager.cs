@@ -17,6 +17,7 @@ namespace shop_app.service.Concrete
 
         public List<Product> GetAllByCategory(Category category)
         {
+            // Burada try catch yapabilirsin (Bağlantı, request kotrolü)
             return _unitOfWork.ProductRepository.GetProductsByCategory(category);
         }
     }

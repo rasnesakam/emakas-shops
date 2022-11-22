@@ -22,7 +22,7 @@ namespace shop_app.api.Controllers
         }
 
         [HttpGet("{category}")]
-        public IEnumerable<Product> GetProductsByCategory(string category)
+        public IEnumerable<Product> GetProductsByCategory(string category) // Error result, SuccessResult falan filan
         {
             Category searchCategory = new Category() { URL = category };
             return _productService.GetAllByCategory(searchCategory);

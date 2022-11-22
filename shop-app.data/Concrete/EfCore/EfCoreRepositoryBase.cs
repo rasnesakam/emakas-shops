@@ -20,9 +20,9 @@ namespace shop_app.data.Concrete.EfCore
             this.dbContext = dbContext;
         }
 
-        public async void Create(TEntity entity)
+        public void Create(TEntity entity)
         {
-            await dbContext.Set<TEntity>().AddAsync(entity);
+            dbContext.Set<TEntity>().AddAsync(entity);
             dbContext.SaveChanges();
             
         }
@@ -33,24 +33,19 @@ namespace shop_app.data.Concrete.EfCore
             dbContext.SaveChanges();
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public Task<List<TEntity>> GetAll()
         {
-            return await dbContext.Set<TEntity>().ToListAsync();
+            return dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(Guid id)
+        public Task<TEntity> GetById(Guid id)
         {
-            return await dbContext.Set<TEntity>().FindAsync(id);
+            return dbContext.Set<TEntity>().FindAsync(id).AsTask();
         }
 
         public void Update(TEntity entity)
         {
-            ThreadPool.QueueUserWorkItem(() =>
-            {
-                dbContext.Entry(entity).State = EntityState.Modified;
-
-                dbContext.SaveChanges();
-            });
+            ThreadPool.;
         }
     }
 }

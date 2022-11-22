@@ -20,7 +20,6 @@ namespace shop_app.data.Concrete.EfCore
             return dbContext.Set<Product>()
                 .Where(p => p.ProductCategories.Any(pc => pc.Category.URL == category.URL)).ToList();
             
-            // return dbContext.Set<Product>().Where(p=> p.ProductCategories.Any(pc => pc.Category.Equals(category))).ToList();
         }
     }
 }
