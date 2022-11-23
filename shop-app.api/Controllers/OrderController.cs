@@ -6,7 +6,7 @@ namespace shop_app.api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrderController
+    public class OrderController: ControllerBase
     {
         private readonly IOrderService _orderService;
 
@@ -17,7 +17,7 @@ namespace shop_app.api.Controllers
 
         [HttpPost("submit")]
         public void SubmitOrder([FromBody] Order order) //TODO: Result yapısı
-        {
+        {//TODO: Implement Fluent validation
 
         }
     }

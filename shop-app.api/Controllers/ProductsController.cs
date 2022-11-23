@@ -19,7 +19,7 @@ namespace shop_app.api.Controllers
         }
 
         [HttpGet("All")]
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts() // Query
         {
             IDataResult<List<Product>> response =  await _productService.GetEntities();
             if (response.Status == ResultStatus.Success)
@@ -29,7 +29,7 @@ namespace shop_app.api.Controllers
             else return new List<Product>();
         }
 
-        [HttpGet("{category}")]
+        [HttpGet("{category}")] // Query
         public IEnumerable<Product> GetProductsByCategory(string category) // Error result, SuccessResult falan filan
         {
             Category searchCategory = new Category() { URL = category };
