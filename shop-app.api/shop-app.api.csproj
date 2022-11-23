@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="../shop-app.business/shop-app.business.csproj" />
+		<ProjectReference Include="..\shop-app.shared\shop-app.shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

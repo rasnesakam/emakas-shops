@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using shop_app.entity;
 using shop_app.service.Abstract;
+using shop_app.shared.Utilities.Results.Abstract;
+using shop_app.shared.Utilities.Results.ComplexTypes;
+using System.Collections;
 
 namespace shop_app.api.Controllers
 {
@@ -16,9 +19,14 @@ namespace shop_app.api.Controllers
         }
 
         [HttpGet("All")]
-        public IEnumerable<Product> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            return _productService.GetEntities();
+            IDataResult<List<Product>> response =  await _productService.GetEntities();
+            if (response.Status == ResultStatus.Success)
+            {
+                return response.Payload;
+            }
+            else return new List<Product>();
         }
 
         [HttpGet("{category}")]
