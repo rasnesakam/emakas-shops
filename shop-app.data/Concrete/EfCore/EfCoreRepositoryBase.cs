@@ -13,39 +13,41 @@ namespace shop_app.data.Concrete.EfCore
         where TEntity : class
     {
 
-        protected readonly DbContext dbContext;
+        protected readonly DbContext _dbContext;
 
         public EfCoreRepositoryBase(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
-        public void Create(TEntity entity)
+        public async Task Create(TEntity entity)
         {
-            dbContext.Set<TEntity>().AddAsync(entity);
-            dbContext.SaveChanges();
-            
+            await _dbContext.Set<TEntity>().AddAsync(entity);
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
-            dbContext.Set<TEntity>().Remove(entity);
-            dbContext.SaveChanges();
+            await Task.Run(() => _dbContext.Set<TEntity>().Remove(entity));
         }
 
-        public Task<List<TEntity>> GetAll()
+        public async Task<List<TEntity>> GetAll()
         {
-            return dbContext.Set<TEntity>().ToListAsync();
+            return await _dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public Task<TEntity> GetById(Guid id)
+        public async Task<TEntity> GetById(Guid id)
         {
-            return dbContext.Set<TEntity>().FindAsync(id).AsTask();
+            return await _dbContext.Set<TEntity>().FindAsync(id).AsTask();
         }
 
-        public void Update(TEntity entity)
+        public async Task<int> SaveChanges()
         {
-            ThreadPool.;
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task Update(TEntity entity)
+        {
+            await Task.Run( () => _dbContext.Entry(entity).State = EntityState.Modified);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace shop_app.data.Concrete.EfCore
 
         public List<Order> GetOrdersByUserId(Guid guid)
         {
-            return dbContext.Set<Order>().Where(o => o.UserId == guid).ToList();
+            return _dbContext.Set<Order>().Where(o => o.UserId == guid).ToList();
         }
     }
 }

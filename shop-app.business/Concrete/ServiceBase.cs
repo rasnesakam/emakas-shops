@@ -18,29 +18,32 @@ namespace shop_app.service.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public virtual void CreateEntity(TEntity entity)
+        public async virtual void CreateEntity(TEntity entity)
         {
-            _unitOfWork.GetRepository<TEntity>().Create(entity);
+            await _unitOfWork.GetRepository<TEntity>().Create(entity);
+            await _unitOfWork.GetRepository<TEntity>().SaveChanges();
         }
 
-        public virtual void DeleteEntity(TEntity entity)
+        public async virtual void DeleteEntity(TEntity entity)
         {
-            _unitOfWork.GetRepository<TEntity>().Delete(entity);
+            await _unitOfWork.GetRepository<TEntity>().Delete(entity);
+            await _unitOfWork.GetRepository<TEntity>().SaveChanges();
         }
 
-        public virtual List<TEntity> GetEntities()
+        public async virtual Task<List<TEntity>> GetEntities()
         {
-            return _unitOfWork.GetRepository<TEntity>().GetAll();
+            return await _unitOfWork.GetRepository<TEntity>().GetAll();
         }
 
-        public virtual TEntity GetEntity(Guid id)
+        public async virtual Task<TEntity> GetEntity(Guid id)
         {
-            return _unitOfWork.GetRepository<TEntity>().GetById(id);
+            return await _unitOfWork.GetRepository<TEntity>().GetById(id);
         }
 
-        public virtual void UpdateEntity(TEntity entity)
+        public async virtual void UpdateEntity(TEntity entity)
         {
-            _unitOfWork.GetRepository<TEntity>().Update(entity);
+            await _unitOfWork.GetRepository<TEntity>().Update(entity);
+            await _unitOfWork.GetRepository<TEntity>().SaveChanges();
         }
     }
 }

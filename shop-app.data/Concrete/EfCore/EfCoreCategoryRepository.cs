@@ -15,7 +15,7 @@ namespace shop_app.data.Concrete.EfCore
         {
         }
 
-        private ShopContext ShopContext => dbContext as ShopContext;
+        private ShopContext ShopContext => _dbContext as ShopContext;
 
         public List<Category> GetPopularCategories()
         {

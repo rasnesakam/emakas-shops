@@ -17,7 +17,7 @@ namespace shop_app.data.Concrete.EfCore
 
         public List<Product> GetProductsByCategory(Category category)
         {
-            return dbContext.Set<Product>()
+            return _dbContext.Set<Product>()
                 .Where(p => p.ProductCategories.Any(pc => pc.Category.URL == category.URL)).ToList();
             
         }

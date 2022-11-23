@@ -11,10 +11,12 @@ namespace shop_app.data.Abstract
 
 		Task<List<E>> GetAll();
 
-		void Create(E entity);
+		Task Create(E entity);
 
-		void Update(E entity);
+		Task Update(E entity);
 
-        void Delete(E entity);
+        Task Delete(E entity);
+
+        Task<int> SaveChanges();
     }
 }
