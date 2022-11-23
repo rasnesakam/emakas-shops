@@ -1,10 +1,8 @@
 ﻿using shop_app.data.Abstract;
 using shop_app.service.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using shop_app.shared.Utilities.Results.Abstract;
+using shop_app.shared.Utilities.Results.Concrete;
+using shop_app.shared.Utilities.Results.ComplexTypes;
 
 namespace shop_app.service.Concrete
 {
@@ -18,32 +16,73 @@ namespace shop_app.service.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public async virtual void CreateEntity(TEntity entity)
+        public async virtual Task<IResult> CreateEntity(TEntity entity)
         {
-            await _unitOfWork.GetRepository<TEntity>().Create(entity);
-            await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+            try
+            {
+                await _unitOfWork.GetRepository<TEntity>().Create(entity);
+                await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+                return new Result(ResultStatus.Success);
+            }
+            catch (Exception e)
+            {
+                return new Result(ResultStatus.Error, "hata", e);
+            }
+
         }
 
-        public async virtual void DeleteEntity(TEntity entity)
+        public async virtual Task<IResult> DeleteEntity(TEntity entity)
         {
-            await _unitOfWork.GetRepository<TEntity>().Delete(entity);
-            await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+            try
+            {
+                await _unitOfWork.GetRepository<TEntity>().Delete(entity);
+                await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+                return new Result(ResultStatus.Success);
+            }
+            catch (Exception e)
+            {
+                return new Result(ResultStatus.Error, "hata", e);
+            }
         }
 
-        public async virtual Task<List<TEntity>> GetEntities()
+        public async virtual Task<IDataResult<List<TEntity>>> GetEntities()
         {
-            return await _unitOfWork.GetRepository<TEntity>().GetAll();
+            try
+            {
+                List<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAll();
+                return new DataResult<List<TEntity>>(entity);
+            }
+            catch(Exception e)
+            {
+                return new DataResult<List<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+            }
         }
 
-        public async virtual Task<TEntity> GetEntity(Guid id)
+        public async virtual Task<IDataResult<TEntity>> GetEntity(Guid id)
         {
-            return await _unitOfWork.GetRepository<TEntity>().GetById(id);
+            try
+            {
+                TEntity entity = await _unitOfWork.GetRepository<TEntity>().GetById(id);
+                return new DataResult<TEntity>(entity);
+            }
+            catch (Exception e)
+            {
+                return new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+            }
         }
 
-        public async virtual void UpdateEntity(TEntity entity)
+        public async virtual Task<IResult> UpdateEntity(TEntity entity)
         {
-            await _unitOfWork.GetRepository<TEntity>().Update(entity);
-            await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+            try
+            {
+                await _unitOfWork.GetRepository<TEntity>().Update(entity);
+                await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+                return new Result(ResultStatus.Success);
+            }
+            catch (Exception e)
+            {
+                return new Result(ResultStatus.Error,"hata",e);
+            }
         }
     }
 }

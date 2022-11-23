@@ -1,4 +1,5 @@
-﻿using System;
+﻿using shop_app.shared.Utilities.Results.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,14 @@ namespace shop_app.service.Abstract
     public interface IServiceBase<TEntity>
         where TEntity : class
     {
-        TEntity GetEntity(Guid id);
+        Task<IDataResult<TEntity>> GetEntity(Guid id);
 
-        List<TEntity> GetEntities();
+        Task<IDataResult<List<TEntity>>> GetEntities();
 
-        void CreateEntity(TEntity entity);
+        Task<IResult> CreateEntity(TEntity entity);
 
-        void UpdateEntity(TEntity entity);
+        Task<IResult> UpdateEntity(TEntity entity);
 
-        void DeleteEntity(TEntity entity);
+        Task<IResult> DeleteEntity(TEntity entity);
     }
 }
