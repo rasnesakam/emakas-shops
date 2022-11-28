@@ -8,6 +8,6 @@ namespace shop_app.data.Abstract
 {
     public interface IProductRepository: IRepositoryBase<Product>
     {
-        public List<Product> GetProductsByCategory(Category category);
+        public Task<IEnumerable<Product>> GetProductsByCategory(Category category);
     }
 }

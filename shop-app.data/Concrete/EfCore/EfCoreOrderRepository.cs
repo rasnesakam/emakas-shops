@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using shop_app.data.Abstract;
+using shop_app.data.Exceptions;
 using shop_app.entity;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,13 @@ namespace shop_app.data.Concrete.EfCore
         {
         }
 
-        public List<Order> GetOrdersByUserId(Guid guid)
+        
+        public async Task<IEnumerable<Order>> GetOrdersByUserId(Guid guid)
         {
-            return _dbContext.Set<Order>().Where(o => o.UserId == guid).ToList();
+            var orders = await _dbContext.Set<Order>().Where(o => o.UserId == guid).ToListAsync();
+            if (orders.Any())
+                return orders;
+            throw new NoElementFoundException($"No element found with user id: {guid}");
         }
     }
 }

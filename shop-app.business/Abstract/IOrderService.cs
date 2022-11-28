@@ -1,4 +1,5 @@
 ﻿using shop_app.entity;
+using shop_app.shared.Utilities.Results.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace shop_app.service.Abstract
 {
     public interface IOrderService: IServiceBase<Order>
     {
-        List<Order> GetAllByUserId(Guid userId);
+        Task<IDataResult<IEnumerable<Order>>> GetAllByUserId(Guid userId);
     }
 }

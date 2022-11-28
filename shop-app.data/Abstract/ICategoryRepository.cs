@@ -8,7 +8,9 @@ namespace shop_app.data.Abstract
 {
     public interface ICategoryRepository: IRepositoryBase<Category>
     {
-        public List<Category> GetPopularCategories();
+        public Task<IEnumerable<Category>> GetPopularCategories();
+        public Task<Category> GetCategoryByURI(string uri);
+
     }
 	
 }

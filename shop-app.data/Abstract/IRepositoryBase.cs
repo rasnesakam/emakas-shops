@@ -9,7 +9,7 @@ namespace shop_app.data.Abstract
     {
         Task<E> GetById(Guid id);
 
-		Task<List<E>> GetAll();
+		Task<IEnumerable<E>> GetAll();
 
 		Task Create(E entity);
 

@@ -11,7 +11,7 @@ namespace shop_app.entity
 
 		public string Name {get;set;}
 
-        public string URL {get;set;}
+        public string URI {get;set;}
 		public List<ProductCategory> ProductCategories { get; set; }
 
         public override bool Equals(object? obj)

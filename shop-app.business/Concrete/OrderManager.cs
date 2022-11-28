@@ -1,6 +1,9 @@
 ﻿using shop_app.data.Abstract;
+using shop_app.data.Exceptions;
 using shop_app.entity;
 using shop_app.service.Abstract;
+using shop_app.shared.Utilities.Results.Abstract;
+using shop_app.shared.Utilities.Results.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +18,17 @@ namespace shop_app.service.Concrete
         {
         }
 
-        public List<Order> GetAllByUserId(Guid userId)
+        public async Task<IDataResult<IEnumerable<Order>>> GetAllByUserId(Guid userId)
         {
-            return _unitOfWork.OrdersRepository.GetOrdersByUserId(userId);
+            try
+            {
+                var orders = await _unitOfWork.OrdersRepository.GetOrdersByUserId(userId);
+                return new DataResult<IEnumerable<Order>>(orders);
+            }
+            catch (NoElementFoundException exception)
+            {
+                return new DataResult<IEnumerable<Order>>(exception);
+            }
         }
     }
 }

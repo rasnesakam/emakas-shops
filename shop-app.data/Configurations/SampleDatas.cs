@@ -19,11 +19,11 @@ namespace shop_app.data.Configurations
         };
         public static Category[] Categories = 
         {
-            new Category() {Id = Guid.NewGuid(), Name = "Telefon",URL = "telefon"},
-            new Category() {Id = Guid.NewGuid(), Name = "Bilgisayar", URL = "bilgisayar"},
-            new Category() {Id = Guid.NewGuid(), Name = "TV",URL = "tv"},
-            new Category() {Id = Guid.NewGuid(), Name = "Beyaz Eşya",URL = "beyaz-esya"},
-            new Category() {Id = Guid.NewGuid(), Name = "Hobi",URL = "hobi"}
+            new Category() {Id = Guid.NewGuid(), Name = "Telefon",URI = "telefon"},
+            new Category() {Id = Guid.NewGuid(), Name = "Bilgisayar", URI = "bilgisayar"},
+            new Category() {Id = Guid.NewGuid(), Name = "TV",URI = "tv"},
+            new Category() {Id = Guid.NewGuid(), Name = "Beyaz Eşya",URI = "beyaz-esya"},
+            new Category() {Id = Guid.NewGuid(), Name = "Hobi",URI = "hobi"}
         };
         public static ProductCategory[] ProductCategories =
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using shop_app.data.Abstract;
+using shop_app.data.Exceptions;
 using shop_app.entity;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,16 @@ namespace shop_app.data.Concrete.EfCore
         {
         }
 
-        public List<Product> GetProductsByCategory(Category category)
+        public async Task<IEnumerable<Product>> GetProductsByCategory(Category category)
         {
-            return _dbContext.Set<Product>()
-                .Where(p => p.ProductCategories.Any(pc => pc.Category.URL == category.URL)).ToList();
-            
+            IEnumerable<Product> products = await _dbContext.Set<Product>()
+                .Where(p => p.ProductCategories.Any(pc => pc.Category.URI == category.URI)).ToListAsync();
+            if (products.Any())
+                return products;
+            else throw new NoElementFoundException($"Element couldn't found with category {category.Name}");
+            //TODO: Category.Name may be null, so check it in request layer and provide fully valid category to product repository
         }
+
+        
     }
 }

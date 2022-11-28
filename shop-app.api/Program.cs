@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using shop_app.api.Identity;
@@ -71,8 +72,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-//builder.Services.AddMediatR(typeof(Program));
+builder.Services.AddMediatR(typeof(Program));
+var assembly = AppDomain.CurrentDomain.Load("shop-app.api");
+builder.Services.AddMediatR(assembly);
 
 var app = builder.Build();
 

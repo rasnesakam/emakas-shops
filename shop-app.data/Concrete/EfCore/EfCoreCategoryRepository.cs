@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using shop_app.data.Abstract;
+using shop_app.data.Exceptions;
 using shop_app.entity;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,18 @@ namespace shop_app.data.Concrete.EfCore
         {
         }
 
-        private ShopContext ShopContext => _dbContext as ShopContext;
 
-        public List<Category> GetPopularCategories()
+        public async Task<Category> GetCategoryByURI(string uri)
         {
-            return ShopContext.Set<Category>().ToList();
-            
+            Category? category =  await _dbContext.Set<Category>().Where(c => c.URI == uri).FirstOrDefaultAsync();
+            if (category == null)
+                throw new NoElementFoundException($"Element couldn't found with uri: {uri}");
+            return category;
+        }
+
+        public async Task<IEnumerable<Category>> GetPopularCategories()
+        {
+            return await _dbContext.Set<Category>().ToListAsync();
         }
     }
 }

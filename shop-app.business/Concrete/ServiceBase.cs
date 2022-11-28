@@ -16,7 +16,7 @@ namespace shop_app.service.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public async virtual Task<IResult> CreateEntity(TEntity entity)
+        public async virtual Task<IResult> Create(TEntity entity)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace shop_app.service.Concrete
 
         }
 
-        public async virtual Task<IResult> DeleteEntity(TEntity entity)
+        public async virtual Task<IResult> Delete(TEntity entity)
         {
             try
             {
@@ -45,20 +45,20 @@ namespace shop_app.service.Concrete
             }
         }
 
-        public async virtual Task<IDataResult<List<TEntity>>> GetEntities()
+        public async virtual Task<IDataResult<IEnumerable<TEntity>>> GetAll()
         {
             try
             {
-                List<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAll();
-                return new DataResult<List<TEntity>>(entity);
+                IEnumerable<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAll();
+                return new DataResult<IEnumerable<TEntity>>(entity);
             }
             catch(Exception e)
             {
-                return new DataResult<List<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
             }
         }
 
-        public async virtual Task<IDataResult<TEntity>> GetEntity(Guid id)
+        public async virtual Task<IDataResult<TEntity>> GetOne(Guid id)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace shop_app.service.Concrete
             }
         }
 
-        public async virtual Task<IResult> UpdateEntity(TEntity entity)
+        public async virtual Task<IResult> Update(TEntity entity)
         {
             try
             {

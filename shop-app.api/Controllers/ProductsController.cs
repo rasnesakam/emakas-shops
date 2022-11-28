@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using shop_app.api.Requests.Queries;
 using shop_app.entity;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
@@ -11,17 +13,17 @@ namespace shop_app.api.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        private IProductService _productService;
+        private IMediator _mediator;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IMediator mediator)
         {
-            _productService = productService;
+            _mediator = mediator;
         }
 
         [HttpGet("All")]
         public async Task<IEnumerable<Product>> GetProducts() // Query
         {
-            IDataResult<List<Product>> response =  await _productService.GetEntities();
+            var response = await _mediator.Send(new GetAllProductsQuery());
             if (response.Status == ResultStatus.Success)
             {
                 return response.Payload;
@@ -29,11 +31,19 @@ namespace shop_app.api.Controllers
             else return new List<Product>();
         }
 
-        [HttpGet("{category}")] // Query
-        public IEnumerable<Product> GetProductsByCategory(string category) // Error result, SuccessResult falan filan
+        [HttpGet("{categoryURI}")] // Query
+        public async Task<IEnumerable<Product>> GetProductsByCategory(string categoryURI) // Error result, SuccessResult falan filan
         {
-            Category searchCategory = new Category() { URL = category };
-            return _productService.GetAllByCategory(searchCategory);
+            var categoryResult = await _mediator.Send(new GetCategoryByURIQuery(categoryURI));
+            if (categoryResult.Status == ResultStatus.Success)
+            {
+                var productStatus = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Payload));
+                if (productStatus.Status == ResultStatus.Success)
+                {
+                    return productStatus.Payload;
+                }
+            }
+            return new List<Product>();
         }
     }
 }

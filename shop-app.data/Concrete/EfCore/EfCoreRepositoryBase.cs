@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using shop_app.data.Exceptions;
 
 namespace shop_app.data.Concrete.EfCore
 {
@@ -30,19 +31,36 @@ namespace shop_app.data.Concrete.EfCore
             await Task.Run(() => _dbContext.Set<TEntity>().Remove(entity));
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return await _dbContext.Set<TEntity>().ToListAsync();
+            IEnumerable<TEntity> entities = await _dbContext.Set<TEntity>().ToListAsync();
+            if (entities.Any())
+                return entities;
+            else throw new NoElementFoundException("There was no element discovered.");
         }
 
         public async Task<TEntity> GetById(Guid id)
         {
-            return await _dbContext.Set<TEntity>().FindAsync(id).AsTask();
+            TEntity? entity = await _dbContext.Set<TEntity>().FindAsync(id).AsTask();
+            if (entity == null)
+                throw new NoElementFoundException($"Element couldn't found with id: \"{id}\"");
+            return entity;
         }
 
         public async Task<int> SaveChanges()
         {
-            return await _dbContext.SaveChangesAsync();
+            try
+            {
+                return await _dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException exception)
+            {
+                throw new DbSavingException("The database couldn't be updated.", exception);
+            }
+            catch (OperationCanceledException exception)
+            {
+                throw new DbSavingException("The database did not update due to the cancellation of the process.", exception);
+            }
         }
 
         public async Task Update(TEntity entity)

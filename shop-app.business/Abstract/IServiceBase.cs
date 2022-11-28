@@ -10,14 +10,14 @@ namespace shop_app.service.Abstract
     public interface IServiceBase<TEntity>
         where TEntity : class
     {
-        Task<IDataResult<TEntity>> GetEntity(Guid id);
+        Task<IDataResult<TEntity>> GetOne(Guid id);
 
-        Task<IDataResult<List<TEntity>>> GetEntities();
+        Task<IDataResult<IEnumerable<TEntity>>> GetAll();
 
-        Task<IResult> CreateEntity(TEntity entity);
+        Task<IResult> Create(TEntity entity);
 
-        Task<IResult> UpdateEntity(TEntity entity);
+        Task<IResult> Update(TEntity entity);
 
-        Task<IResult> DeleteEntity(TEntity entity);
+        Task<IResult> Delete(TEntity entity);
     }
 }
