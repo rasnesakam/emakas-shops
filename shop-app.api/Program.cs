@@ -1,11 +1,15 @@
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using shop_app.api.DataValidators;
 using shop_app.api.Identity;
+using shop_app.api.Models;
 using shop_app.data.Abstract;
 using shop_app.data.Concrete.EfCore;
 using shop_app.service.Abstract;
 using shop_app.service.Concrete;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +71,7 @@ builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
 //TODO: Fluent validation ekle
+builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

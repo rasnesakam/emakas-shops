@@ -21,6 +21,7 @@ namespace shop_app.api.Handlers
                 UserId = request.UserId,
                 Product = request.Product,
                 Note = request.Note,
+                Status = "Hazırlanıyor"
             });
         }
     }

@@ -12,5 +12,6 @@ namespace shop_app.api.Requests.Queries
         {
             UserId = userId;
         }
+
     }
 }

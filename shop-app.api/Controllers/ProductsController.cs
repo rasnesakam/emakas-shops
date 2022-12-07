@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using shop_app.api.Requests.Abstract;
 using shop_app.api.Requests.Queries;
 using shop_app.entity;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
 using shop_app.shared.Utilities.Results.ComplexTypes;
 using System.Collections;
+using System.Net;
 
 namespace shop_app.api.Controllers
 {
@@ -28,10 +30,20 @@ namespace shop_app.api.Controllers
             {
                 return response.Payload;
             }
-            else return new List<Product>();
+            throw new HttpRequestException(response.Message, response.Exception, HttpStatusCode.NotFound);
+
         }
 
-        [HttpGet("{categoryURI}")] // Query
+        [HttpGet("{productName}")]
+        public async Task<Product> GetProductByNameAsync(string name)
+        {
+            var response = await _mediator.Send(new GetProductsByNameQuery() { Name = name});
+            if (response.Status == ResultStatus.Success)
+                return response.Payload;
+            throw new HttpRequestException(response.Message, response.Exception,HttpStatusCode.NotFound);
+        }
+
+        [HttpGet("{categoryURI}")]
         public async Task<IEnumerable<Product>> GetProductsByCategory(string categoryURI) // Error result, SuccessResult falan filan
         {
             var categoryResult = await _mediator.Send(new GetCategoryByURIQuery(categoryURI));
@@ -39,11 +51,10 @@ namespace shop_app.api.Controllers
             {
                 var productStatus = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Payload));
                 if (productStatus.Status == ResultStatus.Success)
-                {
                     return productStatus.Payload;
-                }
+                throw new HttpRequestException(productStatus.Message, productStatus.Exception, HttpStatusCode.NotFound);
             }
-            return new List<Product>();
+            throw new HttpRequestException(categoryResult.Message, categoryResult.Exception,HttpStatusCode.NotFound);
         }
     }
 }
