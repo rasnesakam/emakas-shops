@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using shop_app.api.Exceptions;
 using shop_app.api.Requests.Abstract;
 using shop_app.api.Requests.Queries;
 using shop_app.entity;
@@ -8,6 +9,9 @@ using shop_app.shared.Utilities.Results.Abstract;
 using shop_app.shared.Utilities.Results.ComplexTypes;
 using System.Collections;
 using System.Net;
+using System.Web.Http;
+using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace shop_app.api.Controllers
 {
@@ -22,7 +26,13 @@ namespace shop_app.api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("All")]
+        [HttpGet("throw")]
+        public async Task ThrowException()
+        {
+            throw new NotFoundException(null,null);
+        }
+
+        [HttpGet("all")]
         public async Task<IEnumerable<Product>> GetProducts() // Query
         {
             var response = await _mediator.Send(new GetAllProductsQuery());

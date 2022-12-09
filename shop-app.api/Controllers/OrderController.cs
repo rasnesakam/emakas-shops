@@ -2,19 +2,22 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using shop_app.api.Exceptions;
 using shop_app.api.Models;
 using shop_app.api.Requests.Abstract;
 using shop_app.api.Requests.Commands;
 using shop_app.api.Requests.Queries;
 using shop_app.entity;
 using shop_app.shared.Utilities.Results.ComplexTypes;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Text;
 
 namespace shop_app.api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class OrderController: ControllerBase
     {
         private readonly IMediator _mediator;
@@ -51,8 +54,8 @@ namespace shop_app.api.Controllers
             }
         }
 
-        [HttpGet("orders")]
-        [Route("GetAllOrders")] //
+        [HttpGet]
+        [Produces("application/json")] //
         public async Task<IEnumerable<Order>> GetAllOrders() // Authorization - Authentication
         {//TODO: token'i header kısmından çek
             string token = Request.Headers.Authorization.FirstOrDefault("Bearer <token>").Split(' ')[1];
@@ -62,12 +65,12 @@ namespace shop_app.api.Controllers
                 if (result.Status == ResultStatus.Success)
                     return result.Payload;
             }
-            return new List<Order>();
+            throw new BadRequestException(null,null);
         }
 
         [HttpPost("submit")]
         [Route("")] // url params
-        public async Task<StatusCodeResult> SubmitOrder([FromBody] OrderDto orderDto)
+        public async Task<ActionResult> SubmitOrder([FromBody] OrderDto orderDto)
         {// TODO: Kod yerine exception at
             var validation = await _validator.ValidateAsync(orderDto);
 
@@ -84,12 +87,12 @@ namespace shop_app.api.Controllers
                     });
                     if (submitResult.Status == ResultStatus.Success)
                         return StatusCode(201);
-                    return StatusCode(500);
+                    throw new HttpRequestException("",submitResult.Exception,HttpStatusCode.InternalServerError);
                 }
                 return StatusCode(404);
             }
             else
-                return StatusCode(401);
+                throw new HttpRequestException(message: "",inner: null, statusCode: HttpStatusCode.BadRequest);
         }
 
 
@@ -99,13 +102,16 @@ namespace shop_app.api.Controllers
             var result = await _mediator.Send(new GetCategoryByURIQuery(uri));
             if (result.Status == ResultStatus.Success)
             {
-
-                var result = await _mediator.Send(new DeleteCategoryCommand(uri));
+                var commandResult = await _mediator.Send(new DeleteCategoryCommand() { URI = result.Payload.URI});
+                if (commandResult.Status == ResultStatus.Success)
+                    return StatusCode((int) HttpStatusCode.OK);
+                throw commandResult.Exception;
             }
-        
+            throw result.Exception;
+
         }
 
-        [HttpPut()]
+        //[HttpPut()]
         //şalsdkaşd
 
 

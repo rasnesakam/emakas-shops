@@ -5,6 +5,6 @@ namespace shop_app.api.Requests.Commands
 {
     public class DeleteCategoryCommand: IRequest<IResult>
     {
-        string URI { get; set; }
+        public string URI { get; set; }
     }
 }

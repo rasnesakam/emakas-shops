@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using shop_app.api.Configurations;
 using shop_app.api.DataValidators;
 using shop_app.api.Identity;
 using shop_app.api.Models;
@@ -81,6 +82,7 @@ builder.Services.AddMediatR(typeof(Program));
 var assembly = AppDomain.CurrentDomain.Load("shop-app.api");
 builder.Services.AddMediatR(assembly);
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -90,6 +92,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
