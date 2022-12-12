@@ -14,6 +14,8 @@ namespace shop_app.service.Abstract
 
         Task<IDataResult<IEnumerable<TEntity>>> GetAll();
 
+        Task<IDataResult<IEnumerable<TEntity>>> GetPart(int start, int size);
+
         Task<IResult> Create(TEntity entity);
 
         Task<IResult> Update(TEntity entity);

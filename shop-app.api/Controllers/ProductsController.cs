@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using shop_app.api.Exceptions;
 using shop_app.api.Requests.Abstract;
@@ -32,16 +33,24 @@ namespace shop_app.api.Controllers
             throw new NotFoundException(null,null);
         }
 
-        [HttpGet("all")]
-        public async Task<IEnumerable<Product>> GetProducts() // Query
+        [HttpGet]
+        [Route("/All?page={page}&size={size}")]
+        public async Task<IEnumerable<Product>> GetProducts([FromUri]int page, [FromUri]int size) // Query
         {
-            var response = await _mediator.Send(new GetAllProductsQuery());
+            var response = await _mediator.Send(new GetAllProductsQuery() { Page=page,Size=size});
             if (response.Status == ResultStatus.Success)
             {
                 return response.Payload;
             }
             throw new HttpRequestException(response.Message, response.Exception, HttpStatusCode.NotFound);
 
+        }
+
+        [HttpGet]
+        [Route("/All")]
+        public async Task<IEnumerable<Product>> GetProducts() // Query
+        {
+            return await GetProducts(0,0);
         }
 
         [HttpGet("{productName}")]

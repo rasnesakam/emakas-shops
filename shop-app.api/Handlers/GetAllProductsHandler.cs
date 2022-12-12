@@ -17,7 +17,9 @@ namespace shop_app.api.Handlers
 
         public async Task<IDataResult<IEnumerable<Product>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            return await _productService.GetAll();
+            if (request.Page == 0 && request.Size == 0)
+                return await _productService.GetAll();
+            return await _productService.GetPart();
         }
     }
 }

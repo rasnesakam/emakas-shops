@@ -86,18 +86,17 @@ namespace shop_app.api.Controllers
                         Note = orderDto.Note,
                     });
                     if (submitResult.Status == ResultStatus.Success)
-                        return StatusCode(201);
-                    throw new HttpRequestException("",submitResult.Exception,HttpStatusCode.InternalServerError);
+                        return Created("Siparişiniz kaydedildi.",null);
+                    throw new InternalServerException("Bir hata meydana geldi.",submitResult.Exception);
                 }
-                return StatusCode(404);
+                throw new NotFoundException("Sipariş için kaydedilecek ürün bulunamadı.",result.Exception);
             }
-            else
-                throw new HttpRequestException(message: "",inner: null, statusCode: HttpStatusCode.BadRequest);
+            throw new BadRequestException("Gönderilen form uygunsuz bilgiler içeriyor.",null);
         }
 
 
         [HttpDelete("{uri}")]
-        public async Task<StatusCodeResult> DeleteOrder(string uri)//
+        public async Task<StatusCodeResult> DeleteOrder(string uri)// From route param
         {
             var result = await _mediator.Send(new GetCategoryByURIQuery(uri));
             if (result.Status == ResultStatus.Success)

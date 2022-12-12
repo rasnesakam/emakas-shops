@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using shop_app.data.Exceptions;
+using System.Linq.Expressions;
 
 namespace shop_app.data.Concrete.EfCore
 {
@@ -36,14 +37,41 @@ namespace shop_app.data.Concrete.EfCore
             IEnumerable<TEntity> entities = await _dbContext.Set<TEntity>().ToListAsync();
             if (entities.Any())
                 return entities;
-            else throw new NoElementFoundException("There was no element discovered.");
+            else throw new NoElementFoundException();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllBy(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] included)
+        {
+            IQueryable<TEntity> query = _dbContext.Set<TEntity>();
+            query = query.Where(predicate);
+            if (included.Any())
+            {
+                foreach (var includedItem in included)
+                {
+                    query = query.Include(includedItem);
+                }
+            }
+            var list = await query.ToListAsync();
+            return list.Any() ? list : throw new NoElementFoundException();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetPart(int start, int size)
+        {
+            if (start >= 0 && size >= 0)
+            {
+                var list = await _dbContext.Set<TEntity>().Skip(start).Take(size).ToListAsync();
+                if (list.Any())
+                    return list;
+                throw new NoElementFoundException();
+            }
+            throw new ArgumentException();
         }
 
         public async Task<TEntity> GetById(Guid id)
         {
             TEntity? entity = await _dbContext.Set<TEntity>().FindAsync(id).AsTask();
             if (entity == null)
-                throw new NoElementFoundException($"Element couldn't found with id: \"{id}\"");
+                throw new NoElementFoundException();
             return entity;
         }
 
@@ -55,11 +83,11 @@ namespace shop_app.data.Concrete.EfCore
             }
             catch (DbUpdateException exception)
             {
-                throw new DbSavingException("The database couldn't be updated.", exception);
+                throw new DbSavingException(exception.Message, exception);
             }
             catch (OperationCanceledException exception)
             {
-                throw new DbSavingException("The database did not update due to the cancellation of the process.", exception);
+                throw new DbSavingException(exception.Message, exception);
             }
         }
 

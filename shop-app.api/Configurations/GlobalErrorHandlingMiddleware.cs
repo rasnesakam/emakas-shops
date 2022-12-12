@@ -30,7 +30,7 @@ namespace shop_app.api.Configurations
         private static Task HandleException(HttpContext context, RequestExceptionBase requestException, ILogger? logger)
         {
             if (logger != null)
-                logger.LogError(0, requestException, requestException.Message);
+                logger.LogWarning(0, requestException, requestException.Message);
             var exceptionResult = JsonSerializer.Serialize(new { error = requestException.Message, requestException.StackTrace });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = requestException.StatusCode;

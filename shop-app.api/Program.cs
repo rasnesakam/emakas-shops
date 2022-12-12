@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Any;
 using shop_app.api.Configurations;
 using shop_app.api.DataValidators;
 using shop_app.api.Identity;
@@ -79,9 +80,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
+
 var assembly = AppDomain.CurrentDomain.Load("shop-app.api");
 builder.Services.AddMediatR(assembly);
 
+var serviceProvider = builder.Services.BuildServiceProvider();
+var logger = serviceProvider.GetService<ILogger<AnyType>>();
+
+builder.Services.AddSingleton(typeof(ILogger), logger);
+
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 
 var app = builder.Build();
 
