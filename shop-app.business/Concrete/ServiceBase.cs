@@ -3,6 +3,8 @@ using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
 using shop_app.shared.Utilities.Results.Concrete;
 using shop_app.shared.Utilities.Results.ComplexTypes;
+using shop_app.data.Exceptions;
+using System.Xml.Linq;
 
 namespace shop_app.service.Concrete
 {
@@ -68,6 +70,22 @@ namespace shop_app.service.Concrete
             catch (Exception e)
             {
                 return new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+            }
+        }
+
+        public async Task<IDataResult<IEnumerable<TEntity>>> GetPart(int start, int size)
+        {
+            try
+            {
+                IEnumerable<TEntity> list = await _unitOfWork.GetRepository<TEntity>().GetPart(start,size);
+            }
+            catch (NoElementFoundException noElement)
+            {
+                new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", noElement);
+            }
+            catch (ArgumentException argumentException)
+            {
+                new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", argumentException);
             }
         }
 
