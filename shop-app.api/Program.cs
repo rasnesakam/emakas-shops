@@ -72,7 +72,7 @@ builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
-//TODO: Fluent validation ekle
+// Fluent validator eklendi
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
 
 builder.Services.AddControllers();
