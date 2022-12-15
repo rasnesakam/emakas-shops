@@ -19,7 +19,7 @@ namespace shop_app.api.Handlers
         {
             if (request.Page == 0 && request.Size == 0)
                 return await _productService.GetAll();
-            return await _productService.GetPart();
+            return await _productService.GetPart(request.Page, request.Size);
         }
     }
 }

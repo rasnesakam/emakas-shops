@@ -50,9 +50,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/account/login";
-    options.LogoutPath = "/account/logout";
-    options.AccessDeniedPath = "/account/denied";
+    options.LoginPath = "/auth/login";
+    options.LogoutPath = "/auth/logout";
+    options.AccessDeniedPath = "/auth/denied";
     options.SlidingExpiration = true; // renew expiration time for each requests if true, or do not renew expiration time for each requests
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.Cookie = new CookieBuilder()

@@ -7,12 +7,14 @@ using shop_app.api.Models;
 using shop_app.api.Requests.Abstract;
 using shop_app.api.Requests.Commands;
 using shop_app.api.Requests.Queries;
+using shop_app.contract.ServiceResults;
 using shop_app.entity;
 using shop_app.shared.Utilities.Results.ComplexTypes;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
+using shop_app.api.ControllerExtensions;
 
 namespace shop_app.api.Controllers
 {
@@ -70,7 +72,7 @@ namespace shop_app.api.Controllers
 
         [HttpPost("submit")]
         [Route("")] // url params
-        public async Task<ActionResult> SubmitOrder([FromBody] OrderDto orderDto)
+        public async Task<ActionResult<Order>> SubmitOrder([FromBody] OrderDto orderDto)
         {// TODO: Kod yerine exception at
             var validation = await _validator.ValidateAsync(orderDto);
 
@@ -109,10 +111,6 @@ namespace shop_app.api.Controllers
             throw result.Exception;
 
         }
-
-        //[HttpPut()]
-        //şalsdkaşd
-
 
     }
 }
