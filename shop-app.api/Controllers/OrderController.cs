@@ -63,6 +63,14 @@ namespace shop_app.api.Controllers
 
         [Authorize]
         [HttpGet]
+        [Route("authorize")]
+        public IActionResult Auth()
+        {
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet]
         [Produces("application/json")] //
         public async Task<IEnumerable<Order>> GetAllOrders() // Authorization - Authentication
         {//TODO: token'i header kısmından çek

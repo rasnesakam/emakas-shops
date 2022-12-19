@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using shop_app.api.Configurations;
 using shop_app.api.DataValidators;
-using shop_app.api.Identity;
 using shop_app.api.Models;
 using shop_app.data.Abstract;
 using shop_app.data.Concrete.EfCore;
@@ -15,20 +14,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using shop_app.entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-builder.Services.AddDbContext<ApplicationContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
-    );
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
     );
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationContext>()
+builder.Services.AddIdentity<User, Role>()
+    .AddEntityFrameworkStores<ShopContext>()
     .AddDefaultTokenProviders();
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // passwd

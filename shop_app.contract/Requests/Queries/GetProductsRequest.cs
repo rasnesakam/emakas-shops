@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shop_app.contract.Requests.Commands
+namespace shop_app.contract.Requests.Queries
 {
-    public class SubmitOrderQuery: IRequest<ServiceResult<Order>>
+    public class GetProductsRequest: IRequest<ServiceResult<IEnumerable<Product>>>
     {
+        public int Section { get; set; }
+        public int Size { get; set; }
     }
 }
