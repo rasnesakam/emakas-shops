@@ -15,6 +15,8 @@ using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using shop_app.entity;
+using shop_app.contract.Validation;
+using shop_app.contract.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +77,7 @@ builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
 //TODO: Fluent validation ekle
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
+builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

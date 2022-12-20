@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace shop_app.api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class OrderController: ControllerBase
@@ -69,7 +70,6 @@ namespace shop_app.api.Controllers
             return Ok();
         }
 
-        [Authorize]
         [HttpGet]
         [Produces("application/json")] //
         public async Task<IEnumerable<Order>> GetAllOrders() // Authorization - Authentication
@@ -127,6 +127,7 @@ namespace shop_app.api.Controllers
 
         }
 
+        /*
 
         [HttpGet]
         [Route("throwjwt")]
@@ -154,6 +155,6 @@ namespace shop_app.api.Controllers
               signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
+        */
     }
 }

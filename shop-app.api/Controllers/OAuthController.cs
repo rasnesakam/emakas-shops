@@ -21,7 +21,7 @@ namespace shop_app.api.Controllers
         private readonly IValidator<UserLoginDto> _validator;
         private IConfiguration _config;
 
-        public OAuthController(ILogger logger, SignInManager<User> signInManager, UserManager<User> userManager, IValidator<LoginModel> validator, IConfiguration config)
+        public OAuthController(ILogger logger, SignInManager<User> signInManager, UserManager<User> userManager, IValidator<UserLoginDto> validator, IConfiguration config)
         {
             _logger = logger;
             _signInManager = signInManager;
@@ -34,24 +34,24 @@ namespace shop_app.api.Controllers
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              null,
+            var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"],
+              audience: _config["Jwt:Issuer"],
+              claims: null,
               expires: DateTime.Now.AddMinutes(30),
               signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Auth([FromBody] UserLoginDto dto)
+        public async Task<IActionResult> Auth([FromBody] UserLoginDto userLogin)
         {
             string token;
-            var validation = await _validator.ValidateAsync(dto);
+            var validation = await _validator.ValidateAsync(userLogin);
             if (validation.IsValid)
             {
-                var dto = new UserDto() { Email = "ensar.makas@gmail.com", Name = "ensar", UserName = "emakas" };
-                token = JSONWebToken(dto);
-                Ok(token);
+                var user = new UserDto() { Email = "ensar.makas@gmail.com", Name = "ensar", Username = "emakas" };
+                token = JSONWebToken(user);
+                return Ok(token);
             }
             return BadRequest("invalid arguments");
         }
