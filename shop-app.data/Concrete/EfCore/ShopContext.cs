@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using shop_app.data.Configurations;
 using shop_app.entity;
 namespace shop_app.data.Concrete.EfCore
 {
-    public class ShopContext: DbContext
+    public class ShopContext: IdentityDbContext<User,Role,Guid>
     {
 
         public ShopContext(DbContextOptions options): base(options)
@@ -38,6 +39,9 @@ namespace shop_app.data.Concrete.EfCore
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }
     }
 }

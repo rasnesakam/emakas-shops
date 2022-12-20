@@ -9,6 +9,25 @@ namespace shop_app.data.Configurations
 {
     public static class SampleDatas
     {
+        public static User[] Users =
+        {
+            new User()
+            {
+                Id = Guid.NewGuid(),
+                UserName="ensarmakas",
+                Email="ensar.makas@gmail.com",
+                NormalizedUserName="ENSARMAKAS",
+                PasswordHash = "1c651e3b7c11bc861774967073b7dd051d3ca68ef3462c16e0f0ec3716938700" // sha256("ensarmakas")
+            }
+        };
+        public static Role[] Roles =
+        {
+            new Role() { Id = Guid.NewGuid(), Name = "Admin", NormalizedName = "ADMIN" }
+        };
+        public static UserRole[] UserRoles =
+        {
+            new UserRole(){UserId = Users[0].Id, RoleId = Roles[0].Id},
+        };
         public static Product[] Products =
         {
             new Product() {Id = Guid.NewGuid(), Name = "Sahibinden temiz İphone", Description="Iphone 13, temiz kullanılmış yalnızca ciddi alıcılar", ImageUrl="iphone.png", Price=10000.00M},

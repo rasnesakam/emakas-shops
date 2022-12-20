@@ -78,14 +78,15 @@ namespace shop_app.service.Concrete
             try
             {
                 IEnumerable<TEntity> list = await _unitOfWork.GetRepository<TEntity>().GetPart(start,size);
+                return new DataResult<IEnumerable<TEntity>>(list);
             }
             catch (NoElementFoundException noElement)
             {
-                new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", noElement);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", noElement);
             }
             catch (ArgumentException argumentException)
             {
-                new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", argumentException);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", argumentException);
             }
         }
 

@@ -34,8 +34,8 @@ namespace shop_app.api.Controllers
         }
 
         [HttpGet]
-        [Route("/All?page={page}&size={size}")]
-        public async Task<IEnumerable<Product>> GetProducts([FromUri]int page, [FromUri]int size) // Query
+        [Route("/Page")]
+        public async Task<IEnumerable<Product>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
         {
             var response = await _mediator.Send(new GetAllProductsQuery() { Page=page,Size=size});
             if (response.Status == ResultStatus.Success)

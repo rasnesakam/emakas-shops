@@ -5,27 +5,30 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using shop_app.api.Configurations;
 using shop_app.api.DataValidators;
-using shop_app.api.Identity;
 using shop_app.api.Models;
 using shop_app.data.Abstract;
 using shop_app.data.Concrete.EfCore;
 using shop_app.service.Abstract;
 using shop_app.service.Concrete;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using shop_app.entity;
+using shop_app.contract.Validation;
+using shop_app.contract.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-builder.Services.AddDbContext<ApplicationContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
-    );
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
     );
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationContext>()
+builder.Services.AddIdentity<User, Role>()
+    .AddEntityFrameworkStores<ShopContext>()
     .AddDefaultTokenProviders();
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // passwd
@@ -50,9 +53,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/account/login";
-    options.LogoutPath = "/account/logout";
-    options.AccessDeniedPath = "/account/denied";
+    options.LoginPath = "/auth/login";
+    options.LogoutPath = "/auth/logout";
+    options.AccessDeniedPath = "/auth/denied";
     options.SlidingExpiration = true; // renew expiration time for each requests if true, or do not renew expiration time for each requests
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.Cookie = new CookieBuilder()
@@ -74,6 +77,7 @@ builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
 // Fluent validator eklendi
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
+builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -91,6 +95,21 @@ builder.Services.AddSingleton(typeof(ILogger), logger);
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
 
 var app = builder.Build();
 

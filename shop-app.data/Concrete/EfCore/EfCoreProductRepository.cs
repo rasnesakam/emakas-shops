@@ -22,8 +22,7 @@ namespace shop_app.data.Concrete.EfCore
                 .Where(p => p.ProductCategories.Any(pc => pc.Category.URI == category.URI)).ToListAsync();
             if (products.Any())
                 return products;
-            else throw new NoElementFoundException($"Element couldn't found with category {category.Name}");
-            //TODO: Category.Name may be null, so check it in request layer and provide fully valid category to product repository
+            else throw new NoElementFoundException($"Element couldn't found with category {category.Name ?? category.URI}");
         }
 
         

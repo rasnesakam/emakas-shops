@@ -7,26 +7,34 @@ using shop_app.api.Models;
 using shop_app.api.Requests.Abstract;
 using shop_app.api.Requests.Commands;
 using shop_app.api.Requests.Queries;
+using shop_app.contract.ServiceResults;
 using shop_app.entity;
 using shop_app.shared.Utilities.Results.ComplexTypes;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
+using shop_app.api.ControllerExtensions;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Authorization;
 
 namespace shop_app.api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class OrderController: ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IValidator<OrderDto> _validator;
+        private IConfiguration _config;
 
-        public OrderController(IMediator mediator, IValidator<OrderDto> validator)
+        public OrderController(IMediator mediator, IValidator<OrderDto> validator, IConfiguration config)
         {
             _mediator = mediator;
             _validator = validator;
+            _config = config;
         }
 
         private bool ValidateToken(string token)
@@ -54,6 +62,14 @@ namespace shop_app.api.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("authorize")]
+        public IActionResult Auth()
+        {
+            return Ok();
+        }
+
         [HttpGet]
         [Produces("application/json")] //
         public async Task<IEnumerable<Order>> GetAllOrders() // Authorization - Authentication
@@ -68,9 +84,9 @@ namespace shop_app.api.Controllers
             throw new BadRequestException(null,null);
         }
 
-        [HttpPost("submit")]
-        [Route("")] // url params
-        public async Task<ActionResult> SubmitOrder([FromBody] OrderDto orderDto)
+        [HttpPost]
+        [Route("submit")] // url params
+        public async Task<ActionResult<Order>> SubmitOrder([FromBody] OrderDto orderDto)
         {// TODO: Kod yerine exception at
             var validation = await _validator.ValidateAsync(orderDto);
 
@@ -95,8 +111,9 @@ namespace shop_app.api.Controllers
         }
 
 
-        [HttpDelete("{uri}")]
-        public async Task<StatusCodeResult> DeleteOrder(string uri)// From route param
+        [HttpDelete]
+        [Route("/delete/{uri}")]
+        public async Task<StatusCodeResult> DeleteOrder([FromRoute] string uri)// From route param
         {
             var result = await _mediator.Send(new GetCategoryByURIQuery(uri));
             if (result.Status == ResultStatus.Success)
@@ -110,9 +127,34 @@ namespace shop_app.api.Controllers
 
         }
 
-        //[HttpPut()]
-        //şalsdkaşd
+        /*
 
+        [HttpGet]
+        [Route("throwjwt")]
+        public IActionResult ThrowJwt([FromQuery]string uname, [FromQuery] string email)
+        {
+            UserViewModel user = null;
+            //Validate the User Credentials  
 
+            //Demo Purpose, This is  HardCoded User Information  you can use here dynamically data
+            //Demo Purpose, This is  HardCoded User Information  you can use here dynamically data
+            //Demo Purpose, This is  HardCoded User Information  you can use here dynamically data
+            user = new UserViewModel { Username = uname, EmailAddress = email};
+            string token = JSONWebToken(user);
+            return Ok(token);
+            
+        }
+        private string JSONWebToken(UserViewModel userInfo)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+              _config["Jwt:Issuer"],
+              null,
+              expires: DateTime.Now.AddMinutes(30),
+              signingCredentials: credentials);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        */
     }
 }
