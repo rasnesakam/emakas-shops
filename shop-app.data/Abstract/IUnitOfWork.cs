@@ -10,9 +10,8 @@ namespace shop_app.data.Abstract
     {
         IProductRepository ProductRepository { get; }
         ICategoryRepository CategoryRepository { get; }
-
         IOrderRepository OrdersRepository { get; }
-
+        IAddressRepository AddressRepository { get; }
         IRepositoryBase<T> GetRepository<T>() where T: class;
         
 

@@ -17,6 +17,7 @@ using System.Text;
 using shop_app.entity;
 using shop_app.contract.Validation;
 using shop_app.contract.DTO;
+using shop_app.contract.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,8 +86,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
 
-var assembly = AppDomain.CurrentDomain.Load("shop-app.api");
-builder.Services.AddMediatR(assembly);
+//var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
+
+builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();
@@ -96,9 +101,15 @@ builder.Services.AddSingleton(typeof(ILogger), logger);
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
+        
+        options.SaveToken = false;
         options.TokenValidationParameters = new TokenValidationParameters()
         {
             ValidateIssuer = true,
@@ -125,10 +136,17 @@ app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
+
 app.UseAuthentication();
+
+
+app.UseRouting();
+
 
 app.UseAuthorization();
 
+
 app.MapControllers();
+
 
 app.Run();

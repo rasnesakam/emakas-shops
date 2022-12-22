@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using shop_app.api.Models;
 using shop_app.contract.ServiceResults;
 using shop_app.entity;
 using System;
@@ -10,13 +9,7 @@ using System.Threading.Tasks;
 
 namespace shop_app.contract.Requests.Commands
 {
-    public class SubmitOrderRequest: IRequest<ServiceResult<Order>>
+    public class CancelOrderCommand: IRequest<ServiceResult<Order>>
     {
-        public Order Order { get; }
-
-        public SubmitOrderRequest(Order order)
-        {
-            Order = order;
-        }
     }
 }

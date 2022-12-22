@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using shop_app.api.Exceptions;
-using shop_app.api.Requests.Abstract;
-using shop_app.api.Requests.Queries;
+using shop_app.api.ControllerExtensions;
+using shop_app.contract.Requests.Queries;
+using shop_app.contract.ServiceResults;
 using shop_app.entity;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
@@ -17,7 +17,7 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 namespace shop_app.api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class ProductsController : ControllerBase
     {
         private IMediator _mediator;
@@ -27,12 +27,14 @@ namespace shop_app.api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("throw")]
-        public async Task ThrowException()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] int page, [FromQuery] int size) // Query
         {
-            throw new NotFoundException(null,null);
+            var response = await _mediator.Send(new GetProductsRequest() { Section = page, Size = size });
+            return this.FromResult(response);
         }
 
+        /*
         [HttpGet]
         [Route("/Page")]
         public async Task<IEnumerable<Product>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
@@ -75,5 +77,6 @@ namespace shop_app.api.Controllers
             }
             throw new HttpRequestException(categoryResult.Message, categoryResult.Exception,HttpStatusCode.NotFound);
         }
+        */
     }
 }
