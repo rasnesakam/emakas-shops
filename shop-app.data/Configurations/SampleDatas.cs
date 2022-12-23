@@ -22,7 +22,11 @@ namespace shop_app.data.Configurations
         };
         public static Role[] Roles =
         {
-            new Role() { Id = Guid.NewGuid(), Name = "Admin", NormalizedName = "ADMIN" }
+            new Role() { Id = Guid.NewGuid(), Name = "Admin", NormalizedName = "ADMIN" },
+
+            new Role() { Id = Guid.NewGuid(), Name = "Seller", NormalizedName = "SELLER" },
+
+            new Role() { Id = Guid.NewGuid(), Name = "Customer", NormalizedName = "CUSTOMER" }
         };
         public static UserRole[] UserRoles =
         {
