@@ -23,5 +23,6 @@ namespace shop_app.entity
 		public User Seller { get; set; }
 
 		public List<ProductCategory> ProductCategories {get;set;}
+		public List<Property> Properties {get;set;}
     }
 }
