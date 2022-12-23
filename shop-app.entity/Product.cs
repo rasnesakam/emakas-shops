@@ -15,6 +15,8 @@ namespace shop_app.entity
 
 		public string ImageUrl {get;set;}
 
+		public string Uri {get;set;} //[lowercased-dashed-name]-[product-id]
+
 		public decimal Price {get;set;}
 
 		public DateTime Created {get;set;}
