@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using shop_app.api.Models;
 using shop_app.contract.DTO;
+using shop_app.contract.HttpExceptions;
 using shop_app.entity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -49,9 +50,19 @@ namespace shop_app.api.Controllers
             var validation = await _validator.ValidateAsync(userLogin);
             if (validation.IsValid)
             {
-                var user = new UserDto() { Email = "ensar.makas@gmail.com", Name = "ensar", Username = "emakas" };
-                token = JSONWebToken(user);
-                return Ok(token);
+                User user = await _userManager.FindByEmailAsync(userLogin.UserName);
+                if (user == null)
+                    user = await _userManager.FindByNameAsync(userLogin.UserName);
+                if (user == null)
+                    throw new NotFoundErrorException("User could't found");
+                // var signInResult = _signInManager.SignInAsync();
+                var signInResult = await _signInManager.PasswordSignInAsync(user,userLogin.Password,true,false);
+                if (signInResult.Succeeded)
+                {
+                    var userDto = new UserDto() { Email = user.Email, Username = "emakas" };
+                    token = JSONWebToken(userDto);
+                    return Ok(token);
+                }
             }
             return BadRequest("invalid arguments");
         }
