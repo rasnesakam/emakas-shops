@@ -10,6 +10,9 @@ namespace shop_app.entity
     {
         public Guid Id { get; set; }
 
+        public Address Address { get; set; }
+        public Guid AddressId { get; set; }
+
         public Product Product { get; set; }
 
         public Guid ProductId { get; set; }

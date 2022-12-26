@@ -14,12 +14,11 @@ namespace shop_app.data.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasKey(m => m.Id);
-            builder.Property(m => m.UserId).IsRequired().HasMaxLength(20);
+            builder.Property(m => m.CustomerId).IsRequired().HasMaxLength(20);
             builder.Property(m=> m.ProductId).IsRequired().HasMaxLength(20);
             builder.Property(m => m.Note).IsRequired().HasMaxLength(100);
             builder.Property(m => m.Status).IsRequired().HasMaxLength(20);
             builder.Property(m => m.Created).HasDefaultValueSql("NOW()");
-
         }
     }
 }

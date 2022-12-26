@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace shop_app.entity
 {
-    public class User: IdentityUser<Guid>
+    public class Customer: IdentityUser<Guid>
     {
-        public DateTime CreatedDate { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
     }
 }

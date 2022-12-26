@@ -8,7 +8,7 @@ namespace shop_app.entity
 {
     public class Address
     {
-        public Guid Id { get; set; }
+        public Guid AddressId { get; set; }
         public string Name { get; set; }
         public string AddressType { get; set; }
         public string Country { get; set; }
