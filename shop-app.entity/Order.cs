@@ -19,15 +19,17 @@ namespace shop_app.entity
 
         public Guid CustomerId { get; set; }
 
-		public User Customer { get; set; }
+		public Customer Customer { get; set; }
 
 		public Guid SellerId { get; set; }
 
-		public User Seller { get; set; }
+		public Seller Seller { get; set; }
 
         public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
 
-        public string Note { get; set; }
+        public string CustomerNote { get; set; }
+        public string SellerNote { get; set; }
 
         public string Status { get; set; }
     }

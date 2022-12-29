@@ -10,5 +10,7 @@ namespace shop_app.entity
     public class Seller: IdentityUser<Guid>
     {
         public string Name { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Product> Products { get; set; }
     }
 }

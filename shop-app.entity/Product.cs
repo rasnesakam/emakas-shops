@@ -22,9 +22,10 @@ namespace shop_app.entity
 		public DateTime Created {get;set;}
 
 		public Guid SellerId { get; set; }
-		public User Seller { get; set; }
+		public Seller Seller { get; set; }
 
-		public List<ProductCategory> ProductCategories {get;set;}
-		public List<Property> Properties {get;set;}
+		public IEnumerable<ProductCategory> ProductCategories { get; set; }
+		public IEnumerable<Property> Properties { get; set; }
+		public IEnumerable<Review> Reviews { get; set; }
     }
 }
