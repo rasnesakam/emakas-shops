@@ -108,7 +108,14 @@ builder.Services.AddAuthentication(options =>
 })
     .AddJwtBearer(options =>
     {
-        
+        /**
+         * JWT Gövdesinde bulunmasý gereken claimler
+         * * iss -> servisin kendisi
+         * * sub -> servisin kullaným amacý (customer / seller) olabilir
+         * * aud -> servisi kullanan taraflar (kullanýcý, uygulama)
+         * * exp -> tokenin geçerlilik süresi
+         * 
+         */
         options.SaveToken = false;
         options.TokenValidationParameters = new TokenValidationParameters()
         {

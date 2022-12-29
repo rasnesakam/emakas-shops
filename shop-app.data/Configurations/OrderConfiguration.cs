@@ -13,12 +13,21 @@ namespace shop_app.data.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasKey(m => m.Id);
-            builder.Property(m => m.CustomerId).IsRequired().HasMaxLength(20);
-            builder.Property(m=> m.ProductId).IsRequired().HasMaxLength(20);
-            builder.Property(m => m.Note).IsRequired().HasMaxLength(100);
+            builder.HasKey(m => m.Id);;
+            builder.Property(m => m.CustomerNote).IsRequired().HasMaxLength(100);
+            builder.Property(m => m.SellerNote).IsRequired().HasMaxLength(100);
             builder.Property(m => m.Status).IsRequired().HasMaxLength(20);
             builder.Property(m => m.Created).HasDefaultValueSql("NOW()");
+            builder.Property(m => m.Updated).HasDefaultValueSql("NOW()");
+
+            builder.HasOne(o => o.Address).WithMany()
+                .HasForeignKey(o => o.AddressId).IsRequired();
+            builder.HasOne(o => o.Product).WithMany()
+                .HasForeignKey(o => o.ProductId).IsRequired();
+            builder.HasOne(o => o.Customer).WithMany(c => c.Orders)
+                .HasForeignKey(o => o.CustomerId).IsRequired();
+            builder.HasOne(o => o.Seller).WithMany(s => s.Orders)
+                .HasForeignKey(o => o.SellerId).IsRequired();
         }
     }
 }

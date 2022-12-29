@@ -2,15 +2,15 @@
 using shop_app.shared.Utilities.Results.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace shop_app.service.Abstract
 {
-    public interface IProductService: IServiceBase<Product>
+    public interface IReviewService: IServiceBase<Review>
     {
-        Task<IDataResult<IEnumerable<Product>>> GetAllByCategory(Category category);
-        Task<IDataResult<Product>> GetByUri(string uri);
+        public Task<IDataResult<IEnumerable<Review>>> GetReviewsByProduct(Product product);
     }
 }

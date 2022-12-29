@@ -13,7 +13,7 @@ using System.Text;
 namespace shop_app.api.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     public class OAuthController: ControllerBase
     {
         private readonly ILogger _logger;
@@ -44,7 +44,8 @@ namespace shop_app.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Auth([FromBody] UserLoginDto userLogin)
+        [Route("Auth/Seller")]
+        public async Task<IActionResult> AuthSeller([FromBody] UserLoginDto userLogin)
         {
             string token;
             var validation = await _validator.ValidateAsync(userLogin);
@@ -57,6 +58,31 @@ namespace shop_app.api.Controllers
                     throw new NotFoundErrorException("User could't found");
                 // var signInResult = _signInManager.SignInAsync();
                 var signInResult = await _signInManager.PasswordSignInAsync(user,userLogin.Password,true,false);
+                if (signInResult.Succeeded)
+                {
+                    var userDto = new UserDto() { Email = user.Email, Username = "emakas" };
+                    token = JSONWebToken(userDto);
+                    return Ok(token);
+                }
+            }
+            return BadRequest("invalid arguments");
+        }
+
+        [HttpPost]
+        [Route("Auth/Customer")]
+        public async Task<IActionResult> AuthCustomer([FromBody] UserLoginDto userLogin)
+        {
+            string token;
+            var validation = await _validator.ValidateAsync(userLogin);
+            if (validation.IsValid)
+            {
+                User user = await _userManager.FindByEmailAsync(userLogin.UserName);
+                if (user == null)
+                    user = await _userManager.FindByNameAsync(userLogin.UserName);
+                if (user == null)
+                    throw new NotFoundErrorException("User could't found");
+                // var signInResult = _signInManager.SignInAsync();
+                var signInResult = await _signInManager.PasswordSignInAsync(user, userLogin.Password, true, false);
                 if (signInResult.Succeeded)
                 {
                     var userDto = new UserDto() { Email = user.Email, Username = "emakas" };

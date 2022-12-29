@@ -11,10 +11,12 @@ public class ServiceResult<T>
 {
     public HttpExceptionBase? Exception { get; set; }
     public T? Value { get; set; }
+    public bool Succeed { get; set; }
 
     public ServiceResult(T value)
     {
         Value = value;
+
     }
 
     public ServiceResult(HttpExceptionBase? exception)

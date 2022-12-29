@@ -21,12 +21,20 @@ namespace shop_app.service.Concrete
         {
             try
             {
-                var products = await _unitOfWork.ProductRepository.GetProductsByCategory(category);
+                var products = await _unitOfWork.ProductRepository.GetAllByCategory(category);
                 return new DataResult<IEnumerable<Product>>(products);
             }
             catch (Exception e)
             {
                 return new DataResult<IEnumerable<Product>>(e);
+            }
+        }
+
+        public async Task<IDataResult<Product>> GetByUri(string uri)
+        {
+            try
+            {
+                var product = await _unitOfWork.ProductRepository.GetByUri(uri);
             }
         }
     }

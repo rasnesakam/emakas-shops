@@ -16,7 +16,15 @@ namespace shop_app.data.Concrete.EfCore
         {
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByCategory(Category category)
+        public async Task<Product> GetByUri(string uri)
+        {
+            Product? product = await _dbContext.Set<Product>().Where(p => p.Uri == uri).FirstOrDefaultAsync();
+            if (product == null)
+                throw new NoElementFoundException($"Element couldn't found with uri: '{uri}'");
+            return product;
+        }
+
+        public async Task<IEnumerable<Product>> GetAllByCategory(Category category)
         {
             IEnumerable<Product> products = await _dbContext.Set<Product>()
                 .Where(p => p.ProductCategories.Any(pc => pc.Category.URI == category.URI)).ToListAsync();

@@ -9,36 +9,38 @@ namespace shop_app.data.Configurations
 {
     public static class SampleDatas
     {
-        public static User[] Users =
+        public static Customer[] Customers =
         {
-            new User()
+            new Customer()
             {
                 Id = Guid.NewGuid(),
                 UserName="ensarmakas",
+                FirstName= "Ensar",
+                LastName= "Makas",
                 Email="ensar.makas@gmail.com",
                 NormalizedUserName="ENSARMAKAS",
                 PasswordHash = "1c651e3b7c11bc861774967073b7dd051d3ca68ef3462c16e0f0ec3716938700" // sha256("ensarmakas")
             }
         };
-        public static Role[] Roles =
+        public static Seller[] Sellers =
         {
-            new Role() { Id = Guid.NewGuid(), Name = "Admin", NormalizedName = "ADMIN" },
-
-            new Role() { Id = Guid.NewGuid(), Name = "Seller", NormalizedName = "SELLER" },
-
-            new Role() { Id = Guid.NewGuid(), Name = "Customer", NormalizedName = "CUSTOMER" }
-        };
-        public static UserRole[] UserRoles =
-        {
-            new UserRole(){UserId = Users[0].Id, RoleId = Roles[0].Id},
-        };
+            new Seller()
+            {
+                Id = Guid.NewGuid(),
+                UserName = "bataryadunyasi",
+                Name="Batarya Dünyası",
+                Email="bataryadunyasi@gmail.com",
+                NormalizedUserName="ENSARMAKAS",
+                PasswordHash = "1c651e3b7c11bc861774967073b7dd051d3ca68ef3462c16e0f0ec3716938700" // sha256("ensarmakas")
+            }
+        };;
         public static Product[] Products =
         {
-            new Product() {Id = Guid.NewGuid(), Name = "Sahibinden temiz İphone", Description="Iphone 13, temiz kullanılmış yalnızca ciddi alıcılar", ImageUrl="iphone.png", Price=10000.00M},
-            new Product(){Id = Guid.NewGuid(), Name = "Temiz kullanılmış Macbook M1 Air", Description = "Ciddi alıcılar", ImageUrl="mbook.png", Price=20000.00M},
-            new Product(){Id = Guid.NewGuid(), Name = "LG nin incecik televizyonu", Description = "Duvara as, tablo diye izle", ImageUrl="lgtv.png", Price=100.00M},
-            new Product(){Id = Guid.NewGuid(), Name = "Buz Dolabı", Description = "Güzel soğutur, benim cesedi 10 gün sakladı", ImageUrl="arcelik.png", Price=100.00M},
-            new Product(){Id = Guid.NewGuid(), Name = "Matkap", Description = "Hobi amaçlı matkap", ImageUrl="matkap.png", Price=100.00M}
+            new Product() {Id = Guid.NewGuid(), SellerId= Sellers[0].Id, Name = "Sahibinden temiz İphone", Description="Iphone 13, temiz kullanılmış yalnızca ciddi alıcılar", ImageUrl="iphone.png", Price=10000.00M},
+            new Product() {Id = Guid.NewGuid(), SellerId= Sellers[0].Id, Name = "Temiz kullanılmış Macbook M1 Air", Description = "Ciddi alıcılar", ImageUrl="mbook.png", Price=20000.00M},
+            new Product() {Id = Guid.NewGuid(), SellerId= Sellers[0].Id, Name = "LG nin incecik televizyonu", Description = "Duvara as, tablo diye izle", ImageUrl="lgtv.png", Price=100.00M},
+            new Product() {Id = Guid.NewGuid(), SellerId= Sellers[0].Id, Name = "Buz Dolabı", Description = "Güzel soğutur, benim cesedi 10 gün sakladı", ImageUrl="arcelik.png", Price=100.00M},
+            new Product() {Id = Guid.NewGuid(), SellerId= Sellers[0].Id, Name = "Matkap", Description = "Hobi amaçlı matkap", ImageUrl="matkap.png", Price=100.00M}
         };
         public static Category[] Categories = 
         {
