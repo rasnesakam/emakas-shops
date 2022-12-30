@@ -10,6 +10,7 @@ namespace shop_app.service.Abstract
 {
     public interface IOrderService: IServiceBase<Order>
     {
-        Task<IDataResult<IEnumerable<Order>>> GetAllByUserId(Guid userId);
+        Task<IDataResult<IEnumerable<Order>>> GetAllByCustomerId(Guid userId);
+        Task<IDataResult<IEnumerable<Order>>> GetAllBySellerId(Guid userId);
     }
 }

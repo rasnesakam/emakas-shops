@@ -11,6 +11,7 @@ namespace shop_app.data.Abstract
 {
     public interface IOrderRepository: IRepositoryBase<Order>
     {
-        Task<IEnumerable<Order>> GetOrdersByUserId(Guid guid);
+        Task<IEnumerable<Order>> GetOrdersBySellerId(Guid guid);
+        Task<IEnumerable<Order>> GetOrdersByCustomerId(Guid guid);
     }
 }

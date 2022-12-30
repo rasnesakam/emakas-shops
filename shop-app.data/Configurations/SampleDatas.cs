@@ -33,7 +33,7 @@ namespace shop_app.data.Configurations
                 NormalizedUserName="ENSARMAKAS",
                 PasswordHash = "1c651e3b7c11bc861774967073b7dd051d3ca68ef3462c16e0f0ec3716938700" // sha256("ensarmakas")
             }
-        };;
+        };
         public static Product[] Products =
         {
             new Product() {Id = Guid.NewGuid(), SellerId= Sellers[0].Id, Name = "Sahibinden temiz İphone", Description="Iphone 13, temiz kullanılmış yalnızca ciddi alıcılar", ImageUrl="iphone.png", Price=10000.00M},

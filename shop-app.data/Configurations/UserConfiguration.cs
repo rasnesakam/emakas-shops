@@ -13,6 +13,7 @@ namespace shop_app.data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            /*
             builder.HasKey(u => u.Id);
             builder.Property(u => u.UserName)
                 .IsRequired()
@@ -27,6 +28,7 @@ namespace shop_app.data.Configurations
             builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
 
             builder.HasData(SampleDatas.Users);
+            */
         }
     }
 }

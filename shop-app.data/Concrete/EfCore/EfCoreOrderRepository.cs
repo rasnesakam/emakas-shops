@@ -16,13 +16,20 @@ namespace shop_app.data.Concrete.EfCore
         {
         }
 
-        
-        public async Task<IEnumerable<Order>> GetOrdersByUserId(Guid guid)
+        public async Task<IEnumerable<Order>> GetOrdersByCustomerId(Guid guid)
         {
-            var orders = await _dbContext.Set<Order>().Where(o => o.UserId == guid).ToListAsync();
+            var orders = await _dbContext.Set<Order>().Where(o => o.CustomerId == guid).ToListAsync();
             if (orders.Any())
                 return orders;
-            throw new NoElementFoundException($"No element found with user id: {guid}");
+            throw new NoElementFoundException($"No element found with customer id: {guid}");
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersBySellerId(Guid guid)
+        {
+            var orders = await _dbContext.Set<Order>().Where(o => o.SellerId == guid).ToListAsync();
+            if (orders.Any())
+                return orders;
+            throw new NoElementFoundException($"No element found with seller id: {guid}");
         }
     }
 }

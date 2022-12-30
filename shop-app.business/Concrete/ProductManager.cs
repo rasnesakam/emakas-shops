@@ -35,6 +35,11 @@ namespace shop_app.service.Concrete
             try
             {
                 var product = await _unitOfWork.ProductRepository.GetByUri(uri);
+                return new DataResult<Product>(product);
+            }
+            catch (Exception e)
+            {
+                return new DataResult<Product>(e);
             }
         }
     }
