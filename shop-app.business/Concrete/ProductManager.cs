@@ -3,11 +3,8 @@ using shop_app.entity;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
 using shop_app.shared.Utilities.Results.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using shop_app.data.Exceptions;
+using shop_app.shared.Utilities.Results.ComplexTypes;
 
 namespace shop_app.service.Concrete
 {
@@ -24,9 +21,9 @@ namespace shop_app.service.Concrete
                 var products = await _unitOfWork.ProductRepository.GetAllByCategory(category);
                 return new DataResult<IEnumerable<Product>>(products);
             }
-            catch (Exception e)
+            catch (NoElementFoundException e)
             {
-                return new DataResult<IEnumerable<Product>>(e);
+                return new DataResult<IEnumerable<Product>>(ResultStatus.NotFound,"No element Found", e);
             }
         }
 
@@ -37,9 +34,9 @@ namespace shop_app.service.Concrete
                 var product = await _unitOfWork.ProductRepository.GetByUri(uri);
                 return new DataResult<Product>(product);
             }
-            catch (Exception e)
+            catch (NoElementFoundException e)
             {
-                return new DataResult<Product>(e);
+                return new DataResult<Product>(ResultStatus.NotFound,"No element Found", e);
             }
         }
     }

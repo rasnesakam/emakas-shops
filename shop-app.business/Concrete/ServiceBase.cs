@@ -26,9 +26,9 @@ namespace shop_app.service.Concrete
                 await _unitOfWork.GetRepository<TEntity>().SaveChanges();
                 return new Result(ResultStatus.Success);
             }
-            catch (Exception e)
+            catch (NoElementFoundException e)
             {
-                return new Result(ResultStatus.Error, "hata", e);
+                return new Result(ResultStatus.NotFound,"No element Found", e);
             }
 
         }
@@ -41,9 +41,9 @@ namespace shop_app.service.Concrete
                 await _unitOfWork.GetRepository<TEntity>().SaveChanges();
                 return new Result(ResultStatus.Success);
             }
-            catch (Exception e)
+            catch (NoElementFoundException e)
             {
-                return new Result(ResultStatus.Error, "hata", e);
+                return new Result(ResultStatus.NotFound,"No element Found", e);
             }
         }
 
@@ -54,9 +54,9 @@ namespace shop_app.service.Concrete
                 IEnumerable<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAll();
                 return new DataResult<IEnumerable<TEntity>>(entity);
             }
-            catch(Exception e)
+            catch(NoElementFoundException e)
             {
-                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.NotFound, "No Element Found", e);
             }
         }
 
@@ -67,9 +67,9 @@ namespace shop_app.service.Concrete
                 TEntity entity = await _unitOfWork.GetRepository<TEntity>().GetById(id);
                 return new DataResult<TEntity>(entity);
             }
-            catch (Exception e)
+            catch(NoElementFoundException e)
             {
-                return new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+                return new DataResult<TEntity>(ResultStatus.NotFound, "No Element Found", e);
             }
         }
 
@@ -82,11 +82,11 @@ namespace shop_app.service.Concrete
             }
             catch (NoElementFoundException noElement)
             {
-                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", noElement);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.NotFound, "No element found", noElement);
             }
             catch (ArgumentException argumentException)
             {
-                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", argumentException);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.BadArgument, "Invalid arguments passed", argumentException);
             }
         }
 
