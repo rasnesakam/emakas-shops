@@ -7,9 +7,10 @@ namespace shop_app.api.DataValidators
     {
         public OrderDtoValidator()
         {
-            RuleFor(dto => dto.UserId).NotEmpty();
+            RuleFor(dto => dto.SellerId).NotEmpty();
             RuleFor(dto => dto.ProductId).NotEmpty();
-            RuleFor(dto => dto.Note).MaximumLength(140);
+            RuleFor(dto => dto.AddressId);
+            RuleFor(dto => dto.OrderNote).MaximumLength(140);
         }
     }
 }
