@@ -28,24 +28,18 @@ namespace shop_app.api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] int page, [FromQuery] int size) // Query
+        [Route("/All")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts() // Query
         {
-            var response = await _mediator.Send(new GetProductsRequest() { Section = page, Size = size });
-            return this.FromResult(response);
+            return await GetProducts(0, 0);
         }
 
-        /*
         [HttpGet]
         [Route("/Page")]
-        public async Task<IEnumerable<Product>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
         {
-            var response = await _mediator.Send(new GetAllProductsQuery() { Page=page,Size=size});
-            if (response.Status == ResultStatus.Success)
-            {
-                return response.Payload;
-            }
-            throw new HttpRequestException(response.Message, response.Exception, HttpStatusCode.NotFound);
-
+            var response = await _mediator.Send(new GetAllProductsRequest());
+            return this.FromResult(response);
         }
 
         [HttpGet]
@@ -77,6 +71,5 @@ namespace shop_app.api.Controllers
             }
             throw new HttpRequestException(categoryResult.Message, categoryResult.Exception,HttpStatusCode.NotFound);
         }
-        */
     }
 }

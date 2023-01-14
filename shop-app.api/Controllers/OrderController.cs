@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace shop_app.api.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[controller]]")]
     public class OrderController: ControllerBase
     {
         private readonly IMediator _mediator;
@@ -36,9 +36,10 @@ namespace shop_app.api.Controllers
 
         //[Autorized]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByUser([FromQuery] Guid userId)
+        [Route("customer/{customerId}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByUser([FromRoute] Guid customerId)
         {
-            var ordersResult = await _mediator.Send(new GetOrdersByUserReqest(userId));
+            var ordersResult = await _mediator.Send(new GetOrdersByCustomerReqest(customerId));
             return this.FromResult(ordersResult);
         }
 
@@ -53,8 +54,9 @@ namespace shop_app.api.Controllers
                 {
                     ProductId = order.ProductId,
                     Product = productResult.Value,
-                    UserId = order.UserId,
-                    Note = order.Note,
+                    SellerId = order.SellerId,
+                    SellerNote = order.SellerNote,
+                    CustomerNote = order.OrderNote,
                     Created = DateTime.Now,
                 }));
                 return this.FromResult(submitResult);
