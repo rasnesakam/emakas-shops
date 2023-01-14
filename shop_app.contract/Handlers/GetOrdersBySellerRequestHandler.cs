@@ -12,18 +12,20 @@ using System.Threading.Tasks;
 
 namespace shop_app.contract.Handlers
 {
-    internal class GetOrdersByUserRequestHandler : IRequestHandler<GetOrdersByUserReqest, ServiceResult<IEnumerable<Order>>>
+    internal class GetOrdersBySellerRequestHandler : IRequestHandler<GetOrdersBySellerRequest, ServiceResult<IEnumerable<Order>>>
     {
         private readonly IOrderService _orderService;
 
-        public GetOrdersByUserRequestHandler(IOrderService orderService)
+        public GetOrdersBySellerRequestHandler(IOrderService orderService)
         {
             _orderService = orderService;
         }
 
-        public async Task<ServiceResult<IEnumerable<Order>>> Handle(GetOrdersByUserReqest request, CancellationToken cancellationToken)
+        
+
+        public async Task<ServiceResult<IEnumerable<Order>>> Handle(GetOrdersBySellerRequest request, CancellationToken cancellationToken)
         {
-            var result = await _orderService.GetAllByCustomerId(request.UserId);
+            var result = await _orderService.GetAllByCustomerId(request.SellerId);
             if (result.Status == ResultStatus.Success)
                 return new SuccessStatus<IEnumerable<Order>>(result.Payload);
             return new NotFoundErrorResult<IEnumerable<Order>>();

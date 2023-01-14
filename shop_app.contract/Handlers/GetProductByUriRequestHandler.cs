@@ -23,7 +23,7 @@ namespace shop_app.contract.Handlers
                 return new ServiceResult<Product>(result.Payload);
             if (result.Exception is NoElementFoundException)
                 return new NotFoundErrorResult<Product>();
-            return new InternalServerErrorResult<Product>()
+            return new InternalServerErrorResult<Product>();
         }
     }
 }
