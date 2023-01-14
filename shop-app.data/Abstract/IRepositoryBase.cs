@@ -8,6 +8,18 @@ namespace shop_app.data.Abstract
 {
     public interface IRepositoryBase<E>
     {
+        /// <summary>
+        /// Get Data by it's id
+        /// </summary>
+        /// <param name="id">
+        /// id of data that requested
+        /// </param>
+        /// <returns>
+        /// Data that requested
+        /// </returns>
+        /// <exception cref="shop_app.data.Exceptions.NoElementFoundException">
+        /// in case of no element found
+        /// </exception>
         Task<E> GetById(Guid id);
 
         /// <summary>
