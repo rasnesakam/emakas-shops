@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace shop_app.api.Controllers
 {
     [ApiController]
-    [Route("[controller]]")]
+    [Route("[controller]")]
     public class OrderController: ControllerBase
     {
         private readonly IMediator _mediator;
@@ -49,7 +49,7 @@ namespace shop_app.api.Controllers
         {
             var productResult = await _mediator.Send(new GetProductRequest(order.ProductId));
             if (productResult is SuccessStatus<Order>)
-            {
+            {/*
                 var submitResult = await _mediator.Send(new SubmitOrderRequest(new Order()
                 {
                     ProductId = order.ProductId,
@@ -60,6 +60,7 @@ namespace shop_app.api.Controllers
                     Created = DateTime.Now,
                 }));
                 return this.FromResult(submitResult);
+                */
             }
             return this.FromResult(new NotFoundErrorResult<Order>());
         }
