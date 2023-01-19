@@ -15,6 +15,8 @@ namespace shop_app.data.Configurations
         {
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Name).IsRequired().HasMaxLength(50);
+            builder.Property(s => s.PasswordHash).IsRequired();
+            builder.HasData(SampleDatas.Sellers);
         }
     }
 }
