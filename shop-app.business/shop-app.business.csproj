@@ -10,12 +10,6 @@
 		<ProjectReference Include="../shop-app.data/shop-app.data.csproj" />
 		<ProjectReference Include="../shop-app.shared/shop-app.shared.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Exceptions\" />
-	  <Folder Include="Handlers\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="Requests\" />
-	</ItemGroup>
 
 
 </Project>
