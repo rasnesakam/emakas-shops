@@ -13,9 +13,7 @@ namespace shop_app.entity
         public Address Address { get; set; }
         public Guid AddressId { get; set; }
 
-        public Product Product { get; set; }
-
-        public Guid ProductId { get; set; }
+        public IEnumerable<ProductOrder> Products { get; set; }
 
         public Guid CustomerId { get; set; }
 
