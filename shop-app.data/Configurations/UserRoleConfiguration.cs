@@ -13,11 +13,10 @@ namespace shop_app.data.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            /*
             builder.HasKey(ur => new { ur.UserId, ur.RoleId });
             builder.ToTable("UserRoles");
             builder.HasData(SampleDatas.UserRoles);
-            */
+            
         }
     }
 }
