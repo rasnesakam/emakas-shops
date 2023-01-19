@@ -17,7 +17,7 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 namespace shop_app.api.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
         private IMediator _mediator;
@@ -26,14 +26,7 @@ namespace shop_app.api.Controllers
         {
             _mediator = mediator;
         }
-
-        [HttpGet]
-        [Route("/All")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts() // Query
-        {
-            return await GetProducts(0, 0);
-        }
-
+        
         [HttpGet]
         [Route("/Page")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
@@ -44,32 +37,39 @@ namespace shop_app.api.Controllers
 
         [HttpGet]
         [Route("/All")]
-        public async Task<IEnumerable<Product>> GetProducts() // Query
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts() // Query
         {
             return await GetProducts(0,0);
         }
 
-        [HttpGet("{productName}")]
-        public async Task<Product> GetProductByNameAsync(string name)
+        [HttpGet]
+        [Route("Name/{productName}")]
+        public async Task<ActionResult<Product>> GetProductByNameAsync(string name)
         {
-            var response = await _mediator.Send(new GetProductsByNameQuery() { Name = name});
-            if (response.Status == ResultStatus.Success)
-                return response.Payload;
-            throw new HttpRequestException(response.Message, response.Exception,HttpStatusCode.NotFound);
+            var response = await _mediator.Send(new GetProductByNameRequest { Name = name});
+            return this.FromResult(response);
+        }
+        
+        
+        [HttpGet]
+        [Route("Search/{productName}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync(string name)
+        {
+            var response = await _mediator.Send(new SearchProductsByName() { Name = name});
+            return this.FromResult(response);
         }
 
-        [HttpGet("{categoryURI}")]
-        public async Task<IEnumerable<Product>> GetProductsByCategory(string categoryURI) // Error result, SuccessResult falan filan
+        [HttpGet]
+        [Route("Category/{categoryURI}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryURI) // Error result, SuccessResult falan filan
         {
-            var categoryResult = await _mediator.Send(new GetCategoryByURIQuery(categoryURI));
-            if (categoryResult.Status == ResultStatus.Success)
+            var categoryResult = await _mediator.Send(new GetCategoryByURIRequest(categoryURI));
+            if (categoryResult.Succeed)
             {
-                var productStatus = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Payload));
-                if (productStatus.Status == ResultStatus.Success)
-                    return productStatus.Payload;
-                throw new HttpRequestException(productStatus.Message, productStatus.Exception, HttpStatusCode.NotFound);
+                var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
+                return this.FromResult(productResult);
             }
-            throw new HttpRequestException(categoryResult.Message, categoryResult.Exception,HttpStatusCode.NotFound);
+            return BadRequest("There is no such category");
         }
     }
 }
