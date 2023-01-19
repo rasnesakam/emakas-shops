@@ -14,34 +14,9 @@ namespace shop_app.entity
 
 		public string Description {get;set;}
 
-		public string ImageUrl {get;set;}
+		public IEnumerable<ProductImage> ProductImages { get; set; }
 
-		public string Uri
-		{
-			get
-			{
-				Regex pattern = new Regex("[Ç|ç|Ğ|ğ|İ|ı|Ö|ö|Ş|ş|Ü|ü|A-Z| ]");
-				var replaced = pattern.Replace(Name, m =>
-				{
-					if (m.Value == "Ç" || m.Value == "ç")
-						return "c";
-					if (m.Value == "Ğ" || m.Value == "ğ")
-						return "g";
-					if (m.Value == "İ" || m.Value == "ı")
-						return "i";
-					if (m.Value == "Ö" || m.Value == "ö")
-						return "o";
-					if (m.Value == "Ş" || m.Value == "ş")
-						return "s";
-					if (m.Value.Equals("Ü") || m.Value.Equals("ü"))
-						return "u";
-					if (m.Value == " ")
-						return "-";
-					return m.Value.ToLower();
-				});
-				return replaced + Id.ToString().Split('-')[-1];
-			}
-		} //[lowercased-dashed-name]-[product-id]
+		public string Uri { get; set; } //[lowercased-dashed-name]-[product-id-last-part]
 
 		public decimal Price {get;set;}
 
