@@ -26,7 +26,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
     );
-builder.Services.AddIdentity<User, Role>()
+builder.Services.AddIdentity<Seller,IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ShopContext>()
     .AddDefaultTokenProviders();
 
@@ -109,11 +109,11 @@ builder.Services.AddAuthentication(options =>
     .AddJwtBearer(options =>
     {
         /**
-         * JWT Gövdesinde bulunmasý gereken claimler
+         * JWT Gï¿½vdesinde bulunmasï¿½ gereken claimler
          * * iss -> servisin kendisi
-         * * sub -> servisin kullaným amacý (customer / seller) olabilir
-         * * aud -> servisi kullanan taraflar (kullanýcý, uygulama)
-         * * exp -> tokenin geçerlilik süresi
+         * * sub -> servisin kullanï¿½m amacï¿½ (customer / seller) olabilir
+         * * aud -> servisi kullanan taraflar (kullanï¿½cï¿½, uygulama)
+         * * exp -> tokenin geï¿½erlilik sï¿½resi
          * 
          */
         options.SaveToken = false;
