@@ -1,4 +1,5 @@
-﻿using shop_app.data.Abstract;
+﻿using System.Linq.Expressions;
+using shop_app.data.Abstract;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
 using shop_app.shared.Utilities.Results.Concrete;
@@ -9,7 +10,7 @@ using System.Xml.Linq;
 namespace shop_app.service.Concrete
 {
     public class ServiceBase<TEntity> : IServiceBase<TEntity>
-        where TEntity : class
+        where TEntity : class, new()
     {
         protected readonly IUnitOfWork _unitOfWork;
 
@@ -52,6 +53,19 @@ namespace shop_app.service.Concrete
             try
             {
                 IEnumerable<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAll();
+                return new DataResult<IEnumerable<TEntity>>(entity);
+            }
+            catch(NoElementFoundException e)
+            {
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.NotFound, "No Element Found", e);
+            }
+        }
+
+        public async Task<IDataResult<IEnumerable<TEntity>>> GetAllBy(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] included)
+        {
+            try
+            {
+                IEnumerable<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAllBy(predicate,included);
                 return new DataResult<IEnumerable<TEntity>>(entity);
             }
             catch(NoElementFoundException e)
