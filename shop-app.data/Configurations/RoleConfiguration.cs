@@ -13,10 +13,10 @@ namespace shop_app.data.Configurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            //builder.Property(b => b.ConcurrencyStamp).IsConcurrencyToken();
-            //builder.HasIndex(r => r.NormalizedName).HasDatabaseName("RoleNameIndex").IsUnique();
-            //builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.RoleId).IsRequired();
-            //builder.HasData(SampleDatas.Roles);
+            builder.Property(b => b.ConcurrencyStamp).IsConcurrencyToken();
+            builder.HasIndex(r => r.NormalizedName).HasDatabaseName("RoleNameIndex").IsUnique();
+            builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.RoleId).IsRequired();
+            builder.HasData(SampleDatas.Roles);
         }
     }
 }
