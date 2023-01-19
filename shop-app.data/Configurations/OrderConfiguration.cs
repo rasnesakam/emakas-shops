@@ -22,8 +22,8 @@ namespace shop_app.data.Configurations
 
             builder.HasOne(o => o.Address).WithMany()
                 .HasForeignKey(o => o.AddressId).IsRequired();
-            builder.HasOne(o => o.Product).WithMany()
-                .HasForeignKey(o => o.ProductId).IsRequired();
+            builder.HasMany(o => o.Products).WithOne(po => po.Order)
+                .HasForeignKey(po => po.OrderId).IsRequired();
             builder.HasOne(o => o.Customer).WithMany(c => c.Orders)
                 .HasForeignKey(o => o.CustomerId).IsRequired();
             builder.HasOne(o => o.Seller).WithMany(s => s.Orders)
