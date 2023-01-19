@@ -15,5 +15,11 @@ namespace shop_app.contract.ServiceResults
         public InternalServerErrorResult() : base(new InternalServerErrorException(null))
         {
         }
+        public InternalServerErrorResult(string? message, Exception? exception) : base(new InternalServerErrorException(message,exception))
+        {
+        }
+        public InternalServerErrorResult(Exception? exception) : base(new InternalServerErrorException(exception.Message,exception))
+        {
+        }
     }
 }
