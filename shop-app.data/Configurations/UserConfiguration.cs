@@ -13,22 +13,26 @@ namespace shop_app.data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            /*
+            
             builder.HasKey(u => u.Id);
             builder.Property(u => u.UserName)
+                .IsRequired()
+                .HasMaxLength(30);
+            builder.Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(30);
             builder.Property(u => u.Email)
                 .IsRequired();
             builder.Property(u => u.PasswordHash)
                 .IsRequired()
-                .HasColumnType("VARBINARY(500)");
+                .HasMaxLength(64);
 
             builder.HasIndex(u => u.NormalizedUserName).HasDatabaseName("UserNameIndex").IsUnique();
+            builder.HasIndex(u => u.NormalizedEmail).HasDatabaseName("UserEmailIndex").IsUnique();
             builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
-
+            builder.Property(m => m.CreatedDate).HasDefaultValueSql("NOW()");
             builder.HasData(SampleDatas.Users);
-            */
+            
         }
     }
 }
