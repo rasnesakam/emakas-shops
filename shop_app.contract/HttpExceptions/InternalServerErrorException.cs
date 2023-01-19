@@ -13,5 +13,9 @@ namespace shop_app.contract.HttpExceptions
         public InternalServerErrorException(string? message) : base(message, STATUS_CODE)
         {
         }
+
+        public InternalServerErrorException(string? message, Exception? innerException) : base(message, innerException, STATUS_CODE)
+        {
+        }
     }
 }
