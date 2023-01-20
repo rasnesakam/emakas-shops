@@ -11,7 +11,6 @@ using shop_app.data.Concrete.EfCore;
 using shop_app.service.Abstract;
 using shop_app.service.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using shop_app.entity;
