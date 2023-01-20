@@ -17,9 +17,9 @@ namespace shop_app.entity
 
         public Guid CustomerId { get; set; }
 
-		public Customer Customer { get; set; }
+        public Customer Customer { get; set; }
 
-		public Guid SellerId { get; set; }
+        public Guid SellerId { get; set; }
 
 		public Seller Seller { get; set; }
 
