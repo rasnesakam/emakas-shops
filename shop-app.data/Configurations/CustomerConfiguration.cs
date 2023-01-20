@@ -17,6 +17,7 @@ namespace shop_app.data.Configurations
             builder.Property(c => c.FirstName).IsRequired().HasMaxLength(30);
             builder.Property(c => c.LastName).IsRequired().HasMaxLength(30);
             builder.Property(c => c.Email).IsRequired().HasMaxLength(30);
+            builder.Property(c => c.Temporary).IsRequired();
             builder.HasMany(c => c.Orders)
                 .WithOne(o => o.Customer)
                 .HasForeignKey(o => o.CustomerId).IsRequired();

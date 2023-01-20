@@ -13,6 +13,7 @@ namespace shop_app.entity
         public string LastName { get; set; }
         public string MiddleName { get; set; }
 
+        public bool Temporary { get; set; }
         public IEnumerable<Order> Orders { get; set; }
     }
 }
