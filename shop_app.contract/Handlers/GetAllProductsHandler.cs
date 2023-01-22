@@ -23,7 +23,7 @@ public class GetAllProductsHandler: IRequestHandler<GetAllProductsRequest,Servic
         IEnumerable<Product> products;
         IDataResult<IEnumerable<Product>> result;
         if (request.Page != null && request.Size != null)
-            result = await _service.GetPart(request.Page.Value, request.Size.Value);
+            result = await _service.GetPart(request.Page.Value * request.Size.Value, request.Size.Value);
         else
             result = await _service.GetAll();
         switch (result.Status)
