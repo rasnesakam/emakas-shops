@@ -29,14 +29,14 @@ namespace shop_app.api.Controllers
         
         [HttpGet]
         [Route("Page")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetCategories([FromQuery]int page, [FromQuery]int size) // Query
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories([FromQuery]int page, [FromQuery]int size) // Query
         {
-            var response = await _mediator.Send(new GetAllProductsRequest {Page=page, Size=size});
+            var response = await _mediator.Send(new GetAllCategoriesRequest {Page=page, Size=size});
             return this.FromResult(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetCategories() // Query
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories() // Query
         {
             return await GetCategories(0,0);
         }
