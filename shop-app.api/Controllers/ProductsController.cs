@@ -28,15 +28,15 @@ namespace shop_app.api.Controllers
         }
         
         [HttpGet]
-        [Route("/Page")]
+        [Route("Page")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
         {
-            var response = await _mediator.Send(new GetAllProductsRequest());
+            var response = await _mediator.Send(new GetAllProductsRequest {Page=page, Size=size});
             return this.FromResult(response);
         }
 
         [HttpGet]
-        [Route("/All")]
+        [Route("All")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts() // Query
         {
             return await GetProducts(0,0);
