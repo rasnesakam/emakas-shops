@@ -13,13 +13,13 @@ namespace shop_app.api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrderController: ControllerBase
+    public class OrdersController: ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IValidator<OrderDto> _validator;
         private IConfiguration _config;
 
-        public OrderController(IMediator mediator, IValidator<OrderDto> validator, IConfiguration config)
+        public OrdersController(IMediator mediator, IValidator<OrderDto> validator, IConfiguration config)
         {
             _mediator = mediator;
             _validator = validator;
