@@ -60,16 +60,16 @@ namespace shop_app.api.Controllers
         }
 
         [HttpGet]
-        [Route("Category/{categoryURI}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryURI) // Error result, SuccessResult falan filan
+        [Route("Category/{categoryUri}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryUri) // Error result, SuccessResult falan filan
         {
-            var categoryResult = await _mediator.Send(new GetCategoryByURIRequest(categoryURI));
+            var categoryResult = await _mediator.Send(new GetCategoryByURIRequest {Uri = categoryUri});
             if (categoryResult.Succeed)
             {
                 var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
                 return this.FromResult(productResult);
             }
-            return BadRequest("There is no such category");
+            return BadRequest(new NotFoundErrorResult<IEnumerable<Product>>("There is no such category"));
         }
     }
 }
