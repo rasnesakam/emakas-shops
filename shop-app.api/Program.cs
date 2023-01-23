@@ -90,6 +90,8 @@ builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
 builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
 builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetProductsByCategoryHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetCategoryByUriHandler).Assembly);
 builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
@@ -151,6 +153,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+
+app.UseCors(policyBuilder =>
+{
+    policyBuilder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+});
 
 app.UseHttpsRedirection();
 
