@@ -58,17 +58,17 @@ namespace shop_app.api.Controllers
             return this.FromResult(response);
         }
 
-        [HttpGet]
-        [Route("Category/{categoryURI}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryURI) // Error result, SuccessResult falan filan
-        {
-            var categoryResult = await _mediator.Send(new GetCategoryByURIRequest(categoryURI));
-            if (categoryResult.Succeed)
-            {
-                var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
-                return this.FromResult(productResult);
-            }
-            return BadRequest("There is no such category");
-        }
+        // [HttpGet]
+        // [Route("Category/{categoryURI}")]
+        // public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryURI) // Error result, SuccessResult falan filan
+        // {
+        //     var categoryResult = await _mediator.Send(new GetCategoryByURIRequest(categoryURI));
+        //     if (categoryResult.Succeed)
+        //     {
+        //         var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
+        //         return this.FromResult(productResult);
+        //     }
+        //     return BadRequest("There is no such category");
+        // }
     }
 }
