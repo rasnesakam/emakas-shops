@@ -16,7 +16,14 @@ public class ServiceResult<T>
     public ServiceResult(T value)
     {
         Value = value;
+        Succeed = true;
+    }
 
+    public ServiceResult(HttpExceptionBase? exception, T? value, bool succeed)
+    {
+        Exception = exception;
+        Value = value;
+        Succeed = succeed;
     }
 
     public ServiceResult(HttpExceptionBase? exception)
