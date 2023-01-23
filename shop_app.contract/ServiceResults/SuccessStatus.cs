@@ -9,7 +9,7 @@ namespace shop_app.contract.ServiceResults
 {
     public class SuccessStatus<T> : ServiceResult<T>
     {
-        public SuccessStatus(T value) : base(value)
+        public SuccessStatus(T value) : base(null, value, true)
         {
         }
 
