@@ -18,7 +18,7 @@ public class GetCategoryByUriHandler: IRequestHandler<GetCategoryByURIRequest, S
 
     public async Task<ServiceResult<Category>> Handle(GetCategoryByURIRequest request, CancellationToken cancellationToken)
     {
-        var result = await _service.GetCagetoryByURI(request.URI);
+        var result = await _service.GetCagetoryByURI(request.Uri);
         switch (result.Status)
         {
             case ResultStatus.Success:

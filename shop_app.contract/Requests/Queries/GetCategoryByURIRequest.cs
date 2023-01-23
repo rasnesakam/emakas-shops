@@ -6,11 +6,7 @@ namespace shop_app.contract.Requests.Queries
 {
     public class GetCategoryByURIRequest: IRequest<ServiceResult<Category>>
     {
-        public string URI { get; set; }
+        public string Uri { get; set; }
 
-        public GetCategoryByURIRequest(string uRI)
-        {
-            URI = uRI;
-        }
     }
 }
