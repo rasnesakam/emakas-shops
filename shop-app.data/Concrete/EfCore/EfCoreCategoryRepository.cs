@@ -19,7 +19,7 @@ namespace shop_app.data.Concrete.EfCore
 
         public async Task<Category> GetCategoryByURI(string uri)
         {
-            Category? category =  await _dbContext.Set<Category>().Where(c => c.URI == uri).FirstOrDefaultAsync();
+            Category? category =  await _dbContext.Set<Category>().Where(c => c.URI == uri).FirstAsync();
             if (category == null)
                 throw new NoElementFoundException($"Element couldn't found with uri: {uri}");
             return category;

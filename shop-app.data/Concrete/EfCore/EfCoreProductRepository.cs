@@ -18,7 +18,8 @@ namespace shop_app.data.Concrete.EfCore
 
         public async Task<Product> GetByUri(string uri)
         {
-            Product? product = await _dbContext.Set<Product>().Where(p => p.Uri == uri).FirstOrDefaultAsync();
+            Product? product = await _dbContext.Set<Product>().Where(p => p.Uri == uri)
+                .Include(p => p.ProductImages).FirstOrDefaultAsync();
             if (product == null)
                 throw new NoElementFoundException($"Element couldn't found with uri: '{uri}'");
             return product;
