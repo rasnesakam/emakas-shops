@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace shop_app.data.Configurations
@@ -16,7 +17,8 @@ namespace shop_app.data.Configurations
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Name).IsRequired().HasMaxLength(100);
             builder.Property(m => m.Description).IsRequired();
-            builder.Property(m => m.Uri).IsRequired();
+            builder.Property(m => m.Uri)
+                .IsRequired();
             builder.Property(m => m.Created).HasDefaultValueSql("NOW()");
             builder.Property(m => m.Price).IsRequired()
                 .HasColumnType("NUMERIC(12,2)");
