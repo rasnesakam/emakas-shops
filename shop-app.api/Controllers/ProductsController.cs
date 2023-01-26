@@ -67,5 +67,22 @@ namespace shop_app.api.Controllers
             }
             return BadRequest(new NotFoundErrorResult<IEnumerable<Product>>("There is no such category"));
         }
+        
+        [HttpPost]
+        [Route("Submit")]
+        public async Task<ActionResult<Product>> SubmitProduct([FromBody] ProductDto productDto)
+        {
+            // Ürünü Ekle
+            _mediator.Send(new SubmitProductRequest());
+            // Kategorisini Ekle
+            _mediator.Send(new SubmitProductCategoryRequest());
+            // Özelliklerini Ekle
+            _mediator.Send(new SubmitPropertiesRequest());
+          return Ok(new
+          {
+              name = productDto.Name,
+              description = productDto.Description
+          });
+        }
     }
-}
+} 
