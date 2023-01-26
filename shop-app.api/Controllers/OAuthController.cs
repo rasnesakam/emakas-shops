@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using shop_app.api.Models;
 using shop_app.contract.DTO;
 using shop_app.contract.HttpExceptions;
 using shop_app.entity;
@@ -17,12 +16,12 @@ namespace shop_app.api.Controllers
     public class OAuthController: ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<Seller> _signInManager;
+        private readonly UserManager<Seller> _userManager;
         private readonly IValidator<UserLoginDto> _validator;
         private IConfiguration _config;
 
-        public OAuthController(ILogger logger, SignInManager<User> signInManager, UserManager<User> userManager, IValidator<UserLoginDto> validator, IConfiguration config)
+        public OAuthController(ILogger logger, SignInManager<Seller> signInManager, UserManager<Seller> userManager, IValidator<UserLoginDto> validator, IConfiguration config)
         {
             _logger = logger;
             _signInManager = signInManager;
@@ -51,7 +50,7 @@ namespace shop_app.api.Controllers
             var validation = await _validator.ValidateAsync(userLogin);
             if (validation.IsValid)
             {
-                User user = await _userManager.FindByEmailAsync(userLogin.UserName);
+                Seller user = await _userManager.FindByEmailAsync(userLogin.UserName);
                 if (user == null)
                     user = await _userManager.FindByNameAsync(userLogin.UserName);
                 if (user == null)
@@ -64,6 +63,8 @@ namespace shop_app.api.Controllers
                     token = JSONWebToken(userDto);
                     return Ok(token);
                 }
+
+                return Unauthorized("UnAuthorized");
             }
             return BadRequest("invalid arguments");
         }
@@ -76,7 +77,7 @@ namespace shop_app.api.Controllers
             var validation = await _validator.ValidateAsync(userLogin);
             if (validation.IsValid)
             {
-                User user = await _userManager.FindByEmailAsync(userLogin.UserName);
+                Seller user = await _userManager.FindByEmailAsync(userLogin.UserName);
                 if (user == null)
                     user = await _userManager.FindByNameAsync(userLogin.UserName);
                 if (user == null)
