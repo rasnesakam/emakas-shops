@@ -1,4 +1,4 @@
-﻿namespace shop_app.api.Models
+﻿namespace shop_app.contract.dto
 {
     public class OrderDto
     {
