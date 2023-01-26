@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace shop_app.data.Abstract
@@ -73,6 +75,16 @@ namespace shop_app.data.Abstract
         /// </param>
         /// <returns></returns>
 		Task Create(E entity);
+
+        /// <summary>
+        /// Creates multiple entities in the database
+        /// </summary>
+        /// <param name="entities">Entities to be created</param>
+        /// <param name="cancellationToken">
+        /// Cancellation token. Propagates notification that operations should be canceled.
+        /// </param>
+        /// <returns></returns>
+        Task CreateBatch(IEnumerable<E> entities, CancellationToken cancellationToken);
         
         /// <summary>
         /// Update existing data in the database
