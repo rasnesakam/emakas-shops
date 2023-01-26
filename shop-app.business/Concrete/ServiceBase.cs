@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections;
+using System.Linq.Expressions;
 using shop_app.data.Abstract;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
@@ -32,6 +33,20 @@ namespace shop_app.service.Concrete
                 return new Result(ResultStatus.NotFound,"No element Found", e);
             }
 
+        }
+
+        public async virtual Task<IResult> CreateBatch(IEnumerable<TEntity> entities, CancellationToken token)
+        {
+            try
+            {
+                await _unitOfWork.GetRepository<TEntity>().CreateBatch(entities, token);
+                await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+                return new Result(ResultStatus.Success);
+            }
+            catch (Exception e)
+            {
+                return new Result(ResultStatus.Error,e.Message,e);
+            }
         }
 
         public async virtual Task<IResult> Delete(TEntity entity)

@@ -22,6 +22,8 @@ namespace shop_app.service.Abstract
 
         Task<IResult> Create(TEntity entity);
 
+        Task<IResult> CreateBatch(IEnumerable<TEntity> entities, CancellationToken token);
+
         Task<IResult> Update(TEntity entity);
 
         Task<IResult> Delete(TEntity entity);
