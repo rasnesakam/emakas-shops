@@ -68,21 +68,54 @@ namespace shop_app.api.Controllers
             return BadRequest(new NotFoundErrorResult<IEnumerable<Product>>("There is no such category"));
         }
         
+
+        //TODO: Authorized Action
         [HttpPost]
         [Route("Submit")]
         public async Task<ActionResult<Product>> SubmitProduct([FromBody] ProductDto productDto)
         {
+            Product product = new Product
+                {
+                    Name = productDto.Name,
+                    Description = productDto.Description,
+                    Price = productDto.Price,
+                    SellerId = Guid.Parse(productDto.SellerId),
+                    Uri = String.Concat(productDto.Name.ToLower().Replace(" ","-"),"-",Guid.NewGuid().ToString("n").Substring(24))
+
+                };
+            // Kategoriye bak
+            var categoryResponse = await _mediator.Send(new GetCategoryByURIRequest { Uri = productDto.Categories[0].URI });
+            if (!categoryResponse.Succeed)
+                return BadRequest("Invalid Category");
             // Ürünü Ekle
-            _mediator.Send(new SubmitProductRequest());
-            // Kategorisini Ekle
-            _mediator.Send(new SubmitProductCategoryRequest());
+            var productResponse = await _mediator.Send(new SubmitProductRequest()
+            {
+                Product = product
+            });
+            if (!productResponse.Succeed)
+                return this.FromResult<Product>(productResponse);
+            var pcategoryResponse =  await _mediator.Send(new SubmitProductCategoryRequest()
+                {
+                    ProductCategory = new ProductCategory
+                    {
+                        Category = categoryResponse.Value,
+                        Product = product
+                    }
+                });
+            if (!pcategoryResponse.Succeed)
+                return this.Ok("Couldn't added category");
+            foreach (var property in productDto.Properties)
+            {
+                property.ProductId = product.Id;
+            }
             // Özelliklerini Ekle
-            _mediator.Send(new SubmitPropertiesRequest());
-          return Ok(new
-          {
-              name = productDto.Name,
-              description = productDto.Description
-          });
+            var propResponse = await _mediator.Send(new SubmitPropertiesRequest
+            {
+                Properties = productDto.Properties
+            });
+            if (!pcategoryResponse.Succeed)
+                return this.Ok("Couldn't added properties");
+            return this.FromResult(productResponse);
         }
     }
 } 
