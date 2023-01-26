@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using shop_app.api.Models;
 using shop_app.contract.ServiceResults;
 using shop_app.entity;
 using shop_app.api.ControllerExtensions;
 using shop_app.contract.Requests.Queries;
 using shop_app.contract.Requests.Commands;
 using Microsoft.AspNetCore.Authorization;
+using shop_app.contract.dto;
 
 namespace shop_app.api.Controllers
 {
