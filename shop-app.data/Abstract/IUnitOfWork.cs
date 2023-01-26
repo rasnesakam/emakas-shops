@@ -14,6 +14,7 @@ namespace shop_app.data.Abstract
         IAddressRepository AddressRepository { get; }
 		IPropertyRepository PropertyRepository { get; }
         IReviewRepository ReviewRepository { get; }
+        IProductCategoryRepository ProductCategoryRepository { get; }
         IRepositoryBase<T> GetRepository<T>() where T: class;
         
 
