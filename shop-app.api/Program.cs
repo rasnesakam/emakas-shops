@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using shop_app.api.Configurations;
 using shop_app.api.DataValidators;
-using shop_app.api.Models;
 using shop_app.data.Abstract;
 using shop_app.data.Concrete.EfCore;
 using shop_app.service.Abstract;
@@ -13,6 +12,8 @@ using shop_app.service.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
+using shop_app.contract.dto;
 using shop_app.entity;
 using shop_app.contract.Validation;
 using shop_app.contract.DTO;
@@ -74,12 +75,17 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
+builder.Services.AddScoped<IPropertyService,PropertyManager>();
+builder.Services.AddScoped<IReviewService,ReviewManager>();
 
 //TODO: Fluent validation ekle
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
 builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -93,6 +99,9 @@ builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
 builder.Services.AddMediatR(typeof (GetProductsByCategoryHandler).Assembly);
 builder.Services.AddMediatR(typeof (GetCategoryByUriHandler).Assembly);
 builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitCategoryHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitProductHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitPropertiesHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();
@@ -161,7 +170,7 @@ app.UseCors(policyBuilder =>
         .AllowAnyMethod();
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 
 app.UseAuthentication();
