@@ -51,7 +51,7 @@ namespace shop_app.api.Controllers
         [Route("Search/{productName}")]
         public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync([FromRoute] string productName)
         {
-            var response = await _mediator.Send(new SearchProductsByName() { Name = name});
+            var response = await _mediator.Send(new SearchProductsByName() { Name = productName});
             return this.FromResult(response);
         }
 
