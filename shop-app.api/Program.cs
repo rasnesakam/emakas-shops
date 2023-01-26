@@ -39,6 +39,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = true;
 
+    
+
     // Lock-out: Account locking
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -77,6 +79,7 @@ builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 builder.Services.AddScoped<IPropertyService,PropertyManager>();
 builder.Services.AddScoped<IReviewService,ReviewManager>();
+builder.Services.AddScoped<IProductCategoryService,ProductCategoryManager>();
 
 // Fluent validator eklendi
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
@@ -102,6 +105,7 @@ builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
 builder.Services.AddMediatR(typeof (SubmitCategoryHandler).Assembly);
 builder.Services.AddMediatR(typeof (SubmitProductHandler).Assembly);
 builder.Services.AddMediatR(typeof (SubmitPropertiesHandler).Assembly);
+builder.Services.AddMediatR(typeof(SubmitProductCategoryHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();
