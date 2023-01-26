@@ -5,12 +5,8 @@ using shop_app.api.ControllerExtensions;
 using shop_app.contract.Requests.Queries;
 using shop_app.contract.ServiceResults;
 using shop_app.entity;
-using shop_app.service.Abstract;
-using shop_app.shared.Utilities.Results.Abstract;
-using shop_app.shared.Utilities.Results.ComplexTypes;
-using System.Collections;
-using System.Net;
-using System.Web.Http;
+using shop_app.contract.DTO;
+using shop_app.contract.Requests.Commands;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
