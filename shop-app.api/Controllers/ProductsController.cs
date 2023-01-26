@@ -49,7 +49,7 @@ namespace shop_app.api.Controllers
         
         [HttpGet]
         [Route("Search/{productName}")]
-        public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync(string name)
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync([FromRoute] string productName)
         {
             var response = await _mediator.Send(new SearchProductsByName() { Name = name});
             return this.FromResult(response);
