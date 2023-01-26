@@ -27,6 +27,15 @@ namespace shop_app.data.Concrete.EfCore
         private IOrderRepository _orderRepository;
         public IOrderRepository OrdersRepository => _orderRepository ?? new EfCoreOrderRepository(_shopContext);
 
+        private IAddressRepository _addressRepository;
+        public IAddressRepository AddressRepository => _addressRepository ?? new EfCoreAddressRepository(_shopContext);
+
+        private IPropertyRepository _propertyRepository;
+        public IPropertyRepository PropertyRepository => _propertyRepository ?? new EfCorePropertyRepository(_shopContext);
+
+        private IReviewRepository _reviewRepository;
+        public IReviewRepository ReviewRepository => _reviewRepository ?? new EfCoreReviewRepository(_shopContext);
+
         IRepositoryBase<TEntity> GetRepository<TEntity>() where TEntity : class
         {
             return new EfCoreRepositoryBase<TEntity>(_shopContext);

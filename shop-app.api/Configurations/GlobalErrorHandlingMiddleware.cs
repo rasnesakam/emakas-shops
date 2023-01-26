@@ -1,5 +1,4 @@
-﻿using shop_app.api.Exceptions;
-using System.Diagnostics;
+﻿using shop_app.contract.HttpExceptions;
 using System.Text.Json;
 
 namespace shop_app.api.Configurations
@@ -21,13 +20,13 @@ namespace shop_app.api.Configurations
             {
                 await _requestDelegate(context);
             }
-            catch (RequestExceptionBase ex)
+            catch (HttpExceptionBase ex)
             {
                 await HandleException(context, ex, _logger);
             }
         }
 
-        private static Task HandleException(HttpContext context, RequestExceptionBase requestException, ILogger? logger)
+        private static Task HandleException(HttpContext context, HttpExceptionBase requestException, ILogger? logger)
         {
             if (logger != null)
                 logger.LogWarning(0, requestException, requestException.Message);

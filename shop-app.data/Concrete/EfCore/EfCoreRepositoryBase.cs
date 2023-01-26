@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using shop_app.data.Abstract;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,12 @@ namespace shop_app.data.Concrete.EfCore
 
         public async Task Create(TEntity entity)
         {
-            await _dbContext.Set<TEntity>().AddAsync(entity);
+            var result = await _dbContext.Set<TEntity>().AddAsync(entity);
+        }
+
+        public async Task CreateBatch(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
+        {
+            await _dbContext.Set<TEntity>().AddRangeAsync(entities,cancellationToken);
         }
 
         public async Task Delete(TEntity entity)

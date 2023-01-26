@@ -8,6 +8,40 @@ namespace shop_app.data.Abstract
 {
     public interface IProductRepository: IRepositoryBase<Product>
     {
-        public Task<IEnumerable<Product>> GetProductsByCategory(Category category);
+        /// <summary>
+        /// Get All products according to their category
+        /// </summary>
+        /// <param name="category">
+        /// Category of the products that requested
+        /// </param>
+        /// <returns>
+        /// Enumerable list of <see cref="shop_app.entity.Product"/>
+        /// </returns>
+        /// <exception cref="shop_app.data.Exceptions.NoElementFoundException">
+        /// in case of no data found
+        /// </exception>
+        public Task<IEnumerable<Product>> GetAllByCategory(Category category);
+        
+        /// <summary>
+        /// Get one product by it's uri
+        /// </summary>
+        /// <param name="uri">
+        /// uri of the product.
+        /// <para>
+        /// Uri of the product is generally like:
+        /// </para>
+        /// <code>
+        /// lover-cased-and-dashed-name-[LAST_PART_OF_URI]
+        /// </code>
+        /// </param>
+        /// <returns></returns>
+        public Task<Product> GetByUri(string uri);
+
+        /// <summary>
+        /// Search product by it's name
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public Task<IEnumerable<Product>> Search(string search);
     }
 }

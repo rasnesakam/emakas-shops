@@ -8,9 +8,11 @@ namespace shop_app.shared.Utilities.Results.ComplexTypes
 {
     public enum ResultStatus
     {
-        Success = 200,
-        Error = 500,
-        Warning = 2,
-        Info = 3
+        Success,
+        NotFound,
+        Error,
+        BadArgument,
+        Warning,
+        Info
     }
 }

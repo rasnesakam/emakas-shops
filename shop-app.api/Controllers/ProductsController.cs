@@ -1,16 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using shop_app.api.Exceptions;
-using shop_app.api.Requests.Abstract;
-using shop_app.api.Requests.Queries;
+using shop_app.api.ControllerExtensions;
+using shop_app.contract.Requests.Queries;
+using shop_app.contract.ServiceResults;
 using shop_app.entity;
-using shop_app.service.Abstract;
-using shop_app.shared.Utilities.Results.Abstract;
-using shop_app.shared.Utilities.Results.ComplexTypes;
-using System.Collections;
-using System.Net;
-using System.Web.Http;
+using shop_app.contract.DTO;
+using shop_app.contract.Requests.Commands;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
@@ -26,54 +22,67 @@ namespace shop_app.api.Controllers
         {
             _mediator = mediator;
         }
-
-        [HttpGet("throw")]
-        public async Task ThrowException()
+        
+        [HttpGet]
+        [Route("Page")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
         {
-            throw new NotFoundException(null,null);
+            var response = await _mediator.Send(new GetAllProductsRequest {Page=page, Size=size});
+            return this.FromResult(response);
         }
 
         [HttpGet]
-        [Route("/Page")]
-        public async Task<IEnumerable<Product>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
-        {
-            var response = await _mediator.Send(new GetAllProductsQuery() { Page=page,Size=size});
-            if (response.Status == ResultStatus.Success)
-            {
-                return response.Payload;
-            }
-            throw new HttpRequestException(response.Message, response.Exception, HttpStatusCode.NotFound);
-
-        }
-
-        [HttpGet]
-        [Route("/All")]
-        public async Task<IEnumerable<Product>> GetProducts() // Query
+        [Route("All")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts() // Query
         {
             return await GetProducts(0,0);
         }
 
-        [HttpGet("{productName}")]
-        public async Task<Product> GetProductByNameAsync(string name)
+        [HttpGet]
+        [Route("Name/{productName}")]
+        public async Task<ActionResult<Product>> GetProductByNameAsync(string name)
         {
-            var response = await _mediator.Send(new GetProductsByNameQuery() { Name = name});
-            if (response.Status == ResultStatus.Success)
-                return response.Payload;
-            throw new HttpRequestException(response.Message, response.Exception,HttpStatusCode.NotFound);
+            var response = await _mediator.Send(new GetProductByNameRequest { Name = name});
+            return this.FromResult(response);
+        }
+        
+        
+        [HttpGet]
+        [Route("Search/{productName}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync([FromRoute] string productName)
+        {
+            var response = await _mediator.Send(new SearchProductsByName() { Name = productName});
+            return this.FromResult(response);
         }
 
-        [HttpGet("{categoryURI}")]
-        public async Task<IEnumerable<Product>> GetProductsByCategory(string categoryURI) // Error result, SuccessResult falan filan
+        [HttpGet]
+        [Route("Category/{categoryUri}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryUri) // Error result, SuccessResult falan filan
         {
-            var categoryResult = await _mediator.Send(new GetCategoryByURIQuery(categoryURI));
-            if (categoryResult.Status == ResultStatus.Success)
+            var categoryResult = await _mediator.Send(new GetCategoryByURIRequest {Uri = categoryUri});
+            if (categoryResult.Succeed)
             {
-                var productStatus = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Payload));
-                if (productStatus.Status == ResultStatus.Success)
-                    return productStatus.Payload;
-                throw new HttpRequestException(productStatus.Message, productStatus.Exception, HttpStatusCode.NotFound);
+                var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
+                return this.FromResult(productResult);
             }
-            throw new HttpRequestException(categoryResult.Message, categoryResult.Exception,HttpStatusCode.NotFound);
+            return BadRequest(new NotFoundErrorResult<IEnumerable<Product>>("There is no such category"));
+        }
+        
+        [HttpPost]
+        [Route("Submit")]
+        public async Task<ActionResult<Product>> SubmitProduct([FromBody] ProductDto productDto)
+        {
+            // Ürünü Ekle
+            _mediator.Send(new SubmitProductRequest());
+            // Kategorisini Ekle
+            _mediator.Send(new SubmitProductCategoryRequest());
+            // Özelliklerini Ekle
+            _mediator.Send(new SubmitPropertiesRequest());
+          return Ok(new
+          {
+              name = productDto.Name,
+              description = productDto.Description
+          });
         }
     }
-}
+} 

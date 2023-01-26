@@ -15,12 +15,16 @@ namespace shop_app.contract.HttpExceptions
             StatusCode = statusCode;
         }
 
-        public HttpExceptionBase(string? message) : base(message)
+        public HttpExceptionBase(string? message, int statusCode) : base(message)
         {
+            StatusCode=statusCode;
         }
 
-        public HttpExceptionBase(string? message, Exception? innerException) : base(message, innerException)
+        public HttpExceptionBase(string? message, Exception? innerException, int statusCode) : base(message, innerException)
         {
+            StatusCode = statusCode;
         }
+
+
     }
 }

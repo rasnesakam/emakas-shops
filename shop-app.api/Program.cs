@@ -5,18 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using shop_app.api.Configurations;
 using shop_app.api.DataValidators;
-using shop_app.api.Models;
 using shop_app.data.Abstract;
 using shop_app.data.Concrete.EfCore;
 using shop_app.service.Abstract;
 using shop_app.service.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
+using shop_app.contract.dto;
 using shop_app.entity;
 using shop_app.contract.Validation;
 using shop_app.contract.DTO;
+using shop_app.contract.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
     );
-builder.Services.AddIdentity<User, Role>()
+builder.Services.AddIdentity<Seller,IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ShopContext>()
     .AddDefaultTokenProviders();
 
@@ -74,19 +75,33 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
+builder.Services.AddScoped<IPropertyService,PropertyManager>();
+builder.Services.AddScoped<IReviewService,ReviewManager>();
 
 // Fluent validator eklendi
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
 builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
 
-var assembly = AppDomain.CurrentDomain.Load("shop-app.api");
-builder.Services.AddMediatR(assembly);
+//var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
+
+builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetProductsByCategoryHandler).Assembly);
+builder.Services.AddMediatR(typeof (GetCategoryByUriHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitCategoryHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitProductHandler).Assembly);
+builder.Services.AddMediatR(typeof (SubmitPropertiesHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();
@@ -96,9 +111,22 @@ builder.Services.AddSingleton(typeof(ILogger), logger);
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
+        /**
+         * JWT G�vdesinde bulunmas� gereken claimler
+         * * iss -> servisin kendisi
+         * * sub -> servisin kullan�m amac� (customer / seller) olabilir
+         * * aud -> servisi kullanan taraflar (kullan�c�, uygulama)
+         * * exp -> tokenin ge�erlilik s�resi
+         * 
+         */
+        options.SaveToken = false;
         options.TokenValidationParameters = new TokenValidationParameters()
         {
             ValidateIssuer = true,
@@ -110,6 +138,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy( policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        
+    });
+});
 
 var app = builder.Build();
 
@@ -123,12 +163,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
-app.UseHttpsRedirection();
+app.UseCors(policyBuilder =>
+{
+    policyBuilder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+});
+
+//app.UseHttpsRedirection();
+
 
 app.UseAuthentication();
 
+
+app.UseRouting();
+
+
 app.UseAuthorization();
 
+
 app.MapControllers();
+
 
 app.Run();

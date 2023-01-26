@@ -10,14 +10,24 @@ namespace shop_app.entity
     {
         public Guid Id { get; set; }
 
-        public Product Product { get; set; }
-        public Guid ProductId { get; set; }
+        public Address Address { get; set; }
+        public Guid AddressId { get; set; }
 
-        public Guid UserId { get; set; }
+        public IEnumerable<ProductOrder> Products { get; set; }
+
+        public Guid CustomerId { get; set; }
+
+        public Customer Customer { get; set; }
+
+        public Guid SellerId { get; set; }
+
+		public Seller Seller { get; set; }
 
         public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
 
-        public string Note { get; set; }
+        public string CustomerNote { get; set; }
+        public string SellerNote { get; set; }
 
         public string Status { get; set; }
     }

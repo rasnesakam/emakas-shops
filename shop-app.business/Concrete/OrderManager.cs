@@ -18,11 +18,11 @@ namespace shop_app.service.Concrete
         {
         }
 
-        public async Task<IDataResult<IEnumerable<Order>>> GetAllByUserId(Guid userId)
+        public async Task<IDataResult<IEnumerable<Order>>> GetAllByCustomerId(Guid userId)
         {
             try
             {
-                var orders = await _unitOfWork.OrdersRepository.GetOrdersByUserId(userId);
+                var orders = await _unitOfWork.OrdersRepository.GetOrdersByCustomerId(userId);
                 return new DataResult<IEnumerable<Order>>(orders);
             }
             catch (NoElementFoundException exception)
@@ -30,5 +30,19 @@ namespace shop_app.service.Concrete
                 return new DataResult<IEnumerable<Order>>(exception);
             }
         }
+
+        public async Task<IDataResult<IEnumerable<Order>>> GetAllBySellerId(Guid userId)
+        {
+            try
+            {
+                var orders = await _unitOfWork.OrdersRepository.GetOrdersBySellerId(userId);
+                return new DataResult<IEnumerable<Order>>(orders);
+            }
+            catch (NoElementFoundException exception)
+            {
+                return new DataResult<IEnumerable<Order>>(exception);
+            }
+        }
+
     }
 }

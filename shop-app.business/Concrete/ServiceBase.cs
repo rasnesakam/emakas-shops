@@ -1,4 +1,6 @@
-﻿using shop_app.data.Abstract;
+﻿using System.Collections;
+using System.Linq.Expressions;
+using shop_app.data.Abstract;
 using shop_app.service.Abstract;
 using shop_app.shared.Utilities.Results.Abstract;
 using shop_app.shared.Utilities.Results.Concrete;
@@ -9,7 +11,7 @@ using System.Xml.Linq;
 namespace shop_app.service.Concrete
 {
     public class ServiceBase<TEntity> : IServiceBase<TEntity>
-        where TEntity : class
+        where TEntity : class, new()
     {
         protected readonly IUnitOfWork _unitOfWork;
 
@@ -26,11 +28,25 @@ namespace shop_app.service.Concrete
                 await _unitOfWork.GetRepository<TEntity>().SaveChanges();
                 return new Result(ResultStatus.Success);
             }
-            catch (Exception e)
+            catch (NoElementFoundException e)
             {
-                return new Result(ResultStatus.Error, "hata", e);
+                return new Result(ResultStatus.NotFound,"No element Found", e);
             }
 
+        }
+
+        public async virtual Task<IResult> CreateBatch(IEnumerable<TEntity> entities, CancellationToken token)
+        {
+            try
+            {
+                await _unitOfWork.GetRepository<TEntity>().CreateBatch(entities, token);
+                await _unitOfWork.GetRepository<TEntity>().SaveChanges();
+                return new Result(ResultStatus.Success);
+            }
+            catch (Exception e)
+            {
+                return new Result(ResultStatus.Error,e.Message,e);
+            }
         }
 
         public async virtual Task<IResult> Delete(TEntity entity)
@@ -41,9 +57,9 @@ namespace shop_app.service.Concrete
                 await _unitOfWork.GetRepository<TEntity>().SaveChanges();
                 return new Result(ResultStatus.Success);
             }
-            catch (Exception e)
+            catch (NoElementFoundException e)
             {
-                return new Result(ResultStatus.Error, "hata", e);
+                return new Result(ResultStatus.NotFound,"No element Found", e);
             }
         }
 
@@ -54,9 +70,22 @@ namespace shop_app.service.Concrete
                 IEnumerable<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAll();
                 return new DataResult<IEnumerable<TEntity>>(entity);
             }
-            catch(Exception e)
+            catch(NoElementFoundException e)
             {
-                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.NotFound, "No Element Found", e);
+            }
+        }
+
+        public async Task<IDataResult<IEnumerable<TEntity>>> GetAllBy(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] included)
+        {
+            try
+            {
+                IEnumerable<TEntity> entity = await _unitOfWork.GetRepository<TEntity>().GetAllBy(predicate,included);
+                return new DataResult<IEnumerable<TEntity>>(entity);
+            }
+            catch(NoElementFoundException e)
+            {
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.NotFound, "No Element Found", e);
             }
         }
 
@@ -67,9 +96,9 @@ namespace shop_app.service.Concrete
                 TEntity entity = await _unitOfWork.GetRepository<TEntity>().GetById(id);
                 return new DataResult<TEntity>(entity);
             }
-            catch (Exception e)
+            catch(NoElementFoundException e)
             {
-                return new DataResult<TEntity>(ResultStatus.Error, "BAŞARAMDIK ABİ", e);
+                return new DataResult<TEntity>(ResultStatus.NotFound, "No Element Found", e);
             }
         }
 
@@ -82,11 +111,11 @@ namespace shop_app.service.Concrete
             }
             catch (NoElementFoundException noElement)
             {
-                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", noElement);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.NotFound, "No element found", noElement);
             }
             catch (ArgumentException argumentException)
             {
-                return new DataResult<IEnumerable<TEntity>>(ResultStatus.Error, "BAŞARAMDIK ABİ", argumentException);
+                return new DataResult<IEnumerable<TEntity>>(ResultStatus.BadArgument, "Invalid arguments passed", argumentException);
             }
         }
 

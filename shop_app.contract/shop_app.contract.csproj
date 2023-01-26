@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\shop-app.business\shop-app.business.csproj" />
+    <ProjectReference Include="..\shop-app.data\shop-app.data.csproj" />
     <ProjectReference Include="..\shop-app.entity\shop-app.entity.csproj" />
   </ItemGroup>
 
