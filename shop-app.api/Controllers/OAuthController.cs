@@ -57,6 +57,7 @@ namespace shop_app.api.Controllers
                     throw new NotFoundErrorException("User could't found");
                 // var signInResult = _signInManager.SignInAsync();
                 var signInResult = await _signInManager.PasswordSignInAsync(user,userLogin.Password,true,false);
+                
                 if (signInResult.Succeeded)
                 {
                     var userDto = new UserDto() { Email = user.Email, Username = "emakas" };
