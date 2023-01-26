@@ -26,7 +26,7 @@
 	<ItemGroup>
 		<ProjectReference Include="../shop-app.business/shop-app.business.csproj" />
 		<ProjectReference Include="..\shop-app.shared\shop-app.shared.csproj" />
-		<ProjectReference Include="..\shop_app.contract\shop_app.contract.csproj" />
+		<ProjectReference Include="..\shop-app.contract\shop-app.contract.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
