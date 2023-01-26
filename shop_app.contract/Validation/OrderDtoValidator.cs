@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using shop_app.api.Models;
+using shop_app.contract.dto;
+
 
 namespace shop_app.api.DataValidators
 {
