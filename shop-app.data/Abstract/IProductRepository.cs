@@ -36,5 +36,12 @@ namespace shop_app.data.Abstract
         /// </param>
         /// <returns></returns>
         public Task<Product> GetByUri(string uri);
+
+        /// <summary>
+        /// Search product by it's name
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public Task<IEnumerable<Product>> Search(string search);
     }
 }
