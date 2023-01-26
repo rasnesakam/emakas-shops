@@ -5,7 +5,7 @@ using shop_app.entity;
 
 namespace shop_app.contract.Requests.Commands;
 
-public class SubmitProperties:IRequest<ServiceResult<IEnumerable<Property>>>
+public class SubmitPropertiesRequest:IRequest<ServiceResult<IEnumerable<Property>>>
 {
-    
+    public IEnumerable<Property> Properties { get; set; }
 }
