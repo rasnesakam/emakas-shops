@@ -6,5 +6,5 @@ namespace shop_app.contract.Requests.Commands;
 
 public class SubmitProductCategoryRequest: IRequest<ServiceResult<ProductCategory>>
 {
-    
+    public ProductCategory ProductCategory { get; set; }
 }

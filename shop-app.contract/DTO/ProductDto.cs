@@ -10,6 +10,7 @@ namespace shop_app.contract.DTO
         public decimal Price { get; set; }
         public string SellerId { get; set; }
         public Category[] Categories { get; set; }
+        public Property[] Properties { get; set; }
         public string[] Tags { get; set; }
     }
 }
