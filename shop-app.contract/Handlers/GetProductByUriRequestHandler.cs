@@ -16,6 +16,12 @@ namespace shop_app.contract.Handlers
     public class GetProductByUriRequestHandler : IRequestHandler<GetProductByUriRequest, ServiceResult<Product>>
     {
         private readonly IProductService productService;
+
+        public GetProductByUriRequestHandler(IProductService productService)
+        {
+            this.productService = productService;
+        }
+
         public async Task<ServiceResult<Product>> Handle(GetProductByUriRequest request, CancellationToken cancellationToken)
         {
             var result = await productService.GetByUri(uri: request.Uri);
