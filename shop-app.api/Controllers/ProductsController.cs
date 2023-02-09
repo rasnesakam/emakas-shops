@@ -9,6 +9,8 @@ using shop_app.contract.DTO;
 using shop_app.contract.Requests.Commands;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing;
 
 namespace shop_app.api.Controllers
 {
@@ -35,7 +37,8 @@ namespace shop_app.api.Controllers
         [Route("All")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts() // Query
         {
-            return await GetProducts(0,0);
+            var response = await _mediator.Send(new GetAllProductsRequest());
+            return this.FromResult(response);
         }
 
         [HttpGet]
@@ -43,6 +46,14 @@ namespace shop_app.api.Controllers
         public async Task<ActionResult<Product>> GetProductByNameAsync(string name)
         {
             var response = await _mediator.Send(new GetProductByNameRequest { Name = name});
+            return this.FromResult(response);
+        }
+
+        [HttpGet]
+        [Route("{uri}")]
+        public async Task<ActionResult<Product>> GetProductByUri([FromRoute] string uri)
+        {
+            var response = await _mediator.Send(new GetProductByUriRequest { Uri = uri });
             return this.FromResult(response);
         }
         
