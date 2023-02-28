@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using shop_app.data.Concrete.EfCore;
@@ -11,9 +12,10 @@ using shop_app.data.Concrete.EfCore;
 namespace shop_app.data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20230226115844_migration_v_0_0_8")]
+    partial class migration_v_0_0_8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -590,9 +592,9 @@ namespace shop_app.data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11be2cf2-56aa-4c65-b40f-126cfa86f985"),
+                            Id = new Guid("b633bee4-f820-4e18-9dbe-f928d172a308"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9fb3b54d-6edd-4db2-ab0f-18797782b9d3",
+                            ConcurrencyStamp = "a06667f3-afe9-4a97-b05f-9bfe55017ed4",
                             Email = "bataryadunyasi@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,

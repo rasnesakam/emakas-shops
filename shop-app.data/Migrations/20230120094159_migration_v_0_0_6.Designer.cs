@@ -850,13 +850,13 @@ namespace shop_app.data.Migrations
             modelBuilder.Entity("shop_app.entity.ProductCategory", b =>
                 {
                     b.HasOne("shop_app.entity.Category", "Category")
-                        .WithMany("ProductCategories")
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("shop_app.entity.Product", "Product")
-                        .WithMany("ProductCategories")
+                        .WithMany("Products")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -926,7 +926,7 @@ namespace shop_app.data.Migrations
 
             modelBuilder.Entity("shop_app.entity.Category", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("shop_app.entity.Customer", b =>
@@ -941,7 +941,7 @@ namespace shop_app.data.Migrations
 
             modelBuilder.Entity("shop_app.entity.Product", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("Products");
 
                     b.Navigation("ProductImages");
 

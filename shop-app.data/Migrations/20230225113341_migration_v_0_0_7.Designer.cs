@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using shop_app.data.Concrete.EfCore;
@@ -11,9 +12,10 @@ using shop_app.data.Concrete.EfCore;
 namespace shop_app.data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20230225113341_migration_v_0_0_7")]
+    partial class migration_v_0_0_7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,7 +243,8 @@ namespace shop_app.data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SellerId");
+                    b.HasIndex("SellerId")
+                        .IsUnique();
 
                     b.ToTable("Category");
                 });
@@ -590,9 +593,9 @@ namespace shop_app.data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11be2cf2-56aa-4c65-b40f-126cfa86f985"),
+                            Id = new Guid("41abe068-fb60-4728-890c-90d91aa41ce8"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9fb3b54d-6edd-4db2-ab0f-18797782b9d3",
+                            ConcurrencyStamp = "ed7621d1-6d41-4306-beab-8a20a07f4e25",
                             Email = "bataryadunyasi@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -674,8 +677,8 @@ namespace shop_app.data.Migrations
             modelBuilder.Entity("shop_app.entity.Category", b =>
                 {
                     b.HasOne("shop_app.entity.Seller", "Seller")
-                        .WithMany()
-                        .HasForeignKey("SellerId")
+                        .WithOne()
+                        .HasForeignKey("shop_app.entity.Category", "SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
