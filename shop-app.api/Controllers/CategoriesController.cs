@@ -2,15 +2,11 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using shop_app.api.ControllerExtensions;
+using shop_app.contract.DTO;
+using shop_app.contract.Requests.Commands;
 using shop_app.contract.Requests.Queries;
 using shop_app.contract.ServiceResults;
 using shop_app.entity;
-using shop_app.service.Abstract;
-using shop_app.shared.Utilities.Results.Abstract;
-using shop_app.shared.Utilities.Results.ComplexTypes;
-using System.Collections;
-using System.Net;
-using System.Web.Http;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
@@ -55,6 +51,22 @@ namespace shop_app.api.Controllers
         public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync(string name)
         {
             var response = await _mediator.Send(new SearchProductsByName() { Name = name});
+            return this.FromResult(response);
+        }
+
+        [HttpPost]
+        [Route("Submit")]
+        public async Task<ActionResult<Category>> CreateCategory([FromBody] CategoryDto categorydto)
+        {
+            var response = await _mediator.Send(new SubmitCategoryRequest
+            {
+                Category = new Category
+                {
+                    Name = categorydto.Name,
+                    SellerId = categorydto.SellerId,
+                    URI = categorydto.Uri
+                }
+            });
             return this.FromResult(response);
         }
 

@@ -29,7 +29,7 @@ namespace shop_app.data.Concrete.EfCore
         public async Task<IEnumerable<Product>> GetAllByCategory(Category category)
         {
             IEnumerable<Product> products = await _dbContext.Set<Product>()
-                .Where(p => p.ProductCategories.Any(pc => pc.Category.URI == category.URI))
+                .Where(p => p.Categories.Any(c => c.URI == category.URI))
                 .Include(p => p.ProductImages ).ToListAsync();
             if (products.Any())
                 return products;

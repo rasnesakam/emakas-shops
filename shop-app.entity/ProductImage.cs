@@ -6,7 +6,6 @@ public class ProductImage
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
-    public Product Product { get; set; }
     public string FileUri { get; set; }
     public string AltText { get; set; }
 }

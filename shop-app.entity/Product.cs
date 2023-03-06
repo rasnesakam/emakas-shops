@@ -25,7 +25,7 @@ namespace shop_app.entity
 		public Guid SellerId { get; set; }
 		public Seller Seller { get; set; }
 
-		public IEnumerable<ProductCategory> ProductCategories { get; set; }
+		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Property> Properties { get; set; }
 		public IEnumerable<Review> Reviews { get; set; }
     }

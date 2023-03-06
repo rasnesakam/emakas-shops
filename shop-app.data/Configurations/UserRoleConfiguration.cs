@@ -15,7 +15,6 @@ namespace shop_app.data.Configurations
         {
             builder.HasKey(ur => new { ur.UserId, ur.RoleId });
             builder.ToTable("UserRoles");
-            builder.HasData(SampleDatas.UserRoles);
             
         }
     }

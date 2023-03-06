@@ -105,16 +105,6 @@ namespace shop_app.api.Controllers
             });
             if (!productResponse.Succeed)
                 return this.FromResult<Product>(productResponse);
-            var pcategoryResponse =  await _mediator.Send(new SubmitProductCategoryRequest()
-                {
-                    ProductCategory = new ProductCategory
-                    {
-                        Category = categoryResponse.Value,
-                        Product = product
-                    }
-                });
-            if (!pcategoryResponse.Succeed)
-                return this.Ok("Couldn't added category");
             foreach (var property in productDto.Properties)
             {
                 property.ProductId = product.Id;
@@ -124,8 +114,6 @@ namespace shop_app.api.Controllers
             {
                 Properties = productDto.Properties
             });
-            if (!pcategoryResponse.Succeed)
-                return this.Ok("Couldn't added properties");
             return this.FromResult(productResponse);
         }
     }

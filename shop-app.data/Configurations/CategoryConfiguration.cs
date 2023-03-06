@@ -16,7 +16,9 @@ namespace shop_app.data.Configurations
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Name).IsRequired().HasMaxLength(50);
             builder.Property(m => m.URI).IsRequired().HasMaxLength(50);
-            builder.HasData(SampleDatas.Categories);
+            builder.HasOne(m => m.Seller).WithMany();
+            builder.HasMany(m => m.Products)
+                .WithMany(p => p.Categories);
         }
     }
 }

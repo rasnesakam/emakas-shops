@@ -11,6 +11,5 @@ public class ProductImageConfiguration: IEntityTypeConfiguration<ProductImage>
         builder.HasKey(i => i.Id);
         builder.Property(i => i.AltText).IsRequired();
         builder.Property(i => i.FileUri).IsRequired();
-        builder.HasData(SampleDatas.ProductImages);
     }
 }

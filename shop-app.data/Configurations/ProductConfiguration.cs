@@ -24,12 +24,13 @@ namespace shop_app.data.Configurations
                 .HasColumnType("NUMERIC(12,2)");
 
             builder.HasIndex(m => m.Uri).IsUnique();
+            builder.HasMany(m => m.Categories)
+                .WithMany(c => c.Products);
             builder.HasMany(m => m.ProductImages)
-                .WithOne(img => img.Product)
+                .WithOne()
                 .HasForeignKey(img => img.ProductId).IsRequired();
             builder.HasOne(m => m.Seller).WithMany(s => s.Products)
                 .HasForeignKey(p => p.SellerId).IsRequired();
-            builder.HasData(SampleDatas.Products);
         }
     }
 }

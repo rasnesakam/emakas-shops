@@ -31,7 +31,6 @@ namespace shop_app.data.Configurations
             builder.HasIndex(u => u.NormalizedEmail).HasDatabaseName("UserEmailIndex").IsUnique();
             builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
             builder.Property(m => m.CreatedDate).HasDefaultValueSql("NOW()");
-            builder.HasData(SampleDatas.Users);
             
         }
     }

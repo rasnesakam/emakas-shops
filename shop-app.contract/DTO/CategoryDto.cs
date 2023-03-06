@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace shop_app.contract.DTO
 {
-    public class UserDto
+    public class CategoryDto
     {
-        public Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
+        public Guid SellerId { get; set; }
+        public string Uri { get; set; }
     }
 }

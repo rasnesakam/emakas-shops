@@ -9,10 +9,14 @@ namespace shop_app.entity
     {
         public Guid Id {get;set;}
 
+        public Guid SellerId { get; set; }
+
+        public Seller Seller { get; set; }
+
 		public string Name {get;set;}
 
         public string URI {get;set;}
-		public List<ProductCategory>? ProductCategories { get; set; }
+		public List<Product>? Products { get; set; }
 
         public override bool Equals(object? obj)
         {
