@@ -21,8 +21,9 @@ using shop_app.contract.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+// Add services to the container.
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("POSTGRES_CONNECTION"))
     );
@@ -38,9 +39,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = true;
-
     
-
     // Lock-out: Account locking
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -94,16 +93,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
 
 //var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
-
-builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
-builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
-builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
-builder.Services.AddMediatR(typeof (GetProductsByCategoryHandler).Assembly);
-builder.Services.AddMediatR(typeof (GetCategoryByUriHandler).Assembly);
-builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
-builder.Services.AddMediatR(typeof (SubmitCategoryHandler).Assembly);
-builder.Services.AddMediatR(typeof (SubmitProductHandler).Assembly);
-builder.Services.AddMediatR(typeof (SubmitPropertiesHandler).Assembly);
+var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
+builder.Services.AddMediatR(assembly);
+// builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
+// builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
+// builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
+// builder.Services.AddMediatR(typeof (GetProductsByCategoryHandler).Assembly);
+// builder.Services.AddMediatR(typeof (GetCategoryByUriHandler).Assembly);
+// builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
+// builder.Services.AddMediatR(typeof (SubmitCategoryHandler).Assembly);
+// builder.Services.AddMediatR(typeof (SubmitProductHandler).Assembly);
+// builder.Services.AddMediatR(typeof (SubmitPropertiesHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();
@@ -120,14 +120,6 @@ builder.Services.AddAuthentication(options =>
 })
     .AddJwtBearer(options =>
     {
-        /**
-         * JWT G�vdesinde bulunmas� gereken claimler
-         * * iss -> servisin kendisi
-         * * sub -> servisin kullan�m amac� (customer / seller) olabilir
-         * * aud -> servisi kullanan taraflar (kullan�c�, uygulama)
-         * * exp -> tokenin ge�erlilik s�resi
-         * 
-         */
         options.SaveToken = false;
         options.TokenValidationParameters = new TokenValidationParameters()
         {
