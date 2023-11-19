@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>shop_app.shared</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
 </Project>
