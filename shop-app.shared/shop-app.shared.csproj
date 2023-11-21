@@ -4,7 +4,7 @@
     <RootNamespace>shop_app.shared</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
