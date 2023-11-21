@@ -17,7 +17,6 @@ using shop_app.contract.dto;
 using shop_app.entity;
 using shop_app.contract.Validation;
 using shop_app.contract.DTO;
-using shop_app.contract.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -146,6 +145,13 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// migrate db
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<ShopContext>();
+    context.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
