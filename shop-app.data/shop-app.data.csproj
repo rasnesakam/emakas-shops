@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>shop_app.data</RootNamespace>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
