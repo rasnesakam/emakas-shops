@@ -1,0 +1,22 @@
+volumes: 
+  v_db:
+  v_api:
+services: 
+  api:
+    build: "."
+    volumes:
+      - v_api:/App/wwwroot/
+    ports:
+      - 5000:5000
+      - 5001:5001
+      - 5002:80
+    restart: always
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - v_db:/var/lib/postgresql/data
+    restart: always
+    expose:
+      - 5432
