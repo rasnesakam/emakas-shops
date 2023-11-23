@@ -2,6 +2,7 @@ using MediatR;
 using shop_app.contract.Requests.Commands;
 using shop_app.contract.ServiceResults;
 using shop_app.service.Abstract;
+using shop_app.shared.Utilities.Results.ComplexTypes;
 
 namespace shop_app.contract.Handlers;
 
@@ -17,6 +18,12 @@ public class GCommandHandler<TEntity>: IRequestHandler<GCommandRequest<TEntity>,
 
     public async Task<ServiceResult<TEntity>> Handle(GCommandRequest<TEntity> request, CancellationToken cancellationToken)
     {
-        return await request.Command(_service);
+        var result = await request.Command(_service);
+        return result.Status switch
+        {
+            ResultStatus.Success => new SuccessStatus<TEntity>(null),
+            ResultStatus.BadArgument => new BadRequestErrorResult<TEntity>(),
+            ResultStatus.Error => new InternalServerErrorResult<TEntity>(result.Exception)
+        };
     }
 }
