@@ -48,20 +48,6 @@ namespace shop_app.api.Controllers
         public async Task<ActionResult<Order>> SubmitOrder([FromBody] OrderDto order)
         {
             var productResult = await _mediator.Send(new GetProductRequest(order.ProductId));
-            if (productResult is SuccessStatus<Order>)
-            {/*
-                var submitResult = await _mediator.Send(new SubmitOrderRequest(new Order()
-                {
-                    ProductId = order.ProductId,
-                    Product = productResult.Value,
-                    SellerId = order.SellerId,
-                    SellerNote = order.SellerNote,
-                    CustomerNote = order.OrderNote,
-                    Created = DateTime.Now,
-                }));
-                return this.FromResult(submitResult);
-                */
-            }
             return this.FromResult(new NotFoundErrorResult<Order>());
         }
 
