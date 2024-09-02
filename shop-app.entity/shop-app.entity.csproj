@@ -3,8 +3,8 @@
   <PropertyGroup>
     <RootNamespace>shop_app.entity</RootNamespace>
     <Nullable>enable</Nullable>
-    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>10</LangVersion>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
