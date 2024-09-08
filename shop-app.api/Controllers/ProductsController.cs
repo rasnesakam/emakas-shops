@@ -88,16 +88,17 @@ namespace shop_app.api.Controllers
             Product product = new Product
                 {
                     Name = productDto.Name,
+                    Brand = productDto.Brand,
                     Description = productDto.Description,
                     Price = productDto.Price,
-                    SellerId = Guid.Parse(productDto.SellerId),
                     Uri = String.Concat(productDto.Name.ToLower().Replace(" ","-"),"-",Guid.NewGuid().ToString("n").Substring(24))
-
+                    
                 };
             // Kategoriye bak
-            var categoryResponse = await _mediator.Send(new GetCategoryByURIRequest { Uri = productDto.Categories[0].URI });
+            var categoryResponse = await _mediator.Send(new GetCategoryByURIRequest { Uri = productDto.Categories[0].Uri });
             if (!categoryResponse.Succeed)
                 return BadRequest("Invalid Category");
+            product.Categories = new Category[] {categoryResponse.Value!};
             // Ürünü Ekle
             var productResponse = await _mediator.Send(new SubmitProductRequest()
             {
@@ -105,14 +106,23 @@ namespace shop_app.api.Controllers
             });
             if (!productResponse.Succeed)
                 return this.FromResult<Product>(productResponse);
-            foreach (var property in productDto.Properties)
+            // Ürün Fotoğraflarını Ekle
+            await _mediator.Send(new SubmitProductImagesRequest()
             {
-                property.ProductId = product.Id;
-            }
+                ProductId = product.Id,
+                ProductImageDtos = productDto.ProductImages
+            });
             // Özelliklerini Ekle
-            var propResponse = await _mediator.Send(new SubmitPropertiesRequest
+            await _mediator.Send(new SubmitPropertiesRequest
             {
-                Properties = productDto.Properties
+                PropertyDtos = productDto.Properties,
+                ProductId = product.Id
+            });
+            // Etiketleri Ekle
+            await _mediator.Send(new SubmitProductTagsRequest()
+            {
+                ProductId = product.Id,
+                ProductTagDtos = productDto.Tags
             });
             return this.FromResult(productResponse);
         }

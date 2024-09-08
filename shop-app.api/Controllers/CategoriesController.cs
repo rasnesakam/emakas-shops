@@ -37,22 +37,7 @@ namespace shop_app.api.Controllers
             return await GetCategories(0,0);
         }
 
-        [HttpGet]
-        [Route("Name/{productName}")]
-        public async Task<ActionResult<Product>> GetProductByNameAsync(string name)
-        {
-            var response = await _mediator.Send(new GetProductByNameRequest { Name = name});
-            return this.FromResult(response);
-        }
         
-        
-        [HttpGet]
-        [Route("Search/{productName}")]
-        public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync(string name)
-        {
-            var response = await _mediator.Send(new SearchProductsByName() { Name = name});
-            return this.FromResult(response);
-        }
 
         [HttpPost]
         [Route("Submit")]
@@ -63,24 +48,39 @@ namespace shop_app.api.Controllers
                 Category = new Category
                 {
                     Name = categorydto.Name,
-                    SellerId = categorydto.SellerId,
+                    //SellerId = categorydto.SellerId,
                     URI = categorydto.Uri
                 }
             });
             return this.FromResult(response);
         }
 
-        // [HttpGet]
-        // [Route("Category/{categoryURI}")]
-        // public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryURI) // Error result, SuccessResult falan filan
-        // {
-        //     var categoryResult = await _mediator.Send(new GetCategoryByURIRequest(categoryURI));
-        //     if (categoryResult.Succeed)
-        //     {
-        //         var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
-        //         return this.FromResult(productResult);
-        //     }
-        //     return BadRequest("There is no such category");
-        // }
+        [HttpPut]
+        [Route("Status/{uri}")]
+        public async Task<ActionResult<Category>> ToggleStatus([FromRoute] string uri)
+        {
+            var categoryResponse = await _mediator.Send(new GetCategoryByURIRequest { Uri = uri });
+            if (categoryResponse.Succeed)
+            {
+                var category = categoryResponse.Value!;
+                category.Status = category.Status == Status.DRAFT ? Status.PUBLISHED : Status.DRAFT;
+                var statusResponse = await _mediator.Send(
+                    new UpdateCategoryRequest { Category = category });
+                return this.FromResult(statusResponse);
+            }
+            return NotFound();
+        }
+        
+        [HttpDelete]
+        [Route("Delete/{uri}")]
+        public async Task<ActionResult<Category>> DeleteCategory([FromRoute] string uri)
+        {
+            var response = await _mediator.Send(new DeleteCategoryCommand()
+            {
+                URI = uri
+            });
+            return this.FromResult(response);
+        }
+
     }
 }

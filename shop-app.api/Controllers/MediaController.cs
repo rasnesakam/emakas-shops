@@ -1,32 +1,49 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using System.Security.AccessControl;
+using Microsoft.AspNetCore.Mvc;
 
 namespace shop_app.api.Controllers
 {
     public class MediaController : Controller
     {
-        private static readonly long MAX_IMAGE_SIZE = 1000000;
+        private static readonly long MaxImageSize = 1000000;
         private readonly IConfiguration _config;
-
-        public MediaController(IConfiguration config)
+        private readonly IHttpContextAccessor _accessor;
+        private readonly string allowedMimeTypes = "image/jpg, image/jpeg, image/png";
+        
+        public MediaController(IConfiguration config, IHttpContextAccessor accessor)
         {
             _config = config;
+            _accessor = accessor;
         }
 
         [HttpPost]
         [Route("/Image")]
-        public async Task<IActionResult> SubmitFile(IFormFile file)
+        public async Task<IActionResult> SubmitFile([FromForm(Name = "file")]IFormFile? file)
         {
-            if (file.Length < MAX_IMAGE_SIZE)
+            if (file == null)
             {
-                var fileName = $"{Guid.NewGuid()}_{file.FileName}";
-                var filePath = Path.Combine(_config["StoredFilesPath"],"images",fileName);
-                using (var stream = System.IO.File.Create(filePath))
+                return BadRequest(new {message="File field should not be null"});
+            }
+            if (!allowedMimeTypes.Split(", ").Any(mime => mime.Equals(file.ContentType)))
+                return BadRequest(new { message = "Invalid File Type. Please upload jpeg, jpg or png" });
+            if (file.Length < MaxImageSize)
+            {
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                var wwwroot = _config["StoredFilesPath"];
+                var mediaDir = "media";
+                Directory.CreateDirectory(Path.Combine(wwwroot, mediaDir));
+                var mediaUriString = Path.Combine(mediaDir, fileName);
+                var filePath = Path.Combine(wwwroot,mediaUriString);
+                await using (var stream = System.IO.File.Create(filePath))
                 {
                     await file.CopyToAsync(stream);
                 }
-                return Ok(new {file=filePath});
+                var request = _accessor.HttpContext!.Request;
+                var contentUri = new UriBuilder($"{request.Scheme}://{request.Host.ToString()}/{mediaUriString}").Uri;
+                return Created(contentUri, new {file=contentUri.ToString()});
             }
-            return BadRequest(new {message=$"File must be smaller than {MAX_IMAGE_SIZE} bytes"});
+            return BadRequest(new {message=$"File must be smaller than {MaxImageSize} bytes"});
         }
     }
 }
