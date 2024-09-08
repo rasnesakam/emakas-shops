@@ -19,10 +19,16 @@ public class SubmitPropertiesHandler: IRequestHandler<SubmitPropertiesRequest, S
 
     public async Task<ServiceResult<IEnumerable<Property>>> Handle(SubmitPropertiesRequest request, CancellationToken cancellationToken)
     {
-        var response = await _service.CreateBatch(request.Properties,cancellationToken);
+        var properties = request.PropertyDtos.Select(props => new Property()
+        {
+            ProductId = request.ProductId,
+            Key = props.Key,
+            Value = props.Value
+        });
+        var response = await _service.CreateBatch(properties,cancellationToken);
         return response.Status switch
         {
-            ResultStatus.Success => new SuccessStatus<IEnumerable<Property>>(request.Properties),
+            ResultStatus.Success => new SuccessStatus<IEnumerable<Property>>(properties),
             _=> new InternalServerErrorResult<IEnumerable<Property>>(response.Message, response.Exception)
         };
     }
