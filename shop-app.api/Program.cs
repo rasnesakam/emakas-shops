@@ -15,8 +15,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using shop_app.contract.dto;
 using shop_app.entity;
-using shop_app.contract.Validation;
-using shop_app.contract.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,14 +71,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService,ProductManager>();
+builder.Services.AddScoped<IProductImageService, ProductImageManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 builder.Services.AddScoped<IPropertyService,PropertyManager>();
+builder.Services.AddScoped<IProductTagService, ProductTagManager>();
 builder.Services.AddScoped<IReviewService,ReviewManager>();
 
 // Fluent validator eklendi
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
-builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -91,18 +90,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
 
-//var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
 var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
 builder.Services.AddMediatR(assembly);
-// builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
-// builder.Services.AddMediatR(typeof (GetAllOrdersRequestHandler).Assembly);
-// builder.Services.AddMediatR(typeof (GetProductRequestHandler).Assembly);
-// builder.Services.AddMediatR(typeof (GetProductsByCategoryHandler).Assembly);
-// builder.Services.AddMediatR(typeof (GetCategoryByUriHandler).Assembly);
-// builder.Services.AddMediatR(typeof (SubmitOrderHandler).Assembly);
-// builder.Services.AddMediatR(typeof (SubmitCategoryHandler).Assembly);
-// builder.Services.AddMediatR(typeof (SubmitProductHandler).Assembly);
-// builder.Services.AddMediatR(typeof (SubmitPropertiesHandler).Assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();
@@ -112,6 +101,7 @@ builder.Services.AddSingleton(typeof(ILogger), logger);
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
 
+/*
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -131,18 +121,19 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+*/
 
 // CORS
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy( policy =>
-    {
-        policy.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        
-    });
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddDefaultPolicy( policy =>
+//     {
+//         policy.AllowAnyOrigin()
+//             .AllowAnyHeader()
+//             .AllowAnyMethod();
+//         
+//     });
+// });
 
 var app = builder.Build();
 
@@ -163,12 +154,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
-app.UseCors(policyBuilder =>
+if (app.Environment.IsDevelopment())
 {
-    policyBuilder.AllowAnyOrigin()
-        .AllowAnyHeader()
-        .AllowAnyMethod();
-});
+    app.UseCors(policyBuilder =>
+    {
+        policyBuilder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });   
+}
+
+
+//app.UseCors(policyBuilder => { });
 
 //app.UseHttpsRedirection();
 
