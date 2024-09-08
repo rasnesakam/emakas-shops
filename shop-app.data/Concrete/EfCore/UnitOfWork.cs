@@ -36,6 +36,10 @@ namespace shop_app.data.Concrete.EfCore
         private IReviewRepository _reviewRepository;
         public IReviewRepository ReviewRepository => _reviewRepository ?? new EfCoreReviewRepository(_shopContext);
 
+        private IProductImageRepository _productImageRepository;
+
+        public IProductImageRepository ProductImageRepository =>
+            _productImageRepository ?? new EfCoreProductImageRepository(_shopContext);
 
         IRepositoryBase<TEntity> GetRepository<TEntity>() where TEntity : class
         {

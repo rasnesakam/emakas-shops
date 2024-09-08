@@ -11,7 +11,7 @@ using shop_app.data.Configurations;
 using shop_app.entity;
 namespace shop_app.data.Concrete.EfCore
 {
-    public class ShopContext: IdentityDbContext<Seller,IdentityRole<Guid>,Guid>
+    public class ShopContext: DbContext
     {
 
         public ShopContext(DbContextOptions options): base(options)
@@ -31,6 +31,7 @@ namespace shop_app.data.Concrete.EfCore
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new PropertyConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTagConfiguration());
             //modelBuilder.ApplyConfiguration(new RoleConfiguration());
             //modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
