@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,6 +13,8 @@ namespace shop_app.entity
 
 		public string Name {get;set;}
 
+		public string Brand { get; set; }
+		
 		public string Description {get;set;}
 
 		public IEnumerable<ProductImage> ProductImages { get; set; }
@@ -21,10 +24,10 @@ namespace shop_app.entity
 		public decimal Price {get;set;}
 
 		public DateTime Created {get;set;}
+		
+		public Status Status { get; set; }
 
-		public Guid SellerId { get; set; }
-		public Seller Seller { get; set; }
-
+		public IEnumerable<ProductTag> Tags { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Property> Properties { get; set; }
 		public IEnumerable<Review> Reviews { get; set; }
