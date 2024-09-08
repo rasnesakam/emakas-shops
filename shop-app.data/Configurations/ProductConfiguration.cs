@@ -22,15 +22,14 @@ namespace shop_app.data.Configurations
             builder.Property(m => m.Created).HasDefaultValueSql("NOW()");
             builder.Property(m => m.Price).IsRequired()
                 .HasColumnType("NUMERIC(12,2)");
-
+            builder.Property(m => m.Status).HasConversion<int>();
+            
             builder.HasIndex(m => m.Uri).IsUnique();
             builder.HasMany(m => m.Categories)
                 .WithMany(c => c.Products);
             builder.HasMany(m => m.ProductImages)
                 .WithOne()
                 .HasForeignKey(img => img.ProductId).IsRequired();
-            builder.HasOne(m => m.Seller).WithMany(s => s.Products)
-                .HasForeignKey(p => p.SellerId).IsRequired();
         }
     }
 }
