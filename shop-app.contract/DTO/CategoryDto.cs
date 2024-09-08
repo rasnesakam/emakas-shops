@@ -9,7 +9,6 @@ namespace shop_app.contract.DTO
     public class CategoryDto
     {
         public string Name { get; set; }
-        public Guid SellerId { get; set; }
         public string Uri { get; set; }
     }
 }
