@@ -1,1 +1,3 @@
 wwwroot/media/*
+appsettings.json
+appsettings.Development.json

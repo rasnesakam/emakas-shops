@@ -22,8 +22,6 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5432:5432"
     volumes:
       - v_emakas_shop_db:/var/lib/postgresql/data
     restart: always
