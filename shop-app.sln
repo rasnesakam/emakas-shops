@@ -3,25 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop-app.api", "shop-app.api\shop-app.api.csproj", "{CF143E4F-AE7C-4684-8F67-37DD396CA3BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_app.api", "shop_app.api\shop_app.api.csproj", "{CF143E4F-AE7C-4684-8F67-37DD396CA3BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop-app.data", "shop-app.data\shop-app.data.csproj", "{047A689C-0930-4794-93F5-F03A9B19717A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_app.data", "shop_app.data\shop_app.data.csproj", "{047A689C-0930-4794-93F5-F03A9B19717A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop-app.business", "shop-app.business\shop-app.business.csproj", "{1605FDC9-38FA-4D94-93D3-DF64A2A168A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_app.business", "shop_app.business\shop_app.business.csproj", "{1605FDC9-38FA-4D94-93D3-DF64A2A168A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop-app.entity", "shop-app.entity\shop-app.entity.csproj", "{59E4A516-1CF4-489D-BD0E-7767A337F0EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_app.entity", "shop_app.entity\shop_app.entity.csproj", "{59E4A516-1CF4-489D-BD0E-7767A337F0EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{A1C720DF-7206-47EA-8C9F-77749B2D2D0D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		Dockerfile = Dockerfile
-		docker-compose.yml = docker-compose.yml
 		.env = .env
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop-app.shared", "shop-app.shared\shop-app.shared.csproj", "{A7D56044-D365-4315-AE67-913BEA08E270}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_app.shared", "shop_app.shared\shop_app.shared.csproj", "{A7D56044-D365-4315-AE67-913BEA08E270}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop-app.contract", "shop-app.contract\shop-app.contract.csproj", "{E7ED4D25-85B6-474B-B607-44EE0170AED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_app.contract", "shop_app.contract\shop_app.contract.csproj", "{E7ED4D25-85B6-474B-B607-44EE0170AED0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

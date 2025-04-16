@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <RootNamespace>shop-app.contract</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,9 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\shop-app.business\shop-app.business.csproj" />
-    <ProjectReference Include="..\shop-app.data\shop-app.data.csproj" />
-    <ProjectReference Include="..\shop-app.entity\shop-app.entity.csproj" />
+    <ProjectReference Include="..\shop_app.business\shop_app.business.csproj" />
+    <ProjectReference Include="..\shop_app.data\shop_app.data.csproj" />
+    <ProjectReference Include="..\shop_app.entity\shop_app.entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
   </ItemGroup>
 
 </Project>

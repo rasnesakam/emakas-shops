@@ -65,9 +65,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-//builder.Services.AddScoped<ICategoryRepository,EfCoreCategoryRepository>();
-//builder.Services.AddScoped<IOrderRepository,EfCoreOrderRepository>();
-//builder.Services.AddScoped<IProductRepository,EfCoreProductRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService,ProductManager>();
@@ -90,7 +87,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
 
-var assembly = AppDomain.CurrentDomain.Load("shop-app.contract");
+var assembly = AppDomain.CurrentDomain.Load("shop_app.contract");
 builder.Services.AddMediatR(assembly);
 
 var serviceProvider = builder.Services.BuildServiceProvider();
