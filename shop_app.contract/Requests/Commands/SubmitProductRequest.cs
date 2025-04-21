@@ -5,7 +5,7 @@ using shop_app.entity;
 
 namespace shop_app.contract.Requests.Commands;
 
-public class SubmitProductRequest: IRequest<ServiceResult<Product>>
+public class SubmitProductRequest: IRequest<ServiceResult<ProductDto>>
 {
-    public Product Product { get; set; }
+    public ProductDto Product { get; set; }
 }

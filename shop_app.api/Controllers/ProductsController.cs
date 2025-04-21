@@ -9,8 +9,7 @@ using shop_app.contract.DTO;
 using shop_app.contract.Requests.Commands;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Drawing;
+using AutoMapper;
 
 namespace shop_app.api.Controllers
 {
@@ -19,15 +18,17 @@ namespace shop_app.api.Controllers
     public class ProductsController : ControllerBase
     {
         private IMediator _mediator;
+        private IMapper _mapper;
 
-        public ProductsController(IMediator mediator)
+        public ProductsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
         
         [HttpGet]
         [Route("Page")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]int page, [FromQuery]int size) // Query
         {
             var response = await _mediator.Send(new GetAllProductsRequest {Page=page, Size=size});
             return this.FromResult(response);
@@ -35,7 +36,7 @@ namespace shop_app.api.Controllers
 
         [HttpGet]
         [Route("All")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts() // Query
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts() // Query
         {
             var response = await _mediator.Send(new GetAllProductsRequest());
             return this.FromResult(response);
@@ -43,7 +44,7 @@ namespace shop_app.api.Controllers
 
         [HttpGet]
         [Route("Name/{productName}")]
-        public async Task<ActionResult<Product>> GetProductByNameAsync(string name)
+        public async Task<ActionResult<ProductDto>> GetProductByNameAsync(string name)
         {
             var response = await _mediator.Send(new GetProductByNameRequest { Name = name});
             return this.FromResult(response);
@@ -51,7 +52,7 @@ namespace shop_app.api.Controllers
 
         [HttpGet]
         [Route("{uri}")]
-        public async Task<ActionResult<Product>> GetProductByUri([FromRoute] string uri)
+        public async Task<ActionResult<ProductDto>> GetProductByUri([FromRoute] string uri)
         {
             var response = await _mediator.Send(new GetProductByUriRequest { Uri = uri });
             return this.FromResult(response);
@@ -60,7 +61,7 @@ namespace shop_app.api.Controllers
         
         [HttpGet]
         [Route("Search/{productName}")]
-        public async Task<ActionResult<IEnumerable<Product>>> SearchProductByNameAsync([FromRoute] string productName)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProductByNameAsync([FromRoute] string productName)
         {
             var response = await _mediator.Send(new SearchProductsByName() { Name = productName});
             return this.FromResult(response);
@@ -68,7 +69,7 @@ namespace shop_app.api.Controllers
 
         [HttpGet]
         [Route("Category/{categoryUri}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory([FromRoute]string categoryUri) // Error result, SuccessResult falan filan
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsByCategory([FromRoute]string categoryUri) // Error result, SuccessResult falan filan
         {
             var categoryResult = await _mediator.Send(new GetCategoryByURIRequest {Uri = categoryUri});
             if (categoryResult.Succeed)
@@ -83,7 +84,7 @@ namespace shop_app.api.Controllers
         //TODO: Authorized Action
         [HttpPost]
         [Route("Submit")]
-        public async Task<ActionResult<Product>> SubmitProduct([FromBody] ProductDto productDto)
+        public async Task<ActionResult<ProductDto>> SubmitProduct([FromBody] ProductDto productDto)
         {
             Product product = new Product
                 {

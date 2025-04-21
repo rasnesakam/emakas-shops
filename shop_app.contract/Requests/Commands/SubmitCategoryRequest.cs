@@ -1,10 +1,10 @@
 using MediatR;
+using shop_app.contract.DTO;
 using shop_app.contract.ServiceResults;
-using shop_app.entity;
 
 namespace shop_app.contract.Requests.Commands;
 
-public class SubmitCategoryRequest: IRequest<ServiceResult<Category>>
+public class SubmitCategoryRequest: IRequest<ServiceResult<CategoryDto>>
 {
-    public Category Category { get; set; }
+    public CategoryDto Category { get; set; }
 }

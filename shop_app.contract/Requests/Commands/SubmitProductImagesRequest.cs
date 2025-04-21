@@ -5,7 +5,7 @@ using shop_app.entity;
 
 namespace shop_app.contract.Requests.Commands;
 
-public class SubmitProductImagesRequest: IRequest<ServiceResult<IEnumerable<ProductImage>>>
+public class SubmitProductImagesRequest: IRequest<ServiceResult<IEnumerable<ProductImageDto>>>
 {
     public IEnumerable<ProductImageDto> ProductImageDtos { get; set; }
     public Guid ProductId { get; set; }

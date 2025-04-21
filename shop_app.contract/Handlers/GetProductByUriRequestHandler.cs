@@ -1,35 +1,32 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using shop_app.contract.DTO;
 using shop_app.contract.Requests.Queries;
 using shop_app.contract.ServiceResults;
-using shop_app.data.Abstract;
 using shop_app.data.Exceptions;
-using shop_app.entity;
 using shop_app.service.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace shop_app.contract.Handlers
 {
-    public class GetProductByUriRequestHandler : IRequestHandler<GetProductByUriRequest, ServiceResult<Product>>
+    public class GetProductByUriRequestHandler : IRequestHandler<GetProductByUriRequest, ServiceResult<ProductDto>>
     {
-        private readonly IProductService productService;
+        private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public GetProductByUriRequestHandler(IProductService productService)
+        public GetProductByUriRequestHandler(IProductService productService, IMapper mapper)
         {
-            this.productService = productService;
+            this._productService = productService;
+            _mapper = mapper;
         }
 
-        public async Task<ServiceResult<Product>> Handle(GetProductByUriRequest request, CancellationToken cancellationToken)
+        public async Task<ServiceResult<ProductDto>> Handle(GetProductByUriRequest request, CancellationToken cancellationToken)
         {
-            var result = await productService.GetByUri(uri: request.Uri);
+            var result = await _productService.GetByUri(uri: request.Uri);
             if (result.Status == shared.Utilities.Results.ComplexTypes.ResultStatus.Success)
-                return new ServiceResult<Product>(result.Payload);
+                return new ServiceResult<ProductDto>(_mapper.Map<ProductDto>(result.Payload));
             if (result.Exception is NoElementFoundException)
-                return new NotFoundErrorResult<Product>();
-            return new InternalServerErrorResult<Product>();
+                return new NotFoundErrorResult<ProductDto>();
+            return new InternalServerErrorResult<ProductDto>();
         }
     }
 }

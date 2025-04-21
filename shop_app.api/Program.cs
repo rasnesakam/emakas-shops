@@ -71,6 +71,7 @@ builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<IProductImageService, ProductImageManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
+builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IPropertyService,PropertyManager>();
 builder.Services.AddScoped<IProductTagService, ProductTagManager>();
 builder.Services.AddScoped<IReviewService,ReviewManager>();
@@ -86,6 +87,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
+
+// Add Automapper Profiles
+builder.Services.AddAutoMapper(typeof(shop_app.contract.DtoProfiles.ProductProfile));
 
 var assembly = AppDomain.CurrentDomain.Load("shop_app.contract");
 builder.Services.AddMediatR(assembly);

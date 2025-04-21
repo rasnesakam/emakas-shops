@@ -28,7 +28,7 @@ namespace shop_app.api.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllOrders()
         {
             var result = await _mediator.Send(new GetAllOrdersRequest());
             return this.FromResult(result);
@@ -37,7 +37,7 @@ namespace shop_app.api.Controllers
         //[Autorized]
         [HttpGet]
         [Route("customer/{customerId}")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByUser([FromRoute] Guid customerId)
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllOrdersByUser([FromRoute] Guid customerId)
         {
             var ordersResult = await _mediator.Send(new GetOrdersByCustomerReqest(customerId));
             return this.FromResult(ordersResult);
@@ -45,10 +45,10 @@ namespace shop_app.api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Order>> SubmitOrder([FromBody] OrderDto order)
+        public async Task<ActionResult<OrderDto>> SubmitOrder([FromBody] OrderDto order)
         {
-            var productResult = await _mediator.Send(new GetProductRequest(order.ProductId));
-            return this.FromResult(new NotFoundErrorResult<Order>());
+            var submitResult = await _mediator.Send(new SubmitOrderRequest(order));
+            return this.FromResult(submitResult);
         }
 
         [HttpPut]

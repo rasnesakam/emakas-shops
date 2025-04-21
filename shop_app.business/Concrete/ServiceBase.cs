@@ -15,12 +15,12 @@ namespace shop_app.service.Concrete
     {
         protected readonly IUnitOfWork _unitOfWork;
 
-        public ServiceBase(IUnitOfWork unitOfWork)
+        protected ServiceBase(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async virtual Task<IResult> Create(TEntity entity)
+        public virtual async Task<IResult> Create(TEntity entity)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace shop_app.service.Concrete
 
         }
 
-        public async virtual Task<IResult> CreateBatch(IEnumerable<TEntity> entities, CancellationToken token)
+        public virtual async Task<IResult> CreateBatch(IEnumerable<TEntity> entities, CancellationToken token)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace shop_app.service.Concrete
             }
         }
 
-        public async virtual Task<IResult> Delete(TEntity entity)
+        public virtual async Task<IResult> Delete(TEntity entity)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace shop_app.service.Concrete
             }
         }
 
-        public async virtual Task<IDataResult<IEnumerable<TEntity>>> GetAll()
+        public virtual async Task<IDataResult<IEnumerable<TEntity>>> GetAll()
         {
             try
             {
@@ -89,7 +89,7 @@ namespace shop_app.service.Concrete
             }
         }
 
-        public async virtual Task<IDataResult<TEntity>> GetOne(Guid id)
+        public virtual async Task<IDataResult<TEntity>> GetOne(Guid id)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace shop_app.service.Concrete
             }
         }
 
-        public async virtual Task<IResult> Update(TEntity entity)
+        public virtual async Task<IResult> Update(TEntity entity)
         {
             try
             {

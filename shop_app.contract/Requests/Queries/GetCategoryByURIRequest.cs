@@ -1,10 +1,10 @@
 ﻿using MediatR;
+using shop_app.contract.DTO;
 using shop_app.contract.ServiceResults;
-using shop_app.entity;
 
 namespace shop_app.contract.Requests.Queries
 {
-    public class GetCategoryByURIRequest: IRequest<ServiceResult<Category>>
+    public class GetCategoryByURIRequest: IRequest<ServiceResult<CategoryDto>>
     {
         public string Uri { get; set; }
 

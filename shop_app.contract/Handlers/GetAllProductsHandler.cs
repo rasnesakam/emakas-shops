@@ -1,4 +1,6 @@
+using AutoMapper;
 using MediatR;
+using shop_app.contract.DTO;
 using shop_app.contract.Requests.Queries;
 using shop_app.contract.ServiceResults;
 using shop_app.entity;
@@ -9,16 +11,18 @@ using shop_app.shared.Utilities.Results.Concrete;
 
 namespace shop_app.contract.Handlers;
 
-public class GetAllProductsHandler: IRequestHandler<GetAllProductsRequest,ServiceResult<IEnumerable<Product>>>
+public class GetAllProductsHandler: IRequestHandler<GetAllProductsRequest,ServiceResult<IEnumerable<ProductDto>>>
 {
     private IProductService _service;
+    private IMapper _mapper;
 
-    public GetAllProductsHandler(IProductService service)
+    public GetAllProductsHandler(IProductService service, IMapper mapper)
     {
         _service = service;
+        _mapper = mapper;
     }
 
-    public async Task<ServiceResult<IEnumerable<Product>>> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
+    public async Task<ServiceResult<IEnumerable<ProductDto>>> Handle(GetAllProductsRequest request, CancellationToken cancellationToken)
     {
         IEnumerable<Product> products;
         IDataResult<IEnumerable<Product>> result;
@@ -29,11 +33,11 @@ public class GetAllProductsHandler: IRequestHandler<GetAllProductsRequest,Servic
         switch (result.Status)
         {
             case ResultStatus.Success:
-                return new SuccessStatus<IEnumerable<Product>>(result.Payload);
+                return new SuccessStatus<IEnumerable<ProductDto>>(result.Payload.Select(p => _mapper.Map<ProductDto>(p)));
             case ResultStatus.NotFound:
-                return new NotFoundErrorResult<IEnumerable<Product>>(result.Message);
+                return new NotFoundErrorResult<IEnumerable<ProductDto>>(result.Message);
             default:
-                return new InternalServerErrorResult<IEnumerable<Product>>();
+                return new InternalServerErrorResult<IEnumerable<ProductDto>>();
         }
     }
 }

@@ -10,4 +10,4 @@ WORKDIR /App
 COPY --from=build-env /App/out .
 EXPOSE 8080
 ENTRYPOINT ["dotnet"]
-CMD ["shop-app.api.dll"]
+CMD ["shop_app.api.dll"]

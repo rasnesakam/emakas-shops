@@ -8,7 +8,7 @@ namespace shop_app.entity
 {
     public class Address
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string AddressType { get; set; }
         public string Country { get; set; }
@@ -17,7 +17,7 @@ namespace shop_app.entity
         public string PostalCode { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-
+        public Customer Customer { get; set; }
         public bool SaveAddress { get; set; }
 
     }

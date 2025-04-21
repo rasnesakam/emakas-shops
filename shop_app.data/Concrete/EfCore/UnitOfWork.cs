@@ -41,6 +41,11 @@ namespace shop_app.data.Concrete.EfCore
         public IProductImageRepository ProductImageRepository =>
             _productImageRepository ?? new EfCoreProductImageRepository(_shopContext);
 
+        private ICustomerRepository _customerRepository;
+
+        public ICustomerRepository CustomerRepository =>
+            _customerRepository ?? new EfCoreCustomerRepository(_shopContext);
+        
         IRepositoryBase<TEntity> GetRepository<TEntity>() where TEntity : class
         {
             return new EfCoreRepositoryBase<TEntity>(_shopContext);

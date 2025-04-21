@@ -20,15 +20,11 @@ namespace shop_app.api.Controllers
 
         [HttpGet]
         [Route("{productURI}")]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviewsByProduct([FromRoute] string productURI)
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviewsByProduct([FromRoute] string productURI)
         {
-            var productResult = await mediator.Send(new GetProductByUriRequest() { Uri = productURI});
-            if (productResult.Succeed)
-            {
-                var reviewResult = await mediator.Send(new GetReviewsByProductRequest() { Product = productResult.Value});
-                return this.FromResult(reviewResult);
-            }
-            return BadRequest(new { Message = "No product found with given uri"});
+            
+            var reviewResult = await mediator.Send(new GetReviewsByProductRequest() { ProductUri = productURI});
+            return this.FromResult(reviewResult);
         }
     }
 }
