@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using shop_app.api.ControllerExtensions;
+using shop_app.contract.Dto;
 using shop_app.contract.Requests.Queries;
 using shop_app.entity;
 
