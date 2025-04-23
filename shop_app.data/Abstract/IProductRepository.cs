@@ -21,6 +21,33 @@ namespace shop_app.data.Abstract
         /// in case of no data found
         /// </exception>
         public Task<IEnumerable<Product>> GetAllByCategory(Category category);
+        /// <summary>
+        /// Get All products according to their category
+        /// </summary>
+        /// <param name="category">
+        /// Category Uri of the products that requested
+        /// </param>
+        /// <returns>
+        /// Enumerable list of <see cref="shop_app.entity.Product"/>
+        /// </returns>
+        /// <exception cref="shop_app.data.Exceptions.NoElementFoundException">
+        /// in case of no data found
+        /// </exception>
+        public Task<IEnumerable<Product>> GetAllByCategory(string categoryUri);
+        
+        /// <summary>
+        /// Get All products according to their category
+        /// </summary>
+        /// <param name="category">
+        /// Category Id of the products that requested
+        /// </param>
+        /// <returns>
+        /// Enumerable list of <see cref="shop_app.entity.Product"/>
+        /// </returns>
+        /// <exception cref="shop_app.data.Exceptions.NoElementFoundException">
+        /// in case of no data found
+        /// </exception>
+        public Task<IEnumerable<Product>> GetAllByCategory(Guid categoryId);
         
         /// <summary>
         /// Get one product by it's uri

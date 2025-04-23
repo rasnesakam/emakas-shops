@@ -23,7 +23,7 @@ public class GetProductsByCategoryHandler: IRequestHandler<GetProductsByCategory
 
     public async Task<ServiceResult<IEnumerable<ProductDto>>> Handle(GetProductsByCategoryRequest request, CancellationToken cancellationToken)
     {
-        var response = await _service.GetAllByCategory(request.Category);
+        var response = await _service.GetAllByCategory(request.Category.Uri);
         return response.Status switch
         {
             ResultStatus.Success => new SuccessStatus<IEnumerable<ProductDto>>(response.Payload.Select(p => _mapper.Map<ProductDto>(p))),

@@ -27,6 +27,32 @@ namespace shop_app.service.Concrete
             }
         }
 
+        public async Task<IDataResult<IEnumerable<Product>>> GetAllByCategory(string categoryUri)
+        {
+            try
+            {
+                var products = await _unitOfWork.ProductRepository.GetAllByCategory(categoryUri);
+                return new DataResult<IEnumerable<Product>>(products);
+            }
+            catch (NoElementFoundException e)
+            {
+                return new DataResult<IEnumerable<Product>>(ResultStatus.NotFound,"No element Found", e);
+            }
+        }
+
+        public async Task<IDataResult<IEnumerable<Product>>> GetAllByCategory(Guid categoryId)
+        {
+            try
+            {
+                var products = await _unitOfWork.ProductRepository.GetAllByCategory(categoryId);
+                return new DataResult<IEnumerable<Product>>(products);
+            }
+            catch (NoElementFoundException e)
+            {
+                return new DataResult<IEnumerable<Product>>(ResultStatus.NotFound,"No element Found", e);
+            }
+        }
+
         public async Task<IDataResult<Product>> GetByUri(string uri)
         {
             try

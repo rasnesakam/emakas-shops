@@ -7,9 +7,9 @@ namespace shop_app.contract.Requests.Queries
 {
     public class GetProductsByCategoryRequest: IRequest<ServiceResult<IEnumerable<ProductDto>>>
     {
-        public Category Category { get; set; }
+        public CategoryDto Category { get; set; }
 
-        public GetProductsByCategoryRequest(Category category)
+        public GetProductsByCategoryRequest(CategoryDto category)
         {
             Category = category;
         }

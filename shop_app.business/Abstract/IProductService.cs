@@ -11,6 +11,10 @@ namespace shop_app.service.Abstract
     public interface IProductService: IServiceBase<Product>
     {
         Task<IDataResult<IEnumerable<Product>>> GetAllByCategory(Category category);
+        
+        Task<IDataResult<IEnumerable<Product>>> GetAllByCategory(string categoryUri);
+        
+        Task<IDataResult<IEnumerable<Product>>> GetAllByCategory(Guid categoryId);
         Task<IDataResult<Product>> GetByUri(string uri);
     }
 }

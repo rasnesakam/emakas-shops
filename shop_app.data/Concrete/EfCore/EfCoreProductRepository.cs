@@ -35,7 +35,27 @@ namespace shop_app.data.Concrete.EfCore
                 return products;
             throw new NoElementFoundException($"Element couldn't found with category {category.Name ?? category.URI}");
         }
+        
+        public async Task<IEnumerable<Product>> GetAllByCategory(string categoryUri)
+        {
+            IEnumerable<Product> products = await _dbContext.Set<Product>()
+                .Where(p => p.Categories.Any(c => c.URI == categoryUri))
+                .Include(p => p.ProductImages ).ToListAsync();
+            if (products.Any())
+                return products;
+            throw new NoElementFoundException($"Element couldn't found with category {categoryUri}");
+        }
 
+        public async Task<IEnumerable<Product>> GetAllByCategory(Guid categoryId)
+        {
+            IEnumerable<Product> products = await _dbContext.Set<Product>()
+                .Where(p => p.Categories.Any(c => c.Id == categoryId))
+                .Include(p => p.ProductImages ).ToListAsync();
+            if (products.Any())
+                return products;
+            throw new NoElementFoundException($"Element couldn't found with category {categoryId}");
+        }
+        
         public async Task<IEnumerable<Product>> Search(string search)
         {
             IEnumerable<Product> products = await _dbContext.Set<Product>()
