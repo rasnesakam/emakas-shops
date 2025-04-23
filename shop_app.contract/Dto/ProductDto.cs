@@ -9,10 +9,11 @@ namespace shop_app.contract.DTO
         public string Name { get; set; }
         public string Brand { get; set; }
         public string Description { get; set; }
+        public string Uri { get; }
         public decimal Price { get; set; }
         public CategoryDto[] Categories { get; set; }
         public ProductImageDto[] ProductImages { get; set; }
         public PropertyDto[]? Properties { get; set; }
-        public ProductTagDto[] Tags { get; set; }
+        public ProductTagDto[]? Tags { get; set; }
     }
 }
