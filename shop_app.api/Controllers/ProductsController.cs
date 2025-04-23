@@ -74,7 +74,7 @@ namespace shop_app.api.Controllers
             var categoryResult = await _mediator.Send(new GetCategoryByURIRequest {Uri = categoryUri});
             if (categoryResult.Succeed)
             {
-                var productResult = await _mediator.Send(new GetProductsByCategoryRequest(categoryResult.Value));
+                var productResult = await _mediator.Send(new GetProductsByCategoryRequest(_mapper.Map<CategoryDto>(categoryResult.Value)));
                 return this.FromResult(productResult);
             }
             return BadRequest(new NotFoundErrorResult<IEnumerable<Product>>("There is no such category"));
@@ -86,44 +86,9 @@ namespace shop_app.api.Controllers
         [Route("Submit")]
         public async Task<ActionResult<ProductDto>> SubmitProduct([FromBody] ProductDto productDto)
         {
-            Product product = new Product
-                {
-                    Name = productDto.Name,
-                    Brand = productDto.Brand,
-                    Description = productDto.Description,
-                    Price = productDto.Price,
-                    Uri = String.Concat(productDto.Name.ToLower().Replace(" ","-"),"-",Guid.NewGuid().ToString("n").Substring(24))
-                    
-                };
-            // Kategoriye bak
-            var categoryResponse = await _mediator.Send(new GetCategoryByURIRequest { Uri = productDto.Categories[0].Uri });
-            if (!categoryResponse.Succeed)
-                return BadRequest("Invalid Category");
-            product.Categories = new Category[] {categoryResponse.Value!};
-            // Ürünü Ekle
             var productResponse = await _mediator.Send(new SubmitProductRequest()
             {
-                Product = product
-            });
-            if (!productResponse.Succeed)
-                return this.FromResult<Product>(productResponse);
-            // Ürün Fotoğraflarını Ekle
-            await _mediator.Send(new SubmitProductImagesRequest()
-            {
-                ProductId = product.Id,
-                ProductImageDtos = productDto.ProductImages
-            });
-            // Özelliklerini Ekle
-            await _mediator.Send(new SubmitPropertiesRequest
-            {
-                PropertyDtos = productDto.Properties,
-                ProductId = product.Id
-            });
-            // Etiketleri Ekle
-            await _mediator.Send(new SubmitProductTagsRequest()
-            {
-                ProductId = product.Id,
-                ProductTagDtos = productDto.Tags
+                Product = productDto
             });
             return this.FromResult(productResponse);
         }
