@@ -67,6 +67,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAddressService, AddressManager>();
 builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<IProductImageService, ProductImageManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
@@ -86,13 +87,15 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(typeof(Program));
 
 // Add Automapper Profiles
 builder.Services.AddAutoMapper(typeof(shop_app.contract.DtoProfiles.ProductProfile));
 
-var assembly = AppDomain.CurrentDomain.Load("shop_app.contract");
-builder.Services.AddMediatR(assembly);
+var contractAssemblies = AppDomain.CurrentDomain.Load("shop_app.contract");
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssemblies(contractAssemblies);
+});
 
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<AnyType>>();

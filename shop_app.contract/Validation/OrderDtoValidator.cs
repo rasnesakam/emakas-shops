@@ -8,8 +8,8 @@ namespace shop_app.api.DataValidators
     {
         public OrderDtoValidator()
         {
-            RuleFor(dto => dto.ProductId).NotEmpty();
-            RuleFor(dto => dto.AddressId);
+            RuleFor(dto => dto.Products).NotEmpty();
+            RuleFor(dto => dto.Address).NotEmpty();
             RuleFor(dto => dto.OrderNote).MaximumLength(140);
         }
     }
