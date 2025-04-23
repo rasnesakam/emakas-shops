@@ -11,6 +11,7 @@ namespace shop_app.data.Abstract
         IProductRepository ProductRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         IOrderRepository OrdersRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
         IAddressRepository AddressRepository { get; }
 		IPropertyRepository PropertyRepository { get; }
         IProductImageRepository ProductImageRepository { get; }

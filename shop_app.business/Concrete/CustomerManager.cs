@@ -6,7 +6,7 @@ namespace shop_app.service.Concrete;
 
 public class CustomerManager: ServiceBase<Customer>, ICustomerService
 {
-    protected CustomerManager(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public CustomerManager(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
     }
 }
