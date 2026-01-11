@@ -21,6 +21,11 @@ namespace shop_app.shared.Utilities.Results.Concrete
         {
         }
 
+        public DataResult(ResultStatus status, E content, string message, Exception exception) : base(status, message, exception)
+        {
+            Payload = content;
+        }
+
         public DataResult(E data): base(ResultStatus.Success)
         {
             Payload = data;

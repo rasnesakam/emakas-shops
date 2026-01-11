@@ -1,49 +1,48 @@
 ﻿using System.Diagnostics;
 using System.Security.AccessControl;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using shop_app.api.ControllerExtensions;
+using shop_app.contract.Requests.Commands;
+using shop_app.contract.Requests.Queries;
 
 namespace shop_app.api.Controllers
 {
     public class MediaController : Controller
     {
-        private static readonly long MaxImageSize = 1000000;
-        private readonly IConfiguration _config;
-        private readonly IHttpContextAccessor _accessor;
-        private readonly string allowedMimeTypes = "image/jpg, image/jpeg, image/png";
+        private readonly IMediator _mediator;
         
-        public MediaController(IConfiguration config, IHttpContextAccessor accessor)
+        public MediaController(IConfiguration config, IHttpContextAccessor accessor, IMediator mediator)
         {
-            _config = config;
-            _accessor = accessor;
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Route("/Get/{objectKey}")]
+        public async Task<ActionResult<string>> RedirectToS3GetUrl([FromRoute] string objectKey)
+        {
+            var s3Url = await _mediator.Send(new GetMediaUrlRequest() { ObjectKey = objectKey });
+            return s3Url is { Succeed: true, Value: not null }? Redirect(s3Url.Value) : this.FromResult(s3Url);
         }
 
         [HttpPost]
-        [Route("/Image")]
-        public async Task<IActionResult> SubmitFile([FromForm(Name = "file")]IFormFile? file)
+        [Route("/Upload")]
+        public async Task<ActionResult<string>> SubmitFile(IFormFile? file)
         {
             if (file == null)
             {
                 return BadRequest(new {message="File field should not be null"});
             }
-            if (!allowedMimeTypes.Split(", ").Any(mime => mime.Equals(file.ContentType)))
-                return BadRequest(new { message = "Invalid File Type. Please upload jpeg, jpg or png" });
-            if (file.Length < MaxImageSize)
+
+            await using var stream = file.OpenReadStream();
+            var serviceResult = await _mediator.Send(new UploadFileRequest()
             {
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                var wwwroot = _config["StoredFilesPath"];
-                var mediaDir = "media";
-                Directory.CreateDirectory(Path.Combine(wwwroot, mediaDir));
-                var mediaUriString = Path.Combine(mediaDir, fileName);
-                var filePath = Path.Combine(wwwroot,mediaUriString);
-                await using (var stream = System.IO.File.Create(filePath))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                var request = _accessor.HttpContext!.Request;
-                var contentUri = new UriBuilder($"{request.Scheme}://{request.Host.ToString()}/{mediaUriString}").Uri;
-                return Created(contentUri, new {file=contentUri.ToString()});
-            }
-            return BadRequest(new {message=$"File must be smaller than {MaxImageSize} bytes"});
+                Size = file.Length,
+                ContentType = file.ContentType,
+                FileName = file.FileName,
+                Stream = stream
+            });
+            return this.FromResult(serviceResult);
         }
     }
 }

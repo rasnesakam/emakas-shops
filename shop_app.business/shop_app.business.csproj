@@ -11,6 +11,9 @@
 		<ProjectReference Include="..\shop_app.data\shop_app.data.csproj" />
 		<ProjectReference Include="..\shop_app.shared\shop_app.shared.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Minio" Version="7.0.0" />
+	</ItemGroup>
 
 
 </Project>

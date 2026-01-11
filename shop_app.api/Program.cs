@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using Minio;
 using shop_app.contract.dto;
 using shop_app.entity;
 
@@ -76,6 +77,7 @@ builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IPropertyService,PropertyManager>();
 builder.Services.AddScoped<IProductTagService, ProductTagManager>();
 builder.Services.AddScoped<IReviewService,ReviewManager>();
+builder.Services.AddScoped<IMediaService, MediaService>();
 
 // Fluent validator eklendi
 builder.Services.AddScoped<IValidator<OrderDto>, OrderDtoValidator>();
@@ -138,6 +140,16 @@ builder.Services.AddAuthentication(options =>
 //         
 //     });
 // });
+
+builder.Services.AddSingleton<IMinioClient>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>().GetSection("Minio");
+    return new MinioClient()
+        .WithEndpoint(config["Endpoint"], Convert.ToInt32(config["Port"]))
+        .WithCredentials(config["AccessKey"], config["SecretKey"])
+        .WithSSL(Convert.ToBoolean(config["UseSSL"]))
+        .Build();
+});
 
 var app = builder.Build();
 
